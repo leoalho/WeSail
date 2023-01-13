@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  status: {
+    type: String,
+    default: 'user'
+  },
   friends: [
     {
       type: mongoose.Schema.Types.ObjectId,

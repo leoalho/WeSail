@@ -1,5 +1,5 @@
 import User from '../models/user'
-import {NewUserEntry} from '../types';
+import {NewUserEntry, UpdateUser} from '../types';
 
 export const getUsers = async () => {
     const users = await User.find({})
@@ -20,3 +20,15 @@ export const findUser = async(username: string) => {
 export const deleteUser = async (id: string) => {
     await User.deleteOne({ _id: id })
 }
+
+export const updateUser = async (id:string, user: UpdateUser) => {
+    const oldUser = await User.findById(id)
+    if (oldUser){
+        if (user.email){
+            oldUser.email = user.email
+        }
+        await oldUser.save()
+    }
+    
+    return oldUser
+  }

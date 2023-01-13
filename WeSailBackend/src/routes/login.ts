@@ -2,14 +2,14 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express'
 import { findUser } from '../services/userServices'
-//import { parseString } from '../utils/utils'
+import { parseString } from '../utils/utils'
 import config from '../utils/config'
 
 const loginRouter = express.Router()
 
 loginRouter.post('/', async (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
+    const username = parseString(req.body.username)
+    const password = parseString(req.body.password)
     const user = await findUser(username)
     if (!user){
         res.status(401).json({ error: 'Incorrect username' })

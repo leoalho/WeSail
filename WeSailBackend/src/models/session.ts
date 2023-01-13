@@ -5,24 +5,15 @@ const sessionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    registrationNumber: String,
-    LYS: String,
-    homePort: String,
-    draught: String,
-    owners: [
+    boats: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'Boat'
         }
     ],
-    crew: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ] 
+    date: Date
 })
 
-const Boat = mongoose.model('Session', sessionSchema)
+const Session = mongoose.model('Session', sessionSchema)
 
-export default Boat
+export default Session
