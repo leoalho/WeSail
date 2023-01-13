@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { getUsers, newUser, deleteUser, updateUser } from '../services/userServices';
-
+import mongoose from 'mongoose';
 import { toNewUser } from '../utils/utils';
 import { UpdateUser } from '../types'
 
@@ -34,10 +34,13 @@ router.put('/:id', async (req, res) => {
       username: req.body.content,
       passwordHash: req.body.important,
       email: req.body.email,
-      friend: req.body.friend
+      friend: req.body.friend,
+      status: req.body.status
     }
+    
     console.log(user)
-    const updatedUser = await updateUser(req.params.id, user)
+    const userId = new mongoose.Types.ObjectId(req.params.id)
+    const updatedUser = await updateUser(userId, user)
 
     res.json(updatedUser)
 })

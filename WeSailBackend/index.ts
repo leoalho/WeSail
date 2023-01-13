@@ -5,11 +5,13 @@ import config from './src/utils/config'
 import logger from './src/utils/logger'
 import userRoute from './src/routes/users'
 import loginRoute from './src/routes/login'
+import boatRoute from './src/routes/boats'
 
 const app = express();
 app.use(express.json());
 app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)
+app.use('/api/boats', boatRoute)
 
 if (config.MONGODB_URI){
     logger.info('connecting to', config.MONGODB_URI)
