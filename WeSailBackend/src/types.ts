@@ -11,4 +11,3 @@ export type UpdateUser = {
     friend: mongoose.Types.ObjectId | undefined,
     status: string | undefined
 }
-

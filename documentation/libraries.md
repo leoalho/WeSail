@@ -2,18 +2,20 @@ A list for my self to keep track of all the technologies and libraries used in t
 
 ## BackEnd
 - Express
+- Express-session, DEBUG=express-session
+- Redis
+- Connect-redis
 - Mongoose
-- Mongosh
-- Json webtoken
 - bcrypt
 
 ### Development
 - Postman
+- Mongosh
 - Eslint
 - Jest
 - Supertest
 - ts-node-dev
-- 
+- gitk
 
 ## FrontEnd
 - React
@@ -29,4 +31,3 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Nginx
 - Github actions
 - AWS lightsail
-- Postman

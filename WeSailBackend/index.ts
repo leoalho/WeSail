@@ -1,17 +1,21 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import session from 'express-session'
+import connect_redis from 'connect-redis'
+import { createClient } from 'redis'
+//import cors from 'cors'
 
-import config from './src/utils/config'
 import logger from './src/utils/logger'
 import userRoute from './src/routes/users'
 import loginRoute from './src/routes/login'
 import boatRoute from './src/routes/boats'
+import config from './src/utils/config'
 
-const app = express();
-app.use(express.json());
-app.use('/api/users', userRoute)
-app.use('/api/login', loginRoute)
-app.use('/api/boats', boatRoute)
+let RedisStore = connect_redis(session)
+let redisClient = createClient({ legacyMode: true })
+
+redisClient.connect().then(() => {
+  console.log("Connected to Redis")}).catch(console.error)
 
 if (config.MONGODB_URI){
     logger.info('connecting to', config.MONGODB_URI)
@@ -28,6 +32,31 @@ if (config.MONGODB_URI){
 } else {
     logger.error('No database URI given')
 }
+
+const app = express();
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    saveUninitialized: false,
+    secret: config.SECRET,
+    resave: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+  } 
+  })
+)
+app.use(express.json());
+//app.use(cors)
+app.use('/api/users', userRoute)
+app.use('/api/login', loginRoute)
+app.use('/api/boats', boatRoute)
+
+app.get('/', (req, res) => {
+  console.log(req.session)
+  res.status(200).send('Ok')
+})
 
 app.listen(config.PORT, () => {
   logger.info(`Server running on port ${config.PORT}`);

@@ -7,10 +7,10 @@ import { UpdateUser } from '../types'
 
 const router = express.Router();
 
-router.get('/', async (_req, res) => {
+router.get('/', async (_req, res, next) => {
     const users = await getUsers()
-    console.log(users)
     res.json(users)
+    next()
 });
 
 router.post('/', async (req, res) => {
