@@ -29,6 +29,13 @@ const Login = ({user, setUser}: LoginProps) => {
     }
   }
 
+  if (user) {
+    navigate('/')
+    return (
+      <></>
+    )
+  }
+
   return (
     <form onSubmit={handleLogin}>
     <div>
