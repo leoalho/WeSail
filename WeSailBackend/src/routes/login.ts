@@ -1,7 +1,7 @@
 //import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import express from 'express'
-import { findUser } from '../services/userServices'
+import { findUser, findUserId } from '../services/userServices'
 import { parseString } from '../utils/utils'
 //import config from '../utils/config'
 
@@ -12,6 +12,24 @@ declare module "express-session" {
 }
 
 const loginRouter = express.Router()
+
+loginRouter.get('/', async (req, res) => {
+  if (req.session.user){
+    const user = await findUserId(req.session.user)
+    if (user){
+      const result = {
+        username: user.username,
+        id: user._id
+      }
+      res.json(result)
+      return 
+    }
+  }
+  const result = {
+    username: null,
+  }
+  res.json(result)
+})
 
 loginRouter.post('/', async (req, res) => {
     const username = parseString(req.body.username)
@@ -26,18 +44,16 @@ loginRouter.post('/', async (req, res) => {
         res.status(401).json({ error: 'Incorrect password' })
         return
     }
-    /*
-    const userForToken = {
+
+    const result = {
         username: user.username,
         id: user._id,
       }
 
-    const token = jwt.sign(userForToken, config.SECRET)
-    */
     req.session.user = user._id.toString();
 
     res
-      .status(200).end()
+      .status(200).json(result)
 
 })
 

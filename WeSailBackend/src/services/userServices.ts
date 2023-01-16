@@ -18,6 +18,11 @@ export const findUser = async(username: string) => {
     return user
 }
 
+export const findUserId = async(id: string) => {
+  const user = await User.findById(id)
+  return user
+}
+
 export const deleteUser = async (id: string) => {
     await User.deleteOne({ _id: id })
 }

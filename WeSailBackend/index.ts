@@ -8,6 +8,7 @@ import { createClient } from 'redis'
 import logger from './src/utils/logger'
 import userRoute from './src/routes/users'
 import loginRoute from './src/routes/login'
+import logoutRoute from './src/routes/logout'
 import boatRoute from './src/routes/boats'
 import config from './src/utils/config'
 
@@ -34,6 +35,7 @@ if (config.MONGODB_URI){
 }
 
 const app = express();
+app.disable('x-powered-by');
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
@@ -48,15 +50,12 @@ app.use(
   })
 )
 app.use(express.json());
+//app.use(express.static('../wesailfrontend/build'))
 //app.use(cors)
 app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)
+app.use('/api/logout', logoutRoute)
 app.use('/api/boats', boatRoute)
-
-app.get('/', (req, res) => {
-  console.log(req.session)
-  res.status(200).send('Ok')
-})
 
 app.listen(config.PORT, () => {
   logger.info(`Server running on port ${config.PORT}`);
