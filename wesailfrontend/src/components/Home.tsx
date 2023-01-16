@@ -1,14 +1,14 @@
 import { UserProps } from "../types"
 
 const Home = ({user}: UserProps) => {
-  if (user){
     return (
-      <div>Welcome to weSail {user}</div>
+      <div className="main">
+        <div className="content">
+            Welcome to weSail {user && user}
+        </div>
+        
+      </div>
     )
   }
-  return (
-    <div>Welcome to weSail</div>
-  )
-}
 
 export default Home

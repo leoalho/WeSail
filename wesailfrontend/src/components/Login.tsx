@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap'
 
 import { LoginProps } from "../types"
 import login from '../services/login'
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const Login = ({user, setUser}: LoginProps) => {
   const [username, setUsername] = useState<string>("")
@@ -13,11 +13,12 @@ const Login = ({user, setUser}: LoginProps) => {
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
-      const user = await login({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const NewUser = await login({
         username, password,
       })
 
-      setUser(user.username)
+      setUser(NewUser.username)
       //blogService.setToken(user.token)
       //window.localStorage.setItem('loggedUser', JSON.stringify(user.username))
       setUsername('')
@@ -28,15 +29,13 @@ const Login = ({user, setUser}: LoginProps) => {
       console.log('Wrong credentials')
     }
   }
-
+ /*
   if (user) {
-    navigate('/')
-    return (
-      <></>
-    )
+    return <Navigate to="/" replace={true} />
   }
-
+*/
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleLogin}>
     <div>
       username

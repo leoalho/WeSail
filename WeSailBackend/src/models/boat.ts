@@ -6,9 +6,9 @@ const boatSchema = new mongoose.Schema({
         required: true
     },
     registrationNumber: String,
-    LYS: String,
+    LYS: Number,
     homePort: String,
-    draught: String,
+    draught: Number,
     owners: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -2,7 +2,7 @@ import express from 'express'
 
 const logoutRouter = express.Router()
 
-logoutRouter.get('/', async (req, res) => {
+logoutRouter.get('/', (req, res) => {
   req.session.destroy((e) => {
     console.log(e)
   })

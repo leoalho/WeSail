@@ -1,0 +1,11 @@
+input {
+    margin: 3px
+}
+
+.main {
+    background-color: lightgrey;
+}
+
+.content {
+    background-color: white;
+}

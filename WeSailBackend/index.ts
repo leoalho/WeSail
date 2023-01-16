@@ -12,8 +12,8 @@ import logoutRoute from './src/routes/logout'
 import boatRoute from './src/routes/boats'
 import config from './src/utils/config'
 
-let RedisStore = connect_redis(session)
-let redisClient = createClient({ legacyMode: true })
+const RedisStore = connect_redis(session)
+const redisClient = createClient({ legacyMode: true })
 
 redisClient.connect().then(() => {
   console.log("Connected to Redis")}).catch(console.error)

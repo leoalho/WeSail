@@ -1,8 +1,10 @@
-import express from 'express';
+/* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { getUsers, newUser, deleteUser, updateUser } from '../services/userServices';
-import mongoose from 'mongoose';
-import { toNewUser } from '../utils/utils';
+import express from 'express'
+
+import { getUsers, newUser, deleteUser, updateUser } from '../services/userServices'
+import mongoose from 'mongoose'
+import { toNewUser, parseString, parseObjectId } from '../utils/utils'
 import { UpdateUser } from '../types'
 
 const router = express.Router();
@@ -31,11 +33,11 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   
     const user:  UpdateUser = {
-      username: req.body.content,
-      passwordHash: req.body.important,
-      email: req.body.email,
-      friend: req.body.friend,
-      status: req.body.status
+      username: parseString(req.body.content),
+      passwordHash: parseString(req.body.important),
+      email: parseString(req.body.email),
+      friend: parseObjectId(req.body.friend),
+      status: parseString(req.body.status)
     }
     
     console.log(user)

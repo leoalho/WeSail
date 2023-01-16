@@ -8,6 +8,7 @@ interface Userinfo {
 
 const login = async (credentials: Userinfo) => {
   const response = await axios.post(baseUrl, credentials)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return response.data
 }
 
