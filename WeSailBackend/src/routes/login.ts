@@ -20,7 +20,9 @@ loginRouter.get('/', async (req, res) => {
     if (user){
       const result = {
         username: user.username,
-        id: user._id
+        id: user._id,
+        friends: user.friends,
+        email: user.email,
       }
       res.json(result)
       return 

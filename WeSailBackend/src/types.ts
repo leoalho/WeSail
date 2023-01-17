@@ -34,12 +34,14 @@ export type NewBoatEntry = {
 
 export type SessionFields = {
     name: unknown,
+    description: unknown,
     boats: unknown,
     date: unknown
 }
 
 export type NewSessionEntry = {
     name: string,
+    description: string,
     boats: mongoose.Schema.Types.ObjectId[],
     date: mongoose.Schema.Types.Date
 }

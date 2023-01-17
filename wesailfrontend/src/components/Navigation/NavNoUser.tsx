@@ -1,14 +1,17 @@
-import {Nav} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const NavNoUser = () => {
 
     return (
-      <Nav className="me-auto">
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
-        <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-        <Nav.Link as={Link} to="/signup">Sign up</Nav.Link>
-      </Nav>
+      <>
+      <div className='navbarLeft'>
+      <Link to="/">Wesail</Link>
+      </div>
+      <div className="navbarRight">
+        <Link to="/login">Log in</Link>
+        <Link to="/signup">Sign up</Link>
+      </div>
+      </>
     )
 }
 

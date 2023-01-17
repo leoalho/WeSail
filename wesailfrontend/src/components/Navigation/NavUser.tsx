@@ -1,21 +1,25 @@
-import {Nav, Navbar} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { LoginProps } from '../../types'
 import serverLogout from '../../services/logout'
 
 const NavUser = ({user, setUser}:LoginProps) => {
-    const logout = () => {
+    const logout = async () => {
         setUser(null)
-        serverLogout()
+        await serverLogout()
       }
 
     return (
       <>
-      <Navbar.Brand>Logged in as {user}</Navbar.Brand>
-      <Nav className="me-auto">
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
-        <Nav.Link as={Link} to="/"  onClick={logout} >Log out</Nav.Link>
-      </Nav>
+      <div className='navbarLeft'>
+      <Link to="/">Wesail</Link>
+      <div>Boats</div>
+      <div>Start Loggin</div>
+      <div>New Event</div>
+      </div>
+      <div className="navbarRight">
+          <Link to="/user">{user}</Link>
+          <button className='btn' onClick={logout}>logout</button>
+      </div>
       </>
     )
 }

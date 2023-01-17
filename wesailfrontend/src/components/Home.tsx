@@ -1,12 +1,24 @@
-import { UserProps } from "../types"
+import Card from './Card'
+import SideNav from './SideNav'
 
-const Home = ({user}: UserProps) => {
-    return (
+const Home = () => {
+  return (
       <div className="main">
-        <div className="content">
-            Welcome to weSail {user && user}
+        <SideNav />
+        <div className="right">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
         </div>
-        
       </div>
     )
   }

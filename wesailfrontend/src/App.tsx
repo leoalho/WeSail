@@ -4,6 +4,7 @@ import Navigation from './components/Navigation'
 import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import User from './components/User'
 import getUser from './services/user'
 import './App.css';
 
@@ -17,16 +18,15 @@ function App() {
   }, [])
 
   return (
-    <div className="container">
     <Router>
       <Navigation user={user} setUser = {setUser}/>
       <Routes>
         <Route path="/login" element={user ? <Navigate replace to="/" /> : <Login user = {user} setUser = {setUser}/>} />
         <Route path="/signup" element={user ? <Navigate replace to="/" /> : <SignUp/>} />
-        <Route path="/" element={<Home user = {user}/>} />
+        <Route path="/" element={user ? <Home/> : <Login user = {user} setUser = {setUser}/>} />
+        <Route path="/user" element={user ? <User/> : <Login user = {user} setUser = {setUser}/>} />
       </Routes>
     </Router>
-    </div>
     )
 }
 

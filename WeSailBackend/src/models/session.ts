@@ -5,6 +5,9 @@ const sessionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String
+    },
     boats: [
         {
             type: mongoose.Schema.Types.ObjectId,

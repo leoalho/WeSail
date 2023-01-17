@@ -1,9 +1,9 @@
 import { useState } from "react"
-import {Button} from 'react-bootstrap'
 
 import { LoginProps } from "../types"
 import login from '../services/login'
 import { useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = ({user, setUser}: LoginProps) => {
   const [username, setUsername] = useState<string>("")
@@ -29,14 +29,13 @@ const Login = ({user, setUser}: LoginProps) => {
       console.log('Wrong credentials')
     }
   }
- /*
-  if (user) {
-    return <Navigate to="/" replace={true} />
-  }
-*/
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleLogin}>
+    <div className="main">
+    <form onSubmit={handleLogin} className="form">
+    <center><h2>LOG IN</h2></center>
+    <center>
     <div>
       username
       <input type="text" value={username} name="Username " onChange={({ target }) => setUsername(target.value)} />
@@ -45,8 +44,10 @@ const Login = ({user, setUser}: LoginProps) => {
       password
       <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} />
     </div>
-    <Button type="submit">login</Button>
+    <button type="submit">login</button>&nbsp;&nbsp;&nbsp;&nbsp;<Link to="/signup">  sign up</Link>
+    </center>
   </form>
+  </div>
   )
 }
 
