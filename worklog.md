@@ -10,4 +10,6 @@
 | 14.1.23 | 2  | Created functionality for login |
 | 15.1.23 | 2 | Added express-sessions and redis for backend, created redis container |
 | 16.1.23 | 5 | Added functionality for logging out. Began using react router, created a navbar, homepage and login page. Created a signup form and page and added functionality for that. Created types for backend (boat, trip) |
-| Total | 24 ||
+| 17.1.23 | 5 | Added styling to frontend, first ith react-bootstrap, and then switchet to vanilla CSS. Created a new page for displaying user info, updated models for user, boat and trip. |
+| 19.1.23 | 3 | Started using Redux via Redux/toolkit. |
+| Total | 32 ||

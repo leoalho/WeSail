@@ -21,7 +21,12 @@ A list for my self to keep track of all the technologies and libraries used in t
 - React
 - React-router
 - Axios
-- React-bootstrap
+- Redux
+- Redux-react
+- @reduxjs/toolkit
+
+### Development
+- Deep freeze
 
 ## Mobile
 

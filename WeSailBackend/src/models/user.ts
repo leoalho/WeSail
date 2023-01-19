@@ -24,6 +24,18 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     }
+  ],
+  boats: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Boat'
+    }
+  ],
+  crewMember: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Boat'
+    }
   ]
 })
 

@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom'
-import { LoginProps } from '../../types'
+import { RootState } from '../../types'
+import { useSelector } from 'react-redux'
 import NavUser from './NavUser'
 import NavNoUser from './NavNoUser'
 
-const Navigation = ({user, setUser}:LoginProps) => {
 
-    return (
-      <div className='navbar'>
-            {user? <NavUser user={user} setUser={setUser}/> : <NavNoUser/>}
-      </div>
-    )
+const Navigation = () => {
+
+  const user = useSelector((state: RootState) => state.user)
+
+  return (
+    <div className='navbar'>
+          {user? <NavUser/> : <NavNoUser/>}
+    </div>
+  )
 }
 
 export default Navigation

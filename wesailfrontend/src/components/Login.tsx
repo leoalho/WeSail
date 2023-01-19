@@ -1,24 +1,31 @@
 import { useState } from "react"
 
-import { LoginProps } from "../types"
+//import { LoginProps } from "../types"
+
 import login from '../services/login'
 import { useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
+import { newUser } from '../reducers/userReducer'
+import { RootState, User } from '../types'
+import { useDispatch, useSelector } from "react-redux";
 
-const Login = ({user, setUser}: LoginProps) => {
+const Login = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const navigate = useNavigate();
+
+  const dispatch = useDispatch()
+  const user = useSelector((state: RootState) => state.user)
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const NewUser = await login({
+      const NewUser: User = await login({
         username, password,
       })
-
-      setUser(NewUser.username)
+      dispatch(newUser(NewUser))
+      //setUser(NewUser.username)
       //blogService.setToken(user.token)
       //window.localStorage.setItem('loggedUser', JSON.stringify(user.username))
       setUsername('')
