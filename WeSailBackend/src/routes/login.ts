@@ -27,11 +27,10 @@ loginRouter.get('/', async (req, res) => {
       res.json(result)
       return 
     }
+  }else{
+  res.status(401).json({ error: 'You are not logged in' })
+  return
   }
-  const result = {
-    username: null,
-  }
-  res.json(result)
 })
 
 loginRouter.post('/', async (req, res) => {
@@ -51,6 +50,8 @@ loginRouter.post('/', async (req, res) => {
     const result = {
         username: user.username,
         id: user._id,
+        friends: user.friends,
+        email: user.email,
       }
 
     req.session.user = user._id.toString();

@@ -6,8 +6,8 @@ import login from '../services/login'
 import { useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
 import { newUser } from '../reducers/userReducer'
-import { RootState, User } from '../types'
-import { useDispatch, useSelector } from "react-redux";
+import { User } from '../types'
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("")
@@ -15,7 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
 
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -30,7 +29,6 @@ const Login = () => {
       //window.localStorage.setItem('loggedUser', JSON.stringify(user.username))
       setUsername('')
       setPassword('')
-      console.log(user)
       navigate('/')
     } catch (exception) {
       console.log('Wrong credentials')

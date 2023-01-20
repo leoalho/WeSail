@@ -20,9 +20,10 @@ function App() {
   useEffect(() => {
     getUser().then(newuser => {
       if (newuser) {
+        console.log(newuser)
         dispatch(newUser(newuser))
       }
-    })
+    }).catch(e => console.log(e.response.data.error))
   }, [])
 
   return (
