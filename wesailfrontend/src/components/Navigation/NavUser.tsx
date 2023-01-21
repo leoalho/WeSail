@@ -19,8 +19,14 @@ const NavUser = () => {
     <>
     <div className='navbarLeft'>
     <Link to="/">Wesail</Link>
-    <div>Boats</div>
-    <div>Start Loggin</div>
+    <div className="dropdown">Boats
+      <div className="dropdown-content">
+        <Link to="/">Boats1</Link>
+        <Link to="/">Boats2</Link>
+        <Link to="/">Boats3</Link>
+      </div>
+    </div>
+    <Link to="/logger">Start Loggin</Link>
     <div>New Event</div>
     </div>
     <div className="navbarRight">

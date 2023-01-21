@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import User from './components/User'
+import Logger from './components/Logger'
 import getUser from './services/user'
 import './App.css';
 import { newUser } from './reducers/userReducer'
@@ -34,6 +35,7 @@ function App() {
         <Route path="/signup" element={user ? <Navigate replace to="/" /> : <SignUp/>} />
         <Route path="/" element={user ? <Home/> : <Login/>} />
         <Route path="/user" element={user ? <User/> : <Login/>} />
+        <Route path="/logger" element={user ? <Logger/> : <Login/>} />
       </Routes>
     </Router>
     )

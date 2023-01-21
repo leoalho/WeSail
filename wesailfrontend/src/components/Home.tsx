@@ -6,6 +6,7 @@ const Home = () => {
       <div className="main">
         <SideNav />
         <div className="right">
+          <div>Show (all, your activity, your friends activity)</div>
           <Card />
           <Card />
           <Card />

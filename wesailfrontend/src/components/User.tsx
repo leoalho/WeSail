@@ -1,4 +1,3 @@
-import SideNav from './SideNav'
 import { useSelector } from 'react-redux'
 import { RootState } from '../types'
  
@@ -9,9 +8,9 @@ const UserInput = () => {
     <div>
       username: {user.username}<br/>
       email: {user.email} <button>change</button><br />
-      <button>Change password</button>
+      <button>Change password</button><br />
       friends:<br />
-      {user.friends.map(friend => <>{friend.username} <br/></>)}
+      {user.friends.map(friend => <>{friend.username} <button>Remove</button> <br/></>)}
     </div>
   )
 }
@@ -21,7 +20,6 @@ const Home = () => {
 
   return (
       <div className="main">
-        <SideNav />
         <div className="single_content">
           {user && <UserInput/>}
         </div>
