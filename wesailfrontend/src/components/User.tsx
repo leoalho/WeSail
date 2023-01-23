@@ -12,7 +12,7 @@ const UserInput = () => {
       <button>Change password</button><br />
       friends:<br />
       {user.friends.map(friend => <>{friend.username} <button>Remove</button> <br/></>)}
-      <Link to="newBoat">Add boat</Link>
+      <Link to="../newBoat">Add boat</Link>
     </div>
   )
 }

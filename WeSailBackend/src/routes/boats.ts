@@ -2,6 +2,7 @@
 
 import express from 'express';
 import {toNewBoat} from '../utils/utils'
+import middleware from '../utils/middleware';
 import { getBoats, newBoat } from '../services/boatServices';
 
 const router = express.Router();
@@ -11,12 +12,12 @@ router.get('/', async (_req, res) => {
     res.json(boats)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', middleware.authorize, async (req, res) => {
   try{
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const newUserEntry = toNewBoat(req.body)
-      const user = await newBoat(newUserEntry)
-      res.json(user)
+      const newBoatEntry = toNewBoat(req.body, req.session.user)
+      const boat = await newBoat(newBoatEntry)
+      res.json(boat)
   } catch (error: unknown){
       let errorMessage = 'Something went wrong.';
       if (error instanceof Error) {

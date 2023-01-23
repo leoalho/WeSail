@@ -3,13 +3,18 @@ export interface Friend {
   username: string
 }
 
+export interface Boat {
+  name: string,
+  id: string
+}
+
 export interface User {
   username: string,
   id: string,
   email: string,
   friends: Friend[],
-  boatsOwner: string[],
-  boatsCrew: string[]
+  boats: Boat[],
+  boatsCrew: Boat[]
 }
 
 export interface RootState {

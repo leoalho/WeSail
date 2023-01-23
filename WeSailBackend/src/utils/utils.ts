@@ -16,11 +16,12 @@ export const toNewUser = (entry: UserFields) => {
     return newEntry
 }
 
-export const toNewBoat = (entry: BoatFields) => {
+export const toNewBoat = (entry: BoatFields, owner: (string | undefined)) => {
 
   const newEntry: NewBoatEntry = {
     name: parseString(entry.name),
-    owners: parseArrayOfObjectIds(entry.owners)
+    owners: [parseObjectId(owner)]
+    //owners: parseArrayOfObjectIds(entry.owners)
   }
   return newEntry
 }
@@ -41,6 +42,7 @@ export const parseObjectId = (name: unknown): mongoose.Types.ObjectId => {
     return name;
 }
 
+/*
 export const parseArrayOfObjectIds = (name: unknown): mongoose.Types.ObjectId[] => {
   if (!name || !isArrayOfObjectIds(name)){
       throw new Error('Incorrect or missing value');
@@ -48,6 +50,7 @@ export const parseArrayOfObjectIds = (name: unknown): mongoose.Types.ObjectId[] 
 
   return name;
 }
+*/
 
 const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
     return isValidObjectId(id)
@@ -57,6 +60,8 @@ const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
 };
 
+/*
 function isArrayOfObjectIds(v: unknown): v is mongoose.Types.ObjectId[] {
   return Array.isArray(v) && v.every((e) => isValidObjectId(e));
 }
+*/

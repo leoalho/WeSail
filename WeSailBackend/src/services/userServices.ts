@@ -14,12 +14,12 @@ export const newUser = async (userEntry: NewUserEntry) => {
 }
 
 export const findUser = async(username: string) => {
-    const user = await User.findOne({username: username}).populate('friends', { username: 1 })
+    const user = await User.findOne({username: username}).populate('friends', { username: 1 }).populate('boats', {name: 1})
     return user
 }
 
 export const findUserId = async(id: string) => {
-  const user = await User.findById(id).populate('friends', { username: 1})
+  const user = await User.findById(id).populate('friends', { username: 1}).populate('boats', {name: 1})
   return user
 }
 

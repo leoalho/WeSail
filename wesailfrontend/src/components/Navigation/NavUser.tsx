@@ -16,17 +16,23 @@ const NavUser = () => {
       await serverLogout()
     }
 
+  const boats: JSX.Element[] = []
+
+  if (user.boats) {
+    user.boats.forEach((boat) => boats.push(<Link to="/boats" key={boat.id}>{boat.name}</Link>))
+  }
+
   return (
     <>
     <div className='navbarLeft'>
     <Link to="/">Wesail</Link>
-    <div className="dropdown">Boats
-      <div className="dropdown-content">
-        <Link to="/">Boats1</Link>
-        <Link to="/">Boats2</Link>
-        <Link to="/">Boats3</Link>
-      </div>
-    </div>
+    {user.boats.length>0 &&
+          <div className="dropdown">Boats
+          <div className="dropdown-content">
+            {boats}
+          </div>
+        </div>
+    }
     <Link to="/logger">Start Loggin</Link>
     <div>New Event</div>
     </div>
