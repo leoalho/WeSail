@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 jobs:
   backend:
-    runs_on: ubuntu-20.04
+    runs-on: ubuntu-20.04
     defaults:
       run:
         working-directory: WeSailBackend
@@ -27,7 +27,7 @@ jobs:
       - name: test
         run: npm run test
   frontend:
-    runs_on: ubuntu-20.04
+    runs-on: ubuntu-20.04
     defaults:
       run:
         working-directory: WeSailFrontend
