@@ -15,3 +15,5 @@ export interface User {
 export interface RootState {
   user: User
 }
+
+export type Payload = User | null

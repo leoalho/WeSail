@@ -13,7 +13,8 @@ import NewBoat from './components/NewBoat'
 import getUser from './services/user'
 import './App.css';
 import { newUser } from './reducers/userReducer'
-import { RootState } from './types'
+import { RootState, Payload } from './types'
+
 
 function App() {
   
@@ -21,7 +22,7 @@ function App() {
   const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
-    getUser().then(newuser => {
+    getUser().then((newuser: Payload) => {
       if (newuser) {
         console.log(newuser)
         dispatch(newUser(newuser))
