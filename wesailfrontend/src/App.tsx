@@ -8,6 +8,8 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import User from './components/User'
 import Logger from './components/Logger'
+import NewBoat from './components/NewBoat'
+
 import getUser from './services/user'
 import './App.css';
 import { newUser } from './reducers/userReducer'
@@ -36,6 +38,7 @@ function App() {
         <Route path="/" element={user ? <Home/> : <Login/>} />
         <Route path="/user" element={user ? <User/> : <Login/>} />
         <Route path="/logger" element={user ? <Logger/> : <Login/>} />
+        <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
       </Routes>
     </Router>
     )

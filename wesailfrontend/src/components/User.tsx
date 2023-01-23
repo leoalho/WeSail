@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { RootState } from '../types'
  
 const UserInput = () => {
@@ -11,6 +12,7 @@ const UserInput = () => {
       <button>Change password</button><br />
       friends:<br />
       {user.friends.map(friend => <>{friend.username} <button>Remove</button> <br/></>)}
+      <Link to="newBoat">Add boat</Link>
     </div>
   )
 }

@@ -137,8 +137,13 @@ input {
 }
 
 .leaflet-container {
-  height: 60vh;
+  height: 75vh;
   width: 90%;
   margin-top: 20px;
   margin-bottom: 10px
+}
+
+iframe
+{
+    display: none;
 }
