@@ -17,7 +17,6 @@ router.get('/', async (_req, res, next) => {
 
 router.post('/', async (req, res) => {
     try{
-        console.log(req.body)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const newUserEntry = toNewUser(req.body)
         const user = await newUser(newUserEntry)
@@ -40,8 +39,7 @@ router.put('/:id', async (req, res) => {
       friend: parseObjectId(req.body.friend),
       status: parseString(req.body.status)
     }
-    
-    console.log(user)
+
     const userId = new mongoose.Types.ObjectId(req.params.id)
     const updatedUser = await updateUser(userId, user)
 

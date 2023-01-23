@@ -24,7 +24,6 @@ function App() {
   useEffect(() => {
     getUser().then((newuser: Payload) => {
       if (newuser) {
-        console.log(newuser)
         dispatch(newUser(newuser))
       }
     }).catch(e => console.log(e.response.data.error))

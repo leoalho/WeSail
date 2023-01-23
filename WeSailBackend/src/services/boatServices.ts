@@ -10,7 +10,6 @@ export const getBoats = async () => {
 export const newBoat = async (boatEntry: NewBoatEntry) => {
   const boat = new Boat(boatEntry)
   await boat.save()
-  console.log(boat.owners[0])
   const creator = await User.findById(boat.owners[0]._id)
   if (creator){
     creator.boats.push(boat._id)
