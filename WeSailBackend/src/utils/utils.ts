@@ -1,4 +1,4 @@
-import { UserFields, NewUserEntry } from "../types"
+import { UserFields, NewUserEntry, BoatFields, NewBoatEntry } from "../types"
 import mongoose, { isValidObjectId} from "mongoose"
 import bcrypt from 'bcrypt'
 
@@ -14,6 +14,15 @@ export const toNewUser = (entry: UserFields) => {
         email: parseString(entry.email)
     }
     return newEntry
+}
+
+export const toNewBoat = (entry: BoatFields) => {
+
+  const newEntry: NewBoatEntry = {
+    name: parseString(entry.name),
+    owners: parseArrayOfObjectIds(entry.owners)
+  }
+  return newEntry
 }
 
 export const parseString = (name: unknown): string => {
@@ -32,6 +41,14 @@ export const parseObjectId = (name: unknown): mongoose.Types.ObjectId => {
     return name;
 }
 
+export const parseArrayOfObjectIds = (name: unknown): mongoose.Types.ObjectId[] => {
+  if (!name || !isArrayOfObjectIds(name)){
+      throw new Error('Incorrect or missing value');
+  }
+
+  return name;
+}
+
 const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
     return isValidObjectId(id)
 }
@@ -39,3 +56,7 @@ const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
 const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
 };
+
+function isArrayOfObjectIds(v: unknown): v is mongoose.Types.ObjectId[] {
+  return Array.isArray(v) && v.every((e) => isValidObjectId(e));
+}

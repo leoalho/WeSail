@@ -28,8 +28,8 @@ export type NewBoatEntry = {
     LYS?: number,
     homePort?: string,
     draught?: number,
-    owners: mongoose.Schema.Types.ObjectId[],
-    crew?: mongoose.Schema.Types.ObjectId[]
+    owners: mongoose.Types.ObjectId[],
+    crew?: mongoose.Types.ObjectId[]
 }
 
 export type SessionFields = {
