@@ -18,6 +18,7 @@ router.get('/', async (_req, res, next) => {
 router.post('/', async (req, res) => {
     try{
         console.log(req.body)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const newUserEntry = toNewUser(req.body)
         const user = await newUser(newUserEntry)
         res.json(user)

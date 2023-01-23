@@ -38,3 +38,4 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Nginx
 - Github actions
 - AWS lightsail
+- Github Actions
