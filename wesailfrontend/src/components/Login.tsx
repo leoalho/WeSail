@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react"
 
 //import { LoginProps } from "../types"
@@ -36,7 +37,6 @@ const Login = () => {
   }
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <div className="main">
     <form onSubmit={handleLogin} className="form">
     <center><h2>LOG IN</h2></center>

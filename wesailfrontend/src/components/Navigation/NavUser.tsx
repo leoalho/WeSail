@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Link } from 'react-router-dom'
 import { RootState } from '../../types'
 import { useSelector, useDispatch } from 'react-redux'

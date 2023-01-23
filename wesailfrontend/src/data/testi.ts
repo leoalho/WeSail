@@ -1,5 +1,5 @@
-{
-  "type": "Feature",
+const testi = {
+  "type": "Feature" as const,
   "geometry": {
     "type": "LineString",
     "coordinates": [
@@ -2166,3 +2166,5 @@
     "time": "2023-01-18T10:06:13Z"
   }
 }
+
+export default testi

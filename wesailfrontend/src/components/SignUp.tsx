@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
 import {Button} from 'react-bootstrap'
 import {signUp} from '../services/users'
 import { useNavigate } from 'react-router-dom'

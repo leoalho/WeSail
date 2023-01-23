@@ -1,6 +1,6 @@
-import { useEffect, useState} from 'react'
+import {useState} from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap, GeoJSON} from 'react-leaflet'
-import testRoute from '../data/testRoute.json'
+import testRoute from '../data/testi'
 
 const Logger = () => {
   const [longitude, setLongitude] = useState(24.9)
@@ -8,11 +8,11 @@ const Logger = () => {
   const [updated, setUpdated] = useState(0)
   const [logging, setLogging] = useState(false)
 
-  console.log(typeof testRoute)
+  console.log(updated)
 
   interface myComponent {
     logging: boolean,
-    setLogging: Function
+    setLogging: React.Dispatch<React.SetStateAction<boolean>>
   }
 
   function MyComponent({logging}: myComponent) {

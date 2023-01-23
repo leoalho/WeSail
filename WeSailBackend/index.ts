@@ -38,6 +38,8 @@ const app = express();
 app.disable('x-powered-by');
 app.use(
   session({
+    // @ts-expect-error because wrong type definitions of connect-redis
+    // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/58915 for more info
     store: new RedisStore({ client: redisClient }),
     saveUninitialized: false,
     secret: config.SECRET,

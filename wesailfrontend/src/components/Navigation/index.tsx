@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { RootState } from '../../types'
 import { useSelector } from 'react-redux'
 import NavUser from './NavUser'
