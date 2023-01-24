@@ -19,7 +19,7 @@ const NavUser = () => {
   const boats: JSX.Element[] = []
 
   if (user.boats) {
-    user.boats.forEach((boat) => boats.push(<Link to="/boats" key={boat.id}>{boat.name}</Link>))
+    user.boats.forEach((boat) => boats.push(<Link to={`/boats/${boat.id}`} key={boat.id}>{boat.name}</Link>))
   }
 
   return (
@@ -27,10 +27,11 @@ const NavUser = () => {
     <div className='navbarLeft'>
     <Link to="/">Wesail</Link>
     {user.boats.length>0 &&
-          <div className="dropdown">Boats
-          <div className="dropdown-content">
-            {boats}
-          </div>
+          <div className="dropdown">
+            <div className="dropdownTitle">Boats</div>
+            <div className="dropdown-content">
+              {boats}
+            </div>
         </div>
     }
     <Link to="/logger">Start Loggin</Link>

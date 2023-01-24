@@ -14,6 +14,7 @@ import getUser from './services/user'
 import './App.css';
 import { newUser } from './reducers/userReducer'
 import { RootState, Payload } from './types'
+import SingleBoat from './components/SingleBoat'
 
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
         <Route path="/user" element={user ? <User/> : <Login/>} />
         <Route path="/logger" element={user ? <Logger/> : <Login/>} />
         <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
+        <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
+        <Route path="boats/:id" element={user ? <SingleBoat /> : <Login/>} />
       </Routes>
     </Router>
     )

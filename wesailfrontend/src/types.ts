@@ -5,7 +5,9 @@ export interface Friend {
 
 export interface Boat {
   name: string,
-  id: string
+  id: string,
+  owners: string[],
+  crew: string[]
 }
 
 export interface User {

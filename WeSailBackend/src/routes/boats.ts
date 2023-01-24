@@ -3,13 +3,18 @@
 import express from 'express';
 import {toNewBoat} from '../utils/utils'
 import middleware from '../utils/middleware';
-import { getBoats, newBoat } from '../services/boatServices';
+import { getBoats, getBoat, newBoat } from '../services/boatServices';
 
 const router = express.Router();
 
 router.get('/', async (_req, res) => {
     const boats = await getBoats()
     res.json(boats)
+})
+
+router.get('/:id', async (req, res) => {
+  const boat = await getBoat(req.params.id)
+  res.json(boat)
 })
 
 router.post('/', middleware.authorize, async (req, res) => {

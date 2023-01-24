@@ -7,6 +7,11 @@ export const getBoats = async () => {
     return boats
 }
 
+export const getBoat = async (id: string) => {
+  const boat = await Boat.findById(id)
+  return boat
+}
+
 export const newBoat = async (boatEntry: NewBoatEntry) => {
   const boat = new Boat(boatEntry)
   await boat.save()

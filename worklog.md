@@ -10,8 +10,8 @@
 | 14.1.23 | 2  | Created functionality for login |
 | 15.1.23 | 2 | Added express-sessions and redis for backend, created redis container |
 | 16.1.23 | 5 | Added functionality for logging out. Began using react router, created a navbar, homepage and login page. Created a signup form and page and added functionality for that. Created types for backend (boat, trip) |
-| 17.1.23 | 5 | Added styling to frontend, first ith react-bootstrap, and then switchet to vanilla CSS. Created a new page for displaying user info, updated models for user, boat and trip. |
+| 17.1.23 | 5 | Added styling to frontend, first with react-bootstrap, and then switchet to vanilla CSS. Created a new page for displaying user info, updated models for user, boat and trip. |
 | 19.1.23 | 3 | Started using Redux via Redux/toolkit. |
 | 20.1.23 | 6 | Debugging Redux. Began using leaflet and geolocation API for logging |
-| 23.1.23 | 4 | Added geoJSON layer to logging. Wrote requirements specification, set up a CI pipeline with Github Actions |
-| Total | 42 ||
+| 23.1.23 | 8 | Added geoJSON layer to logging. Wrote requirements specification, set up a CI pipeline with Github Actions. Created front and backend functionality for adding a boat. |
+| Total | 46 ||
