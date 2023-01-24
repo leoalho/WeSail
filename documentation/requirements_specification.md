@@ -13,8 +13,8 @@
 - [x] SignUp view
 - [x] Mainview
 - [x] Userpage for current user
-- [] Userpage for other users
+- [] Userpage for a single user
 - [x] Page for creating a new boat
-- [] BoatPage
+- [x] BoatPage
 - [] Page for creating a new event
 - [x] Page for creating a new Log

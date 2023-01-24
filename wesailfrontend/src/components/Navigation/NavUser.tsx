@@ -4,6 +4,7 @@ import { RootState } from '../../types'
 import { useSelector, useDispatch } from 'react-redux'
 import { newUser } from '../../reducers/userReducer'
 import serverLogout from '../../services/logout'
+import React from 'react'
 
 const NavUser = () => {
 
@@ -19,7 +20,7 @@ const NavUser = () => {
   const boats: JSX.Element[] = []
 
   if (user.boats) {
-    user.boats.forEach((boat) => boats.push(<Link to={`/boats/${boat.id}`} key={boat.id}>{boat.name}</Link>))
+    user.boats.forEach((boat) => boats.push(<Link to={`/boats/${boat.id}`} key={boat.id as React.Key}>{boat.name}</Link>))
   }
 
   return (

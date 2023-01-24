@@ -6,8 +6,9 @@ interface NewBoat {
   name: string
 }
 
-export const newBoat = async (boat: NewBoat) => {
-  await axios.post(baseUrl, boat)
+export const newBoat = async (boat: NewBoat): Promise<Boat> => {
+  const newboat = await axios.post(baseUrl, boat)
+  return newboat.data
 }
 
 export const getBoat = async (id: (string | undefined)): Promise<Boat> => {

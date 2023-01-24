@@ -10,13 +10,18 @@ export interface Boat {
   crew: string[]
 }
 
+export interface BoatUser {
+  name: String,
+  id: String
+}
+
 export interface User {
   username: string,
   id: string,
   email: string,
   friends: Friend[],
-  boats: Boat[],
-  boatsCrew: Boat[]
+  boats: BoatUser[],
+  boatsCrew: BoatUser[]
 }
 
 export interface RootState {

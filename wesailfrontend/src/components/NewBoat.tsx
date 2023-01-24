@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addBoat } from "../reducers/userReducer"
 import { newBoat } from "../services/boats"
 
 const NewBoat = () => {
   const [boatname, setBoatname] = useState<string>("")
+  const dispatch = useDispatch()
 
   const handleNewBoat = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    await newBoat({name: boatname})
+    const newboat = await newBoat({name: boatname})
+    dispatch(addBoat(newboat))
     setBoatname("")
   }
 
