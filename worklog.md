@@ -14,5 +14,5 @@
 | 19.1.23 | 3 | Started using Redux via Redux/toolkit. |
 | 20.1.23 | 6 | Debugging Redux. Began using leaflet and geolocation API for logging |
 | 23.1.23 | 8 | Added geoJSON layer to logging. Wrote requirements specification, set up a CI pipeline with Github Actions. Created front and backend functionality for adding a boat. |
-| 24.1.23 | 2 | Added a page for a single boat. Added a backend route for it. Made some styling changes, especially with the navbar |
-| Total | 46 ||
+| 24.1.23 | 4 | Added a page for a single boat and for a new event. Added a backend route for it. Made some styling changes, especially with the navbar. Updated typing and models for boats and users |
+| Total | 48 ||

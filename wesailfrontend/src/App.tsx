@@ -9,13 +9,13 @@ import SignUp from './components/SignUp'
 import User from './components/User'
 import Logger from './components/Logger'
 import NewBoat from './components/NewBoat'
+import SingleBoat from './components/SingleBoat'
+import NewEvent from './components/NewEvent'
 
 import getUser from './services/user'
 import './App.css';
 import { newUser } from './reducers/userReducer'
 import { RootState, Payload } from './types'
-import SingleBoat from './components/SingleBoat'
-
 
 function App() {
   
@@ -41,6 +41,7 @@ function App() {
         <Route path="/logger" element={user ? <Logger/> : <Login/>} />
         <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
         <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
+        <Route path="/newEvent" element={user ? <NewEvent /> : <Login/>} />
         <Route path="boats/:id" element={user ? <SingleBoat /> : <Login/>} />
       </Routes>
     </Router>

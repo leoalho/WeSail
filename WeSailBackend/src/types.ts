@@ -19,7 +19,8 @@ export type BoatFields = {
     homePort?: unknown,
     draught?: unknown,
     owners: unknown,
-    crew?: unknown
+    crew?: unknown,
+    followers?: unknown
 }
 
 export type NewBoatEntry = {
@@ -29,7 +30,8 @@ export type NewBoatEntry = {
     homePort?: string,
     draught?: number,
     owners: mongoose.Types.ObjectId[],
-    crew?: mongoose.Types.ObjectId[]
+    crew?: mongoose.Types.ObjectId[],
+    followers?: mongoose.Types.ObjectId[]
 }
 
 export type SessionFields = {

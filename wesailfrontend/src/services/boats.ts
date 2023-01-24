@@ -8,6 +8,7 @@ interface NewBoat {
 
 export const newBoat = async (boat: NewBoat): Promise<Boat> => {
   const newboat = await axios.post(baseUrl, boat)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return newboat.data
 }
 

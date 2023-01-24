@@ -11,8 +11,8 @@ export interface Boat {
 }
 
 export interface BoatUser {
-  name: String,
-  id: String
+  name: string,
+  id: string
 }
 
 export interface User {
@@ -21,7 +21,9 @@ export interface User {
   email: string,
   friends: Friend[],
   boats: BoatUser[],
-  boatsCrew: BoatUser[]
+  crewMember: BoatUser[],
+  boatsCrew: BoatUser[],
+  boatsFollowing: BoatUser[]
 }
 
 export interface RootState {

@@ -3,7 +3,7 @@ import {NewUserEntry, UpdateUser} from '../types';
 import mongoose from 'mongoose';
 
 export const getUsers = async () => {
-    const users = await User.find({}).populate('friends', { username: 1 })
+    const users = await User.find({})
     return users
 }
 
@@ -14,12 +14,20 @@ export const newUser = async (userEntry: NewUserEntry) => {
 }
 
 export const findUser = async(username: string) => {
-    const user = await User.findOne({username: username}).populate('friends', { username: 1 }).populate('boats', {name: 1})
+    const user = await User.findOne({username: username})
+      .populate('friends', { username: 1 })
+      .populate('boats', {name: 1})
+      .populate('crewMember', {name: 1})
+      .populate('boatsFollowing', {name: 1})
     return user
 }
 
 export const findUserId = async(id: string) => {
-  const user = await User.findById(id).populate('friends', { username: 1}).populate('boats', {name: 1})
+  const user = await User.findById(id)
+    .populate('friends', { username: 1})
+    .populate('boats', {name: 1})
+    .populate('crewMember', {name: 1})
+    .populate('boatsFollowing', {name: 1})
   return user
 }
 

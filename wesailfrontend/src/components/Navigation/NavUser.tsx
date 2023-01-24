@@ -36,7 +36,7 @@ const NavUser = () => {
         </div>
     }
     <Link to="/logger">Start Loggin</Link>
-    <div>New Event</div>
+    <Link to="/newEvent">New Event</Link>
     </div>
     <div className="navbarRight">
         <Link to="/user">{user.username}</Link>
