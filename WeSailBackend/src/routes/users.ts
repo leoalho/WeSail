@@ -41,7 +41,6 @@ router.delete('/:id/friends/:friend', async (req, res) => {
 })
 
 router.patch('/:id', async (req, res) => {
-    console.log(req.body)
     const user:  UpdateUser = {}
     if (req.body.friend) { user.friend = parseObjectId(req.body.friend) }
     if (req.body.friendRequest) { user.friendRequest = parseObjectId(req.body.friendRequest) }

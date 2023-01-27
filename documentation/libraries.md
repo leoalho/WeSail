@@ -10,12 +10,12 @@ A list for my self to keep track of all the technologies and libraries used in t
 
 ### Development
 - Postman
+- gitk
 - Mongosh
 - Eslint
 - Jest
 - Supertest
 - ts-node-dev
-- gitk
 
 ## FrontEnd
 - React

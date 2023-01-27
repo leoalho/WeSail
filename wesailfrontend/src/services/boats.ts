@@ -17,3 +17,9 @@ export const getBoat = async (id: (string | undefined)): Promise<Boat> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return boat.data
 }
+
+export const getBoats = async (): Promise<Boat[]> => {
+  const boats = await axios.get(baseUrl)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return boats.data
+}

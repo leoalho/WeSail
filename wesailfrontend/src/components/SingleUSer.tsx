@@ -12,7 +12,7 @@ const SingleUser = () => {
   
   useEffect(() => {
     getUser(id).then(user => setUser(user)).catch(e => console.log(e))
-  }, [])
+  }, [id])
 
   if (!id) {
     return <>Wrong path</>

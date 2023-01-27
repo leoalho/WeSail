@@ -5,12 +5,13 @@
 - [x] Users can create a new boat
 - [] Users can create a new log
 - [] Users can create a new event
-- [] Users can search for boats and friends
+- [x] Users can search for boats and friends
 - [x] Users can send friend requests
 - [x] Users can accepts friend requests
 - [x] USers can remove friends
 - [] Users can follow boats
 - [] Users can apply to be crewmembers of a boat
+- [] Boatowners can acceps crewmember requests
 - [] BoatPage contains the boat's log
 - [] UserPage contains the user's log
 

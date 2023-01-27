@@ -12,6 +12,12 @@ export const signUp = async (user: newUser) => {
   await axios.post(baseUrl, user)
 }
 
+export const getUsers = async (): Promise<User[]> => {
+  const users = await axios.get(baseUrl)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return users.data
+}
+
 export const getUser = async (id: (string | undefined)): Promise<User> => {
   const user = await axios.get(`${baseUrl}/${id}`)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return

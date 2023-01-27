@@ -58,7 +58,6 @@ export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) =
             }    
         }
         if (user.friendRequest){
-          console.log("TÄNNE")
           await User.findByIdAndUpdate(id, {$addToSet: {friendRequests: user.friendRequest}})
         } 
         await oldUser.save()
