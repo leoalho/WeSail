@@ -19,6 +19,7 @@ export const findUser = async(username: string) => {
       .populate('boats', {name: 1})
       .populate('crewMember', {name: 1})
       .populate('boatsFollowing', {name: 1})
+      .populate('friendRequests', {username: 1})
     return user
 }
 
@@ -28,11 +29,17 @@ export const findUserId = async(id: string) => {
     .populate('boats', {name: 1})
     .populate('crewMember', {name: 1})
     .populate('boatsFollowing', {name: 1})
+    .populate('friendRequests', {username: 1})
   return user
 }
 
 export const deleteUser = async (id: string) => {
     await User.deleteOne({ _id: id })
+}
+
+export const deleteFriend = async (user: string, friend: string) => {
+  await User.findByIdAndUpdate(user, {$pull: {friends: friend}})
+  await User.findByIdAndUpdate(friend, {$pull: {friends: user}})
 }
 
 export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) => {
@@ -44,13 +51,16 @@ export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) =
         if (user.friend){
             const friend = await User.findById(user.friend)
             if (friend && user.friend !== id){
+                await User.findByIdAndUpdate(id, {$pull: {friendRequests: user.friend}})
                 oldUser.friends.push(user.friend)
                 friend.friends.push(id)
                 await friend.save()
-            }
-            
-
+            }    
         }
+        if (user.friendRequest){
+          console.log("TÄNNE")
+          await User.findByIdAndUpdate(id, {$addToSet: {friendRequests: user.friendRequest}})
+        } 
         await oldUser.save()
     }
     

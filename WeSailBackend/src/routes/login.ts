@@ -18,14 +18,6 @@ loginRouter.get('/', async (req, res) => {
   if (req.session.user){
     const user = await findUserId(req.session.user)
     if (user){
-      /*
-      const result = {
-        username: user.username,
-        id: user._id,
-        friends: user.friends,
-        email: user.email,
-      }
-      */
       res.json(user)
       return 
     }
@@ -48,14 +40,6 @@ loginRouter.post('/', async (req, res) => {
         res.status(401).json({ error: 'Incorrect password' })
         return
     }
-    /*
-    const result = {
-        username: user.username,
-        id: user._id,
-        friends: user.friends,
-        email: user.email,
-      }
-    */  
     req.session.user = user._id.toString();
 
     res

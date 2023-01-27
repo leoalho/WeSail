@@ -5,11 +5,12 @@ export type UserFields = {username: unknown, password: unknown, email: unknown}
 export type NewUserEntry = {username: string, passwordHash: string, email: string}
 
 export type UpdateUser = {
-    username: string | undefined,
-    passwordHash: string | undefined,
-    email: string | undefined,
-    friend: mongoose.Types.ObjectId | undefined,
-    status: string | undefined
+    username?: string | undefined,
+    passwordHash?: string | undefined,
+    email?: string | undefined,
+    friend?: mongoose.Types.ObjectId | undefined,
+    friendRequest?: mongoose.Types.ObjectId | undefined,
+    status?: string | undefined
 }
 
 export type BoatFields = {
@@ -20,6 +21,7 @@ export type BoatFields = {
     draught?: unknown,
     owners: unknown,
     crew?: unknown,
+    crewRequests?: unknown,
     followers?: unknown
 }
 
@@ -31,6 +33,7 @@ export type NewBoatEntry = {
     draught?: number,
     owners: mongoose.Types.ObjectId[],
     crew?: mongoose.Types.ObjectId[],
+    crewRequests?: mongoose.Types.ObjectId[],
     followers?: mongoose.Types.ObjectId[]
 }
 

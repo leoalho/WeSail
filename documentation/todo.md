@@ -1,5 +1,6 @@
 ## FRONTEND: 
--[] Add notifications
+- Add notifications
+- Only show send friendrequest button when request is not sent
 
 ## BACKEND: 
--[] Add Error middleware
+- Add Error middleware

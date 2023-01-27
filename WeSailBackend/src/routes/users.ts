@@ -2,9 +2,9 @@
 
 import express from 'express'
 
-import { getUsers, newUser, deleteUser, updateUser } from '../services/userServices'
+import { getUsers, newUser, deleteUser, updateUser, findUserId, deleteFriend } from '../services/userServices'
 import mongoose from 'mongoose'
-import { toNewUser, parseString, parseObjectId } from '../utils/utils'
+import { toNewUser, parseObjectId } from '../utils/utils'
 import { UpdateUser } from '../types'
 
 const router = express.Router();
@@ -30,16 +30,25 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
-  
-    const user:  UpdateUser = {
-      username: parseString(req.body.content),
-      passwordHash: parseString(req.body.important),
-      email: parseString(req.body.email),
-      friend: parseObjectId(req.body.friend),
-      status: parseString(req.body.status)
-    }
+router.get('/:id', async (req, res) => {
+  const user = await findUserId(req.params.id)
+  res.json(user)
+})
 
+router.delete('/:id/friends/:friend', async (req, res) => {
+  await deleteFriend(req.params.id, req.params.friend)
+  res.status(204).send('deleted friend')
+})
+
+router.patch('/:id', async (req, res) => {
+    console.log(req.body)
+    const user:  UpdateUser = {}
+    if (req.body.friend) { user.friend = parseObjectId(req.body.friend) }
+    if (req.body.friendRequest) { user.friendRequest = parseObjectId(req.body.friendRequest) }
+      //username: parseString(req.body.content),
+      //passwordHash: parseString(req.body.important),
+      //email: parseString(req.body.email),
+      //status: parseString(req.body.status)
     const userId = new mongoose.Types.ObjectId(req.params.id)
     const updatedUser = await updateUser(userId, user)
 

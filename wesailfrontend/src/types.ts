@@ -6,8 +6,9 @@ export interface Friend {
 export interface Boat {
   name: string,
   id: string,
-  owners: string[],
-  crew: string[]
+  owners: Friend[],
+  crew: Friend[],
+  crewRequests: Friend[]
 }
 
 export interface BoatUser {
@@ -20,10 +21,20 @@ export interface User {
   id: string,
   email: string,
   friends: Friend[],
+  friendRequests: Friend[],
   boats: BoatUser[],
   crewMember: BoatUser[],
   boatsCrew: BoatUser[],
   boatsFollowing: BoatUser[]
+}
+
+export type UpdateUser = {
+  username?: string,
+  passwordHash?: string,
+  email?: string,
+  friend?: string,
+  friendRequest?: string,
+  status?: string
 }
 
 export interface RootState {

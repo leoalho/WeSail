@@ -21,6 +21,12 @@ const boatSchema = new mongoose.Schema({
             ref: 'User'
         }
     ],
+    crewRequests: [
+      {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+      }
+  ],
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,

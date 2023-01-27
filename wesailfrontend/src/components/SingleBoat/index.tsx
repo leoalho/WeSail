@@ -12,7 +12,7 @@ const SingleBoat = () => {
 
   useEffect(() => {
     getBoat(id).then(boat => setBoat(boat)).catch(e => console.log(e))
-  }, [])
+  }, [id])
 
   const isFollowing = (): boolean => {
     user.boatsFollowing.forEach((boat) => {

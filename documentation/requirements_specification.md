@@ -6,7 +6,9 @@
 - [] Users can create a new log
 - [] Users can create a new event
 - [] Users can search for boats and friends
-- [] Users can add friends
+- [x] Users can send friend requests
+- [x] Users can accepts friend requests
+- [x] USers can remove friends
 - [] Users can follow boats
 - [] Users can apply to be crewmembers of a boat
 - [] BoatPage contains the boat's log
@@ -17,7 +19,7 @@
 - [x] SignUp view
 - [x] Mainview
 - [x] Userpage for current user
-- [] Userpage for a single user
+- [x] Userpage for a single user
 - [x] Page for creating a new boat
 - [x] BoatPage
 - [x] Page for creating a new event

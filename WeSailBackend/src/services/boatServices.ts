@@ -8,7 +8,7 @@ export const getBoats = async () => {
 }
 
 export const getBoat = async (id: string) => {
-  const boat = await Boat.findById(id)
+  const boat = await Boat.findById(id).populate('owners', {username: 1}).populate('crew', {username: 1}).populate('crewRequests', {username: 1})
   return boat
 }
 

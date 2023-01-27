@@ -10,6 +10,7 @@ import User from './components/User'
 import Logger from './components/Logger'
 import NewBoat from './components/NewBoat'
 import SingleBoat from './components/SingleBoat'
+import SingleUser from './components/SingleUSer'
 import NewEvent from './components/NewEvent'
 
 import getUser from './services/user'
@@ -40,9 +41,9 @@ function App() {
         <Route path="/user" element={user ? <User/> : <Login/>} />
         <Route path="/logger" element={user ? <Logger/> : <Login/>} />
         <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
-        <Route path="/newBoat" element={user ? <NewBoat /> : <Login/>} />
         <Route path="/newEvent" element={user ? <NewEvent /> : <Login/>} />
-        <Route path="boats/:id" element={user ? <SingleBoat /> : <Login/>} />
+        <Route path="boats/:id" element={user ? <SingleBoat key={window.location.pathname}/> : <Login/>} />
+        <Route path="users/:id" element={user ? <SingleUser /> : <Login/>} />
       </Routes>
     </Router>
     )
