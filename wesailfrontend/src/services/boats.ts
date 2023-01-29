@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import axios from 'axios'
-import { Boat } from '../types'
+import { Boat, UpdateBoat } from '../types'
 const baseUrl = '/api/boats'
 
 interface NewBoat {
@@ -8,18 +10,24 @@ interface NewBoat {
 
 export const newBoat = async (boat: NewBoat): Promise<Boat> => {
   const newboat = await axios.post(baseUrl, boat)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return newboat.data
 }
 
 export const getBoat = async (id: (string | undefined)): Promise<Boat> => {
   const boat = await axios.get(`${baseUrl}/${id}`)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return boat.data
 }
 
 export const getBoats = async (): Promise<Boat[]> => {
   const boats = await axios.get(baseUrl)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return boats.data
+}
+
+export const updateBoat = async (id: string, update: UpdateBoat): Promise<Boat> => {
+  const boat = await axios.patch(`${baseUrl}/${id}`, update)
+  return boat.data
+}
+
+export const deleteFollower = async (id: string, follower: string) => {
+  await axios.delete(`${baseUrl}/${id}/followers/${follower}`)
 }

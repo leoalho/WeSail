@@ -5,11 +5,13 @@
 - [x] Users can create a new boat
 - [] Users can create a new log
 - [] Users can create a new event
+- [] Upcoming events and logs are visible on the main page
+- [] It is possible to toggle what is shown on the main page
 - [x] Users can search for boats and friends
 - [x] Users can send friend requests
 - [x] Users can accepts friend requests
 - [x] USers can remove friends
-- [] Users can follow boats
+- [x] Users can follow boats
 - [] Users can apply to be crewmembers of a boat
 - [] Boatowners can acceps crewmember requests
 - [] BoatPage contains the boat's log
@@ -27,3 +29,9 @@
 - [x] Page for creating a new Log
 
 ## Further ideas: 
+- further specidications for boat
+- Boatowners can edit boat specs
+- Users can edit their own profiles
+- Profile pictures
+- email authentication for new users
+- haging of password via email

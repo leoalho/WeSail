@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express';
-import {toNewBoat} from '../utils/utils'
+import {parseObjectId, toNewBoat} from '../utils/utils'
 import middleware from '../utils/middleware';
-import { getBoats, getBoat, newBoat } from '../services/boatServices';
+import { getBoats, getBoat, newBoat, updateBoat, deleteFollower } from '../services/boatServices';
+import { UpdateBoat } from '../types';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -30,6 +32,21 @@ router.post('/', middleware.authorize, async (req, res) => {
       }
       res.status(400).send(errorMessage);
   }
+})
+
+router.patch('/:id', async (req, res) => {
+  const boat: UpdateBoat = {}
+  if (req.body.follower) {
+    boat.follower = parseObjectId(req.body.follower)
+  }
+  const boatId = new mongoose.Types.ObjectId(req.params.id)
+  const updatedBoat = await updateBoat(boatId, boat)
+  res.json(updatedBoat)
+})
+
+router.delete('/:id/followers/:follower', async (req,res) => {
+  await deleteFollower(req.params.id, req.params.follower)
+  res.status(204).send('deleted follower')
 })
 
 export default router

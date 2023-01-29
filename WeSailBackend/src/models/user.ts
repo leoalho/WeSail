@@ -37,6 +37,12 @@ const userSchema = new mongoose.Schema({
         ref: 'Boat'
     }
   ],
+  crewRequestPending: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Boat'
+    }
+  ],
   crewMember: [
     {
         type: mongoose.Schema.Types.ObjectId,

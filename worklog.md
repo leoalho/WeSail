@@ -17,4 +17,5 @@
 | 24.1.23 | 4 | Added a page for a single boat and for a new event. Added a backend route for it. Made some styling changes, especially with the navbar. Updated typing and models for boats and users |
 | 25.1.23 | 2 | Added a new page for a single user. Updated boat and user models: added friend and crewRequests. Added functionality for sending friend requests, accepting/declining friend requests and removing friends from your friendlist |
 | 26.1.23 | 8 | Continued working on functionality for sending friend requests, accepting/declining friend requests and removing friends from your friendlist. Created search functionality for boats and users in the navbar |
+| 28.1.23 | 3 | Users can follow vessels | 
 | Total | 58 ||

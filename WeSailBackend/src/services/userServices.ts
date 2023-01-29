@@ -43,10 +43,13 @@ export const deleteFriend = async (user: string, friend: string) => {
 }
 
 export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) => {
-    const oldUser = await User.findById(id)
+    const oldUser = await User.findById(id).populate('boatsFollowing', {name: 1})
     if (oldUser){
         if (user.email){
             oldUser.email = user.email
+        }
+        if (user.boatsFollowing){
+          await User.findByIdAndUpdate(id, {$addToSet: {boatsFollowing: user.boatsFollowing}})
         }
         if (user.friend){
             const friend = await User.findById(user.friend)

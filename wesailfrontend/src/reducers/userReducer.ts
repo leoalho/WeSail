@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { User, Boat } from '../types'
 
+interface UserBoat {
+  name: string,
+  id: string
+}
+
 const initialState = null as (null | User)
 
 type Payload = User | null
@@ -18,9 +23,14 @@ const userSlice = createSlice({
       if (state){
         state.boats.push({name: newBoat.name, id: newBoat.id})
       }
+    },
+    updateFollowing(state, action: PayloadAction<UserBoat[]>) {
+      if (state){
+        state.boatsFollowing = action.payload
+      }
     }
   }
 })
 
-export const {newUser,addBoat} = userSlice.actions
+export const {newUser,addBoat,updateFollowing} = userSlice.actions
 export default userSlice.reducer
