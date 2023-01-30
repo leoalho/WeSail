@@ -1,5 +1,5 @@
 import Card from './Card'
-import SideNav from './SideNav'
+import SideNav from './Sidenav'
 
 const Home = () => {
   return (

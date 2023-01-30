@@ -10,6 +10,7 @@ import userRoute from './src/routes/users'
 import loginRoute from './src/routes/login'
 import logoutRoute from './src/routes/logout'
 import boatRoute from './src/routes/boats'
+import eventRoute from './src/routes/events'
 import config from './src/utils/config'
 
 const RedisStore = connect_redis(session)
@@ -58,6 +59,7 @@ app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)
 app.use('/api/logout', logoutRoute)
 app.use('/api/boats', boatRoute)
+app.use('/api/events', eventRoute)
 
 app.listen(config.PORT, () => {
   logger.info(`Server running on port ${config.PORT}`);

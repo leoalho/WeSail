@@ -58,3 +58,20 @@ export type NewSessionEntry = {
     boats: mongoose.Schema.Types.ObjectId[],
     date: mongoose.Schema.Types.Date
 }
+
+export type EventFields = {
+  boat: unknown,
+  date: unknown,
+  time: unknown,
+  location: unknown,
+  description: unknown
+}
+
+export type NewEventEntry = {
+  boat: mongoose.Types.ObjectId,
+  date: unknown,
+  time: unknown,
+  location: unknown,
+  description: unknown,
+  creator: mongoose.Types.ObjectId
+}

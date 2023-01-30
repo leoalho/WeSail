@@ -4,3 +4,4 @@
 
 ## BACKEND: 
 - Add Error middleware
+- Combine date and time as one object for events

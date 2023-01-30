@@ -51,3 +51,12 @@ export interface RootState {
 }
 
 export type Payload = User | null
+
+export interface Event {
+  boat: BoatUser,
+  date: string,
+  time: string,
+  location: string,
+  description: string,
+  owner: string
+}

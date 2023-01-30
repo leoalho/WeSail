@@ -1,4 +1,4 @@
-import { UserFields, NewUserEntry, BoatFields, NewBoatEntry } from "../types"
+import { UserFields, NewUserEntry, BoatFields, NewBoatEntry, NewEventEntry, EventFields } from "../types"
 import mongoose, { isValidObjectId} from "mongoose"
 import bcrypt from 'bcrypt'
 
@@ -26,11 +26,34 @@ export const toNewBoat = (entry: BoatFields, owner: (string | undefined)) => {
   return newEntry
 }
 
+export const toNewEvent = (entry: EventFields, creator: (string | undefined)) => {
+  const newEntry: NewEventEntry = {
+    boat: parseObjectId(entry.boat),
+    date: parseDate(entry.date),
+    creator: parseObjectId(creator),
+    time: parseString(entry.time),
+    location: parseString(entry.location),
+    description: parseString(entry.description)
+  }
+  return newEntry
+}
+
+export const parseDate = (date: unknown): Date => {
+  if (!date || !isString(date)){
+    throw new Error('missing or incorrect date value')
+  }
+  try {
+    const newDate = new Date(date)
+    return newDate
+  } catch {
+    throw new Error('Incorrect date value');
+  }
+}
+
 export const parseString = (name: unknown): string => {
     if (!name || !isString(name)){
         throw new Error('Incorrect or missing value');
     }
-
     return name;
 };
 

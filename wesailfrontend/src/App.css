@@ -83,6 +83,14 @@ input {
   padding: 15px;
 }
 
+.eventCard {
+  background-color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+
 .content {
   background-color: white;
   margin-right: 5px;
