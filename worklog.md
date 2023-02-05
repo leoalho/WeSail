@@ -24,5 +24,5 @@
 | 2.2.23 | 4 | Created a form for new log entries. Logging now draws a polyline on the map and creates a gpx-complient object but does not yet save it anywhere. |
 | 3.2.23 | 4 | Updated the event view to be more sophisticated |
 | 4.2.23 | 2 | Created routes and backend services for logs|
-| 5.2.23 | 2 | Created servics for displaying logs on the main page ||
-| Total | 89 ||
+| 5.2.23 | 4 | Created servics for displaying logs on the main page. Added routes for user's logs, boat's logs, boat's events ||
+| Total | 91 ||

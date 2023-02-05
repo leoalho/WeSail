@@ -3,7 +3,7 @@
 - [x] Users can log out
 - [x] New users can sign up
 - [x] Users can create a new boat
-- [] Users can create a new log
+- [X] Users can create a new log
 - [x] Users can create a new event
 - [x] Upcoming events visible on the main page
 - [x] Events are sorted by date and only upcoming events are shown
