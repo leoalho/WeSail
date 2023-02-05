@@ -42,7 +42,7 @@ export const getBoatLogs = async (id: (string | undefined)) => {
 
 export const getUserLogs = async (id: (string | undefined)) => {
     const logs = await Log
-        .find({creator: id})
+        .find({participants: id})
         .sort({date: 1})
         .populate('boat', {name: 1})
         .populate('creator', {username: 1})

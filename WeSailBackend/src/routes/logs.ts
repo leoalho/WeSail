@@ -4,7 +4,7 @@
 import express from 'express';
 //import { toNewLog} from '../utils/utils'
 import middleware from '../utils/middleware';
-import { getLogs, getMainLogs, newLog } from '../services/logServices';
+import { getBoatLogs, getLogs, getMainLogs, getUserLogs, newLog } from '../services/logServices';
 import { toNewLog } from '../utils/utils';
 
 const router = express.Router()
@@ -20,6 +20,16 @@ router.get('/main', middleware.authorize, async (req, res) => {
         const logs = await getMainLogs(req.session.user)
         res.json(logs)
     }
+})
+
+router.get('/boats/:id', async (req,res) => {
+    const logs = await getBoatLogs(req.params.id)
+    res.json(logs)
+})
+
+router.get('/users/:id', async (req,res) => {
+    const logs = await getUserLogs(req.params.id)
+    res.json(logs)
 })
 
 router.post('/', middleware.authorize, async (req, res) => {

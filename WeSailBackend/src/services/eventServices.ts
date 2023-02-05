@@ -32,3 +32,10 @@ export const getUpcoming = async (id: string) => {
         .populate('boat', {name: 1})
     return events
 }
+
+export const getBoatEvents = async (id: string) => {
+    const events = await Event.find({boat: id})
+        .sort({date: 1})
+        .populate('boat', {name: 1})
+    return events
+}

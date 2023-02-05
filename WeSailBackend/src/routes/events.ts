@@ -4,7 +4,7 @@
 import express from 'express'
 import { toNewEvent} from '../utils/utils'
 import middleware from '../utils/middleware'
-import { getEvents, newEvent, getUpcoming } from '../services/eventServices'
+import { getEvents, newEvent, getUpcoming, getBoatEvents } from '../services/eventServices'
 //import { UpdateBoat } from '../types';
 //import mongoose from 'mongoose';
 
@@ -35,6 +35,11 @@ router.get('/upcoming', middleware.authorize, async (req, res) => {
         const events = await getUpcoming(req.session.user)
         res.json(events)
     }
+})
+
+router.get('/boats/:id', async (req,res) => {
+    const events = await getBoatEvents(req.params.id)
+    res.json(events)
 })
 
 export default router
