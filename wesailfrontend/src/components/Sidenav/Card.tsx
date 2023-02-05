@@ -11,10 +11,10 @@ const Card = (props: Props) => {
   const date = new Date(props.date)
   return (
     <div className="eventCard">
-      <b>{date.toString()} at {props.time}</b><br/>
-      <b>{props.boat} </b>
-      <div>{props.location}</div>
+      <div><b>{props.boat}</b> @{props.location}</div>
+      {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br/>
       <div>{props.description}</div>
+      <button>Join</button>
     </div>
   )
 

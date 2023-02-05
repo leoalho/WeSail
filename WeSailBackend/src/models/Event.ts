@@ -8,9 +8,6 @@ const eventSchema = new mongoose.Schema({
   date: {
     type: Date
   },
-  time: {
-    type: String
-  },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'  
@@ -20,7 +17,13 @@ const eventSchema = new mongoose.Schema({
   },
   description: {
     type: String
-  }
+  },
+  participants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ] 
 })
 
 eventSchema.set('toJSON', {

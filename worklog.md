@@ -20,4 +20,9 @@
 | 28.1.23 | 3 | Users can follow vessels | 
 | 29.1.23 | 4  | Debuggin frindrequests and following vessels |
 | 30.1.23 | 6 | Created form, Model, route, and services for newEvent |
-| Total | 73 ||
+| 1.2.23 | 2 | Created a page for adding a log entry, started creating the types and model for the log entries |
+| 2.2.23 | 4 | Created a form for new log entries. Logging now draws a polyline on the map and creates a gpx-complient object but does not yet save it anywhere. |
+| 3.2.23 | 4 | Updated the event view to be more sophisticated |
+| 4.2.23 | 2 | Created routes and backend services for logs|
+| 5.2.23 | 2 | Created servics for displaying logs on the main page ||
+| Total | 89 ||

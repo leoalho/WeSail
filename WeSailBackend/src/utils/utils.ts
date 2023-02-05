@@ -1,4 +1,7 @@
-import { UserFields, NewUserEntry, BoatFields, NewBoatEntry, NewEventEntry, EventFields } from "../types"
+import { UserFields, NewUserEntry,
+        BoatFields, NewBoatEntry,
+        EventFields, NewEventEntry,
+        LogFields, NewLogEntry } from "../types"
 import mongoose, { isValidObjectId} from "mongoose"
 import bcrypt from 'bcrypt'
 
@@ -29,25 +32,53 @@ export const toNewBoat = (entry: BoatFields, owner: (string | undefined)) => {
 export const toNewEvent = (entry: EventFields, creator: (string | undefined)) => {
   const newEntry: NewEventEntry = {
     boat: parseObjectId(entry.boat),
-    date: parseDate(entry.date),
+    date: parseDateTime(entry.date, entry.time),
     creator: parseObjectId(creator),
-    time: parseString(entry.time),
     location: parseString(entry.location),
     description: parseString(entry.description)
   }
   return newEntry
 }
 
-export const parseDate = (date: unknown): Date => {
+export const toNewLog = (entry: LogFields, creator: (string | undefined)) => {
+    const newLog: NewLogEntry = {
+        boat: parseObjectId(entry.boat),
+        creator: parseObjectId(creator),
+        description: parseString(entry.description),
+        startTime: parseDate(entry.startTime),
+        endTime: parseDate(entry.endTime),
+        start: parseString(entry.start),
+        end: parseString(entry.end),
+        participants: [parseObjectId(creator)]
+    }
+    return newLog
+}
+
+export const parseDateTime = (date: unknown, time:unknown): Date => {
   if (!date || !isString(date)){
     throw new Error('missing or incorrect date value')
   }
+  if (!time || !isString(time)){
+    throw new Error('missing or incorrect time value')
+  }
   try {
-    const newDate = new Date(date)
+    const newDate = new Date(`${date}T${time}`)
     return newDate
   } catch {
     throw new Error('Incorrect date value');
   }
+}
+
+export const parseDate = (date: unknown): Date => {
+    if (!date || !isString(date)){
+        throw new Error('missing or incorrect date value')
+      }
+      try {
+        const newDate = new Date(date)
+        return newDate
+      } catch {
+        throw new Error('Incorrect date value');
+      }
 }
 
 export const parseString = (name: unknown): string => {

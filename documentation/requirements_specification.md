@@ -6,9 +6,10 @@
 - [] Users can create a new log
 - [x] Users can create a new event
 - [x] Upcoming events visible on the main page
-- [] Events are sorted by date and only upcoming events are shown
-- [] Upcoming logs are visible on the main page
-- [] It is possible to toggle what is shown on the main page
+- [x] Events are sorted by date and only upcoming events are shown
+- [X] Logs are visible on the main page
+- [] It is possible to toggle which logs are displayed on the main page
+- [] It is possible to toggle which events are displayed on the main page
 - [x] Users can search for boats and friends
 - [x] Users can send friend requests
 - [x] Users can accepts friend requests
@@ -18,6 +19,7 @@
 - [] Boatowners can acceps crewmember requests
 - [] BoatPage contains the boat's log and upcoming events
 - [] UserPage contains the user's log
+- [] Boatpage has a different view for users, crewmembers and owners
 
 ###  Views:
 - [x] LoginView

@@ -60,3 +60,15 @@ export interface Event {
   description: string,
   owner: string
 }
+
+export interface Log {
+    boat: BoatUser,
+    creator: Friend,
+    participants: Friend[],
+    description: string,
+    startTime: string,
+    endTime: string,
+    start: string,
+    end: string,
+    id: string
+}

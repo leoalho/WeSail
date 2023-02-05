@@ -1,8 +1,16 @@
-import mongoose from "mongoose"
+import mongoose, { IfUnknown } from "mongoose"
 
-export type UserFields = {username: unknown, password: unknown, email: unknown}
+export type UserFields = {
+    username: unknown,
+    password: unknown,
+    email: unknown
+}
 
-export type NewUserEntry = {username: string, passwordHash: string, email: string}
+export type NewUserEntry = {
+    username: string,
+    passwordHash: string,
+    email: string
+}
 
 export type UpdateUser = {
     username?: string | undefined,
@@ -14,20 +22,13 @@ export type UpdateUser = {
     boatsFollowing?: mongoose.Types.ObjectId | undefined
 }
 
-export type UpdateBoat = {
-  name?: string | undefined,
-  crewRequest?: mongoose.Types.ObjectId | undefined,
-  crew?: mongoose.Types.ObjectId | undefined,
-  follower?: mongoose.Types.ObjectId | undefined
-}
-
 export type BoatFields = {
     name: unknown,
     registrationNumber?:  unknown,
     LYS?: unknown,
     homePort?: unknown,
     draught?: unknown,
-    owners: unknown,
+    owners?: unknown,
     crew?: unknown,
     crewRequests?: unknown,
     followers?: unknown
@@ -45,18 +46,11 @@ export type NewBoatEntry = {
     followers?: mongoose.Types.ObjectId[]
 }
 
-export type SessionFields = {
-    name: unknown,
-    description: unknown,
-    boats: unknown,
-    date: unknown
-}
-
-export type NewSessionEntry = {
-    name: string,
-    description: string,
-    boats: mongoose.Schema.Types.ObjectId[],
-    date: mongoose.Schema.Types.Date
+export type UpdateBoat = {
+    name?: string | undefined,
+    crewRequest?: mongoose.Types.ObjectId | undefined,
+    crew?: mongoose.Types.ObjectId | undefined,
+    follower?: mongoose.Types.ObjectId | undefined
 }
 
 export type EventFields = {
@@ -69,9 +63,30 @@ export type EventFields = {
 
 export type NewEventEntry = {
   boat: mongoose.Types.ObjectId,
-  date: unknown,
-  time: unknown,
-  location: unknown,
-  description: unknown,
+  date: Date,
+  location: string,
+  description: string,
   creator: mongoose.Types.ObjectId
+}
+
+export type LogFields = {
+    boat: unknown,
+    creator?: unknown,
+    participants?: unknown,
+    description: unknown,
+    startTime: unknown,
+    endTime: unknown,
+    start: unknown,
+    end: unknown
+}
+
+export type NewLogEntry = {
+    boat: mongoose.Types.ObjectId,
+    creator: mongoose.Types.ObjectId,
+    participants?: mongoose.Types.ObjectId[],
+    description: string,
+    startTime: Date,
+    endTime: Date,
+    start: string,
+    end: string
 }

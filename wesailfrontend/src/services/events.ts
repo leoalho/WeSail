@@ -5,7 +5,7 @@ import { Event } from '../types'
 const baseUrl = '/api/events'
 
 export const getEvents = async(): Promise<Event[]> => {
-  const events = await axios.get(baseUrl)
+  const events = await axios.get(`${baseUrl}/upcoming`)
   return events.data
 }
 

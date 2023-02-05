@@ -36,8 +36,8 @@ const NewEvent = () => {
         <select onChange={({target}) => setBoat(target.value)}>
           {userBoats}
         </select><br/>
-        <input onChange={({target}) => setDate(target.value)} type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"></input>
-        <input onChange={({target}) => setTime(target.value)} type="time" id="appt" name="appt" min="09:00" max="18:00" required></input><br />
+        <input onChange={({target}) => setDate(target.value)} type="date" id="start" name="trip-start" value={date}></input>
+        <input onChange={({target}) => setTime(target.value)} type="time" id="start-time" name="start-time"></input><br />
         Location: <input onChange={({target}) => setLocation(target.value)}></input><br/>
         Description: <input onChange={({target}) => setDescription(target.value)}></input><br/>
         <button onClick={createEvent}>Create event</button>
