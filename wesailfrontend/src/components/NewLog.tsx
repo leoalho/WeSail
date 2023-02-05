@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { newLog } from "../services/logs"
-import { RootState, Friend } from "../types"
+import { RootState } from "../types"
 
 const NewLog = () => {
   const user = useSelector((state: RootState) => state.user)
   const [boat, setBoat] = useState("")
-  const [date, setDate] = useState("")
-  const [crew, setCrew] = useState<Friend[]>([])
+  //const [date, setDate] = useState("")
+  //const [crew, setCrew] = useState<Friend[]>([])
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
   const [distance, setDistance] = useState("")
@@ -18,10 +18,12 @@ const NewLog = () => {
   const [description, setDescription] = useState("")
   const [weather, setWeather] = useState("")
 
+  /*
   useEffect(() => {
     const today = new Date()
     setDate(today.toISOString().split('T')[0])
   }, [])
+  */
   
   const userBoats: JSX.Element[] = []
 
@@ -30,7 +32,20 @@ const NewLog = () => {
   }
 
   const createEvent = async () => {
-    await newLog()
+    await newLog(
+        {
+            boat: boat,
+            //participants?: string[],
+            description: description,
+            weather: weather,
+            distance: distance,
+            distanceSailed: distanceSailed,  
+            startTime: startTime,
+            endTime: endTime,
+            start: startLocation,
+            end: endLocation
+        }
+    )
   }
 
   return (
@@ -39,11 +54,10 @@ const NewLog = () => {
         <select onChange={({target}) => setBoat(target.value)}>
           {userBoats}
         </select><br/>
-        <input onChange={({target}) => setDate(target.value)} type="date" id="start" name="trip-start" value={date}></input><br/>
         Start location: <input onChange={({target}) => setStartLocation(target.value)}></input>
-        <input onChange={({target}) => setStartTime(target.value)} type="time" id="start-time" name="start-time"></input><br />
+        <input onChange={({target}) => setStartTime(target.value)} type="datetime-local" id="start-time" name="start-time"></input><br />
         End location: <input onChange={({target}) => setEndLocation(target.value)}></input>
-        <input onChange={({target}) => setEndTime(target.value)} type="time" id="end-time" name="end-time"></input><br />
+        <input onChange={({target}) => setEndTime(target.value)} type="datetime-local" id="end-time" name="end-time"></input><br />
         Distance: <input type="number" onChange={({target}) => setDistance(target.value)}></input><br />
         Distance sailed: <input type="number" onChange={({target}) => setDistanceSailed(target.value)}></input><br />
         Weather: <input onChange={({target}) => setWeather(target.value)}></input><br />

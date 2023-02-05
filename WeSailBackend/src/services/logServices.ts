@@ -50,8 +50,8 @@ export const getUserLogs = async (id: (string | undefined)) => {
     return logs
 }
 
-export const newLog = async (logEnty: NewLogEntry) => {
-    const log = new Log(logEnty)
+export const newLog = async (logEntry: NewLogEntry) => {
+    const log = new Log(logEntry)
     await log.save()
     return log
 }

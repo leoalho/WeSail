@@ -10,6 +10,20 @@ export const getLogs = async (): Promise<Log[]> => {
     return logs.data
 }
 
-export const newLog = () => {
-    return
+interface NewLog {
+    boat: string,
+    participants?: string[],
+    description: string,
+    weather?: string,
+    distance?: string,
+    distanceSailed?: string,  
+    startTime: string,
+    endTime: string,
+    start: string,
+    end: string
+}
+
+export const newLog = async (log: NewLog) => {
+    const newLog = await axios.post(baseUrl, log)
+    return newLog
 }

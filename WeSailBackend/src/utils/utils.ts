@@ -49,7 +49,12 @@ export const toNewLog = (entry: LogFields, creator: (string | undefined)) => {
         endTime: parseDate(entry.endTime),
         start: parseString(entry.start),
         end: parseString(entry.end),
+        distance: parseNumber(entry.distance),
+        distanceSailed: parseNumber(entry.distanceSailed),
         participants: [parseObjectId(creator)]
+    }
+    if (entry.weather){
+        newLog.weather = parseString(entry.weather)
     }
     return newLog
 }
@@ -67,6 +72,13 @@ export const parseDateTime = (date: unknown, time:unknown): Date => {
   } catch {
     throw new Error('Incorrect date value');
   }
+}
+
+export const parseNumber = (name: unknown): number => {
+    if (!name || !isString(name)){
+        throw new Error('missing or incorrect date value')
+    }
+    return parseInt(name)
 }
 
 export const parseDate = (date: unknown): Date => {

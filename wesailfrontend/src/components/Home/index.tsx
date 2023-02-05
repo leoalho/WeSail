@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Card from './Card'
 import SideNav from '../Sidenav'
 import { getLogs } from '../../services/logs'

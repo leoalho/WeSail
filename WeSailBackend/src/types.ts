@@ -1,4 +1,4 @@
-import mongoose, { IfUnknown } from "mongoose"
+import mongoose from "mongoose"
 
 export type UserFields = {
     username: unknown,
@@ -74,6 +74,9 @@ export type LogFields = {
     creator?: unknown,
     participants?: unknown,
     description: unknown,
+    weather?: unknown,
+    distance?: unknown,
+    distanceSailed?: unknown,
     startTime: unknown,
     endTime: unknown,
     start: unknown,
@@ -85,6 +88,9 @@ export type NewLogEntry = {
     creator: mongoose.Types.ObjectId,
     participants?: mongoose.Types.ObjectId[],
     description: string,
+    weather?: string,
+    distance: number,
+    distanceSailed: number,
     startTime: Date,
     endTime: Date,
     start: string,
