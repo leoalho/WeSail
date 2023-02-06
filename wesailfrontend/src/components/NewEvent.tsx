@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { newEvent } from "../services/events"

@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 
 export const getUsers = async () => {
     const users = await User.find({})
+        .populate('friends', { username: 1 })
+        .populate('boats', {name: 1})
     return users
 }
 

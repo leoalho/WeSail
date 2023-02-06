@@ -31,6 +31,12 @@ const userSchema = new mongoose.Schema({
       ref: 'User'    
     }
   ],
+  friendRequestsPending: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'    
+    }
+  ],
   boats: [
     {
         type: mongoose.Schema.Types.ObjectId,
@@ -61,7 +67,7 @@ userSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     returnedObject.id = returnedObject._id
-    delete returnedObject._id
+    // delete returnedObject._id
     delete returnedObject.__v
     delete returnedObject.passwordHash
   }
