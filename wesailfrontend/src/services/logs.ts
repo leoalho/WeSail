@@ -15,6 +15,11 @@ export const getBoatLogs = async (id: string): Promise<Log[]> => {
     return logs.data
 }
 
+export const getUserLogs = async (id: string): Promise<Log[]> => {
+    const logs = await axios.get(`${baseUrl}/users/${id}`)
+    return logs.data
+}
+
 interface NewLog {
     boat: string,
     participants?: string[],

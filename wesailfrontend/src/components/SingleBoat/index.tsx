@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { useState, useEffect } from "react"
 import { deleteFollower, getBoat, updateBoat } from "../../services/boats"
 import { Boat, Log, RootState } from "../../types"

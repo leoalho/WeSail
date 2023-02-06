@@ -25,5 +25,5 @@
 | 3.2.23 | 4 | Updated the event view to be more sophisticated |
 | 4.2.23 | 2 | Created routes and backend services for logs|
 | 5.2.23 | 4 | Created servics for displaying logs on the main page. Added routes for user's logs, boat's logs, boat's events. Bugfixes conserning mongoose |
-| 6.2.23 | 4 | Single boat page shows the boat's log |
+| 6.2.23 | 4 | Single boat page shows the boat's log, single user page shows the user's log |
 | Total | 95 ||
