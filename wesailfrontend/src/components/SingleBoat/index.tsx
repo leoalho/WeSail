@@ -4,19 +4,22 @@
 
 import { useState, useEffect } from "react"
 import { deleteFollower, getBoat, updateBoat } from "../../services/boats"
-import { Boat, Log, RootState } from "../../types"
+import { Boat, Log, RootState, Event } from "../../types"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { updateUser } from "../../services/users"
 import getUser from "../../services/user"
 import { updateFollowing } from "../../reducers/userReducer"
 import { getBoatLogs } from "../../services/logs"
-import Card from "../Home/Card"
+import LogCard from "../Home/Card"
+import EventCard from "../Sidenav/Card"
+import { getBoatEvents } from "../../services/events"
 
 const SingleBoat = () => {
   const [boat, setBoat] = useState<(Boat | null)>(null)
   const [isFollowing, setIsFollowing] = useState(false)
   const [logs, setLogs] = useState<Log[]>([])
+  const [events, setEvents] = useState<Event[]>([])
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
@@ -25,6 +28,7 @@ const SingleBoat = () => {
     if (id){
         getBoat(id).then((boat) => {setBoat(boat)}).catch(e => console.log(e))
         getBoatLogs(id).then(newLogs => setLogs(newLogs)).catch(e => console.log(e))
+        getBoatEvents(id).then(newEvents => setEvents(newEvents)).catch(e => console.log(e))
     user.boatsFollowing.forEach((follower) => {
       if (follower.id===id){
         setIsFollowing(true)
@@ -59,8 +63,10 @@ const SingleBoat = () => {
         {boat && boat.name}<br/>
         {isFollowing ? <button onClick={unFollowBoat}>Unfollow</button> : <button onClick={followBoat}>Start following</button>}<br/>
         <button>Apply for crew</button><br/>
-        <b>Boat log:</b><br/>
-        {logs.map(log => <Card boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
+        {logs.length>0 && <div><b>Boat log:</b></div>}
+        {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
+        {events.length>0 && <div><b>Upcoming boat events:</b></div>}
+        {events.map((card) => <EventCard boat={card.boat.name} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
       </div>
     </div>
   )

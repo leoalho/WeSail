@@ -9,6 +9,11 @@ export const getEvents = async(): Promise<Event[]> => {
   return events.data
 }
 
+export const getBoatEvents = async(id: string): Promise<Event[]> => {
+    const events = await axios.get(`${baseUrl}/boats/${id}`)
+    return events.data
+}
+
 interface NewEvent {
   boat: string,
   date: string,

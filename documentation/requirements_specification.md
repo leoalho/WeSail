@@ -17,8 +17,8 @@
 - [x] Users can follow boats
 - [] Users can apply to be crewmembers of a boat
 - [] Boatowners can acceps crewmember requests
-- [] BoatPage contains the boat's log and upcoming events
-- [] UserPage contains the user's log
+- [X] BoatPage contains the boat's log and upcoming events
+- [X] UserPage contains the user's log
 - [] Boatpage has a different view for users, crewmembers and owners
 
 ###  Views:
