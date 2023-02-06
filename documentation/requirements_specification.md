@@ -39,3 +39,5 @@
 - Profile pictures
 - email authentication for new users
 - Chaging of password via email
+- Users can comment on log entries
+- Users can edit logs and events

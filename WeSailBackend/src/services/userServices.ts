@@ -57,8 +57,10 @@ export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) =
             const friend = await User.findById(user.friend)
             if (friend && user.friend !== id){
                 await User.findByIdAndUpdate(id, {$pull: {friendRequests: user.friend}})
-                oldUser.friends.push(user.friend)
-                friend.friends.push(id)
+                //oldUser.friends.push(user.friend)
+                await oldUser.updateOne({$addToSet: {friends: user.friend}})
+                await friend.updateOne({$addToSet: {friends: id}})
+                //friend.friends.push(id)
                 await friend.save()
             }    
         }

@@ -4,6 +4,7 @@ import { getUser, updateUser } from "../services/users"
 import { User, RootState } from "../types"
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
+//import Card from "./Home/Card"
 
 const SingleUser = () => {
   const [user, setUser] = useState<(User | null)>(null)
@@ -39,6 +40,7 @@ const SingleUser = () => {
     <div className="single_content">
       {user && user.username}<br/>
       {friend ? <button onClick={unfriend}>UnFriend</button> : <button onClick={sendRequest}>Send friend request</button>}<br/>
+
     </div>
   </div>
   )

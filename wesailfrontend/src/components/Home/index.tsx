@@ -5,51 +5,6 @@ import { getLogs } from '../../services/logs'
 import { useEffect, useState } from 'react'
 import { Log } from '../../types'
 
-/*
-const testiData = [
-  {
-    boat: "Avance",
-    date: "2023-02-01",
-    start: "Finnoo",
-    end: "Stora Herrø",
-    participants: ["Leo"],
-    description: "Nice weather and clear skies"
-  },
-  {
-    boat: "Avance",
-    date: "2023-02-01",
-    start: "Finnoo",
-    end: "Stora Herrø",
-    participants: ["Leo", "Toto", "Aino", "Arno"],
-    description: "Nice weather and clear skies"
-  },
-  {
-    boat: "Avance",
-    date: "2023-02-01",
-    start: "Finnoo",
-    end: "Stora Herrø",
-    participants: ["Leo", "Toto", "Aino", "Arno"],
-    description: "Nice weather and clear skies"
-  },
-  {
-    boat: "Avance",
-    date: "2023-02-01",
-    start: "Finnoo",
-    end: "Stora Herrø",
-    participants: ["Leo", "Toto", "Aino", "Arno"],
-    description: "Nice weather and clear skies"
-  },
-  {
-    boat: "Avance",
-    date: "2023-02-01",
-    start: "Finnoo",
-    end: "Stora Herrø",
-    participants: ["Leo", "Toto", "Aino", "Arno"],
-    description: "Nice weather and clear skies"
-  }
-]
-*/
-
 const Home = () => {
   const [logs, setLogs] = useState<Log[]>([])
   useEffect(() => {
