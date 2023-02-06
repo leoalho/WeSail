@@ -14,7 +14,7 @@ const SideNav = () => {
   return (
     <div id="sideNav">
     <div>Upcoming events:</div>
-    {events.map((card) => <Card boat={card.boat.name} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
+    {events.map((card) => <Card boat={card.boat} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
     </div>
 )}
 

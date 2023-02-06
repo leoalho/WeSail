@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { BoatUser, Friend } from "../../types"
 
 interface Props {
@@ -18,9 +19,9 @@ const Participants = ({participants}: Props2) => {
   if (participants.length==0){
     return <></>
   }else if (participants.length<4){
-    return <>{participants.map(participant => <>{participant.username},</>)}</>
+    return <>{participants.map(participant => <><Link to={`/users/${participant.id}`} key={participant.id}>{participant.username}</Link>,</>)}</>
   } else {
-    return <>{participants[0].username}, {participants[1].username}, {participants[2].username}, ...</>
+    return <><Link to={`/users/${participants[0].id}`}>{participants[0].username}</Link>, <Link to={`/users/${participants[1].id}`}>{participants[1].username}</Link>, <Link to={`/users/${participants[2].id}`}>{participants[2].username}</Link>...</>
   }
 }
 
@@ -28,7 +29,7 @@ const Card = (props: Props) => {
   const date = new Date(props.endTime)
   return (
     <div className="content">
-      <b>{props.boat.name}</b> with <Participants participants={props.participants}/><br/>
+      <b><Link to={`/boats/${props.boat.id}`}>{props.boat.name}</Link></b> with <Participants participants={props.participants}/><br/>
       {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br />
       From {props.start} to {props.end}<br />
       {props.description}< br />

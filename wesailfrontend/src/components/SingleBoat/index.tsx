@@ -66,7 +66,7 @@ const SingleBoat = () => {
         {logs.length>0 && <div><b>Boat log:</b></div>}
         {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
         {events.length>0 && <div><b>Upcoming boat events:</b></div>}
-        {events.map((card) => <EventCard boat={card.boat.name} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
+        {events.map((card) => <EventCard boat={card.boat} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
       </div>
     </div>
   )
