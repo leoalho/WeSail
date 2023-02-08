@@ -7,5 +7,3 @@ const config: Config.InitialOptions = {
 }
 
 export default config
-
-//   setupFilesAfterEnv: ['./jest.setup.redis-mock.js'],

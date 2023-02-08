@@ -8,7 +8,8 @@ import boatRoute from './routes/boats'
 import eventRoute from './routes/events'
 import logRoute from './routes/logs'
 import config from './utils/config'
-import { RedisStore, redisClient } from './redis'
+import { RedisStore } from './redis'
+import redisClient from './redis'
 
 //redisClient.connect().then(_result => console.log("connected to redis"))
 

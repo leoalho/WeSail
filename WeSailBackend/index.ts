@@ -3,11 +3,13 @@
 import app from "./src/app";
 import config from "./src/utils/config";
 import logger from "./src/utils/logger";
-//import { redisClient } from "./src/redis";
+import client from "./src/redis";
 import { connectDB } from "./src/database";
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 connectDB()
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+client.connect()
 
 //redisClient.connect().then(() => {
 //  logger.info("Connected to Redis")}).catch(console.error)
