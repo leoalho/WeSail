@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { startServer } from './src/app'
-import { connectDB } from './src/database'
+import app from "./src/app";
+import config from "./src/utils/config";
+import logger from "./src/utils/logger";
 
-const main = () => {
-    connectDB()
-    startServer()
-}
-
-main()
+app.listen(config.PORT, () => {
+    logger.info(`Server running on port ${config.PORT}`);
+});

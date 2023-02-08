@@ -3,6 +3,8 @@ import logger from './utils/logger'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 
+mongoose.set('strictQuery', false)
+
 export const connectDB = async () => {
     let dbUrl = config.MONGODB_URI
 
