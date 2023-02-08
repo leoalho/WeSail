@@ -25,5 +25,6 @@
 | 3.2.23 | 4 | Updated the event view to be more sophisticated |
 | 4.2.23 | 2 | Created routes and backend services for logs|
 | 5.2.23 | 4 | Created servics for displaying logs on the main page. Added routes for user's logs, boat's logs, boat's events. Bugfixes conserning mongoose |
-| 6.2.23 | 4 | Single boat page shows the boat's log and upcoming events related to the boat, single user page shows the user's log, updated the event and log cards |
-| Total | 95 ||
+| 6.2.23 | 8 | Single boat page shows the boat's log and upcoming events related to the boat, single user page shows the user's log, updated the event and log cards. Again continued modifying the friend approval system: added new actions to the userReducer. |
+| 8.2.23 || Updated the userReducer |
+| Total | 97 ||

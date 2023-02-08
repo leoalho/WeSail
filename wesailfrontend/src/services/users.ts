@@ -30,6 +30,10 @@ export const updateUser = async (id: string, user: UpdateUser): Promise<User> =>
   return UpdatedUser.data
 }
 
+export const declineFriendRequest = async (id: string, request: string) => {
+  await axios.delete(`${baseUrl}/${id}/friendrequests/${request}`)
+}
+
 export const removeFriend = async (id: string, friend: string) => {
   await axios.delete(`${baseUrl}/${id}/friends/${friend}`)
 }

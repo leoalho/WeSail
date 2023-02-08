@@ -2,7 +2,7 @@
 
 import express from 'express'
 
-import { getUsers, newUser, deleteUser, updateUser, findUserId, deleteFriend } from '../services/userServices'
+import { getUsers, newUser, deleteUser, updateUser, findUserId, deleteFriend, deleteFriendRequest } from '../services/userServices'
 import mongoose from 'mongoose'
 import { toNewUser, parseObjectId } from '../utils/utils'
 import { UpdateUser } from '../types'
@@ -38,6 +38,11 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id/friends/:friend', async (req, res) => {
   await deleteFriend(req.params.id, req.params.friend)
   res.status(204).send('deleted friend')
+})
+
+router.delete('/:id/friendrequests/:friend', async (req, res) => {
+    await deleteFriendRequest(req.params.id, req.params.friend)
+    res.status(204).send('deleted friendRequest')
 })
 
 router.patch('/:id', async (req, res) => {

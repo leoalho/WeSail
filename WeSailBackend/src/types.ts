@@ -18,7 +18,7 @@ export type UpdateUser = {
     email?: string | undefined,
     friend?: mongoose.Types.ObjectId | undefined,
     friendRequest?: mongoose.Types.ObjectId | undefined,
-    friendRequestPending?: mongoose.Types.ObjectId | undefined,
+    friendRequestsPending?: mongoose.Types.ObjectId | undefined,
     status?: string | undefined,
     boatsFollowing?: mongoose.Types.ObjectId | undefined
 }

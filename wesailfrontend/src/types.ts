@@ -23,6 +23,7 @@ export interface User {
   email: string,
   friends: Friend[],
   friendRequests: Friend[],
+  friendRequestsPending: Friend[],
   boats: BoatUser[],
   crewMember: BoatUser[],
   boatsCrew: BoatUser[],
@@ -35,6 +36,7 @@ export type UpdateUser = {
   email?: string,
   friend?: string,
   friendRequest?: string,
+  friendRequestsPending?: string,
   status?: string,
   boatsFollowing?: string
 }
@@ -71,4 +73,10 @@ export interface Log {
     start: string,
     end: string,
     id: string
+}
+
+export enum Application {
+  No,
+  Pending,
+  Accepted
 }

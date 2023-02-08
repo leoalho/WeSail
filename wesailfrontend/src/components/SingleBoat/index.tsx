@@ -29,14 +29,19 @@ const SingleBoat = () => {
         getBoat(id).then((boat) => {setBoat(boat)}).catch(e => console.log(e))
         getBoatLogs(id).then(newLogs => setLogs(newLogs)).catch(e => console.log(e))
         getBoatEvents(id).then(newEvents => setEvents(newEvents)).catch(e => console.log(e))
+    }
+  }, [id])
+
+  useEffect(() => {
+    setIsFollowing(false)
     user.boatsFollowing.forEach((follower) => {
       if (follower.id===id){
         setIsFollowing(true)
         return
       }
     })
-}
-  }, [id])
+  }, [id, user])
+
 
   if (!boat){
     return <>Loading ...</>
@@ -47,14 +52,12 @@ const SingleBoat = () => {
     const newuser = await getUser()
     dispatch(updateFollowing(newuser.boatsFollowing))
     await updateBoat(boat.id, {follower: user.id})
-    setIsFollowing(true)
   }
 
   const unFollowBoat = async () => {
     await deleteFollower(boat.id, user.id)
     const newuser = await getUser()
     dispatch(updateFollowing(newuser.boatsFollowing))
-    setIsFollowing(false)
   }
 
   return (
