@@ -23,8 +23,8 @@ redisClient.connect().then(() => {
     logger.info("Connected to Redis")}).catch(console.error)
 
 
-export function closeInstance() {
-  redisClient.quit()
+export const closeInstance = async () => {
+  await redisClient.quit()
 }
 
 const app = express();

@@ -14,5 +14,5 @@ test('users are returned as json', async () => {
 
 afterAll(async () => {
   await mongoose.connection.close()
-  closeInstance()
+  await closeInstance()
 })
