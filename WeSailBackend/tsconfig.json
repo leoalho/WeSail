@@ -3,6 +3,7 @@
       "target": "ES6",
       "outDir": "./build/",
       "module": "commonjs",
+      "types": ["node", "jest"],
       "strict": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,

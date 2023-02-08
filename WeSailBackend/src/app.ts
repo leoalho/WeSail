@@ -1,9 +1,6 @@
-import connect_redis from 'connect-redis'
-import { createClient } from 'redis'
 import express from 'express'
 import session from 'express-session'
 
-import logger from './/utils/logger'
 import userRoute from './routes/users'
 import loginRoute from './routes/login'
 import logoutRoute from './routes/logout'
@@ -11,21 +8,9 @@ import boatRoute from './routes/boats'
 import eventRoute from './routes/events'
 import logRoute from './routes/logs'
 import config from './utils/config'
-import { connectDB } from './database'
+import { RedisStore, redisClient } from './redis'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-connectDB()
-
-const RedisStore = connect_redis(session)
-const redisClient = createClient({ legacyMode: true })
-
-redisClient.connect().then(() => {
-    logger.info("Connected to Redis")}).catch(console.error)
-
-
-export const closeInstance = async () => {
-  await redisClient.quit()
-}
+//redisClient.connect().then(_result => console.log("connected to redis"))
 
 const app = express();
 app.disable('x-powered-by');

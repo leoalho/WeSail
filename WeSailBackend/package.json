@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "test": "cross-env NODE_ENV=test jest --verbose --forceExit",
     "ts-node": "ts-node",
     "dev": "ts-node-dev index.ts",
     "lint": "eslint --ext .ts .",
@@ -26,6 +26,7 @@
     "redux": "^4.2.0"
   },
   "devDependencies": {
+    "@jest/types": "^29.4.2",
     "@types/bcrypt": "^5.0.0",
     "@types/connect-redis": "^0.0.19",
     "@types/cors": "^2.8.13",
@@ -35,6 +36,7 @@
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97",
     "@types/redis": "^4.0.11",
+    "@types/redis-mock": "^0.17.1",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",

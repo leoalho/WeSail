@@ -1,9 +1,13 @@
 import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
-import { closeInstance } from '../app'
+import { connectDB } from '../database'
 
 const api = supertest(app)
+
+beforeAll(async () => {
+  await connectDB()
+})
 
 test('users are returned as json', async () => {
   await api
@@ -14,5 +18,4 @@ test('users are returned as json', async () => {
 
 afterAll(async () => {
   await mongoose.connection.close()
-  await closeInstance()
 })
