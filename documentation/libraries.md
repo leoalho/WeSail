@@ -15,6 +15,7 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Eslint
 - Jest
 - Supertest
+- mongodb-memory-server
 - ts-node-dev
 
 ## FrontEnd
