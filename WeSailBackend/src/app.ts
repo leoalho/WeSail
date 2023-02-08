@@ -22,6 +22,11 @@ const redisClient = createClient({ legacyMode: true })
 redisClient.connect().then(() => {
     logger.info("Connected to Redis")}).catch(console.error)
 
+
+export function closeInstance() {
+  redisClient.quit()
+}
+
 const app = express();
 app.disable('x-powered-by');
 app.use(
