@@ -2,12 +2,12 @@ import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
 import { connectDB } from '../database'
-import client from '../redis'
+import {redisClient } from '../redis'
 const api = supertest(app)
 
 beforeAll(async () => {
   await connectDB()
-  await client.connect()
+  await redisClient.connect()
 })
 
 test('users are returned as json', async () => {

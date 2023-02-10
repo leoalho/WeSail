@@ -27,5 +27,5 @@
 | 5.2.23 | 4 | Created servics for displaying logs on the main page. Added routes for user's logs, boat's logs, boat's events. Bugfixes conserning mongoose |
 | 6.2.23 | 8 | Single boat page shows the boat's log and upcoming events related to the boat, single user page shows the user's log, updated the event and log cards. Again continued modifying the friend approval system: added new actions to the userReducer. |
 | 8.2.23 | 5 | Updated the userReducer, refactored backend structure. Created first backend tests with jest and supertest |
-| 9.2.23 | 3 | Refactored backend services. Wrote more API tests. Added functionality to join events |
+| 9.2.23 | 3 | Refactored backend services. Added front- and backend functionality to join events |
 | Total | 105 ||
