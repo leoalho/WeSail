@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -39,7 +40,7 @@ const Card = ({event}: Props) => {
       <div><b><Link to={`/boats/${event.boat.id}`}>{event.boat.name}</Link></b> @{event.location}</div>
       {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br/>
       <div>{event.description}</div>
-      {joining ? <>Joining <button>Unjoin</button></> : <button onClick={async () => await joinEvent()}>Join</button>}
+      {joining ? <>Joining <button>Unjoin</button></> : <button onClick={() => joinEvent()}>Join</button>}
     </div>
   )
 

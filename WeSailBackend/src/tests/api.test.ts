@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
 import supertest from 'supertest'
 import app from '../app'
-import { connectDB } from '../database'
+//import { connectDB } from '../database'
 import {redisClient } from '../redis'
 const api = supertest(app)
 
 beforeAll(async () => {
-  await connectDB()
+  //await connectDB()
   await redisClient.connect()
 })
 
