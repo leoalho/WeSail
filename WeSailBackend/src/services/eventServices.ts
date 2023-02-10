@@ -1,6 +1,6 @@
 import Event from '../models/event'
 import User from '../models/user'
-import { NewEventEntry } from '../types'
+import { NewEventEntry, UpdateEvent } from '../types'
 
 export const newEvent = async (eventEntry: NewEventEntry) => {
   const event = new Event(eventEntry)
@@ -44,4 +44,13 @@ export const getBoatEvents = async (id: string) => {
         .sort({date: 1})
         .populate('boat', {name: 1})
     return events
+}
+
+export const updateEvent = async (id: string, event: UpdateEvent) => {
+  const oldEvent = await Event.findById(id)
+  if (oldEvent) {
+    if (event.participant){
+      await oldEvent.updateOne({$addToSet: {participants: event.participant}})
+    }
+  }
 }

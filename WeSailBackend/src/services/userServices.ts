@@ -58,22 +58,18 @@ export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) =
             oldUser.email = user.email
         }
         if (user.boatsFollowing){
-          await User.findByIdAndUpdate(id, {$addToSet: {boatsFollowing: user.boatsFollowing}})
+          await oldUser.updateOne({$addToSet: {boatsFollowing: user.boatsFollowing}})
         }
-        if (user.friend){
-            const friend = await User.findById(user.friend)
-            if (friend && user.friend !== id){
-                //await User.findByIdAndUpdate(id, {$pull: {friendRequests: user.friend}})
-                //oldUser.friends.push(user.friend)
-                await oldUser.updateOne({$addToSet: {friends: user.friend}, $pull: {friendRequests: user.friend}})
-                await friend.updateOne({$addToSet: {friends: id}, $pull: {friendRequestsPending: id}})
-                //friend.friends.push(id)
-                await friend.save()
-            }    
+        if (user.friend && user.friend !== id){
+          await oldUser.updateOne({$addToSet: {friends: user.friend}, $pull: {friendRequests: user.friend}})
+          await User.findByIdAndUpdate(user.friend, {$addToSet: {friends: id}, $pull: {friendRequestsPending: id}})    
         }
         if (user.friendRequest){
-          await User.findByIdAndUpdate(id, {$addToSet: {friendRequests: user.friendRequest}})
+          await oldUser.updateOne({$addToSet: {friendRequests: user.friendRequest}})
           await User.findByIdAndUpdate(user.friendRequest, {$addToSet: {friendRequestsPending: id}})
+        }
+        if (user.event){
+          await oldUser.updateOne({$addToSet: {events: user.event}})
         } 
         await oldUser.save()
     }

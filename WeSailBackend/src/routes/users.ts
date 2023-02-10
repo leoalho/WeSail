@@ -53,6 +53,7 @@ router.patch('/:id', async (req, res) => {
       //passwordHash: parseString(req.body.important),
       //email: parseString(req.body.email),
       //status: parseString(req.body.status)
+    if (req.body.event) { user.event = parseObjectId(req.body.event)}
     if (req.body.boatsFollowing) {user.boatsFollowing = parseObjectId(req.body.boatsFollowing)}
     const userId = new mongoose.Types.ObjectId(req.params.id)
     const updatedUser = await updateUser(userId, user)

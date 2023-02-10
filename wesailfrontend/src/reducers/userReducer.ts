@@ -43,9 +43,20 @@ const userSlice = createSlice({
       if (state){
         state.friendRequestsPending = action.payload
       }
+    },
+    updateEvents(state, action: PayloadAction<string[]>) {
+      if (state){
+        state.events = action.payload
+      }
     } 
   }
 })
 
-export const {newUser,addBoat,updateFollowing, updatePendingFriends, updateFriends, updateFriendRequests} = userSlice.actions
+export const {newUser,
+              addBoat,
+              updateFollowing,
+              updatePendingFriends,
+              updateFriends,
+              updateFriendRequests,
+              updateEvents} = userSlice.actions
 export default userSlice.reducer

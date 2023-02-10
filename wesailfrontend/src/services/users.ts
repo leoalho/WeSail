@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import axios from 'axios'
 import { User, UpdateUser } from '../types'
 const baseUrl = '/api/users'
@@ -14,19 +16,16 @@ export const signUp = async (user: newUser) => {
 
 export const getUsers = async (): Promise<User[]> => {
   const users = await axios.get(baseUrl)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return users.data
 }
 
 export const getUser = async (id: (string | undefined)): Promise<User> => {
   const user = await axios.get(`${baseUrl}/${id}`)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return user.data
 }
 
 export const updateUser = async (id: string, user: UpdateUser): Promise<User> => {
   const UpdatedUser = await axios.patch(`${baseUrl}/${id}`, user)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return UpdatedUser.data
 }
 

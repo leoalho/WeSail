@@ -5,6 +5,7 @@ import { createClient } from 'redis'
 
 export type RedisClientType = ReturnType<typeof createClient>;
 
+/*
 class RedisClient {
   Client: (null | RedisClientType)
   constructor() {
@@ -23,9 +24,11 @@ class RedisClient {
     }
   }
 }
+*/
+
+const redisClient = createClient({ legacyMode: true})
 
 /*
-const redisClient = createClient({ legacyMode: true})
 console.log(redisClient)
 redisClient.connect().then(() => {
   logger.info("Connected to Redis")}).catch(console.error)
@@ -33,5 +36,5 @@ redisClient.connect().then(() => {
 
 const RedisStore = connect_redis(session)
 
-export default new RedisClient()
-export {RedisStore}
+//export default new RedisClient()
+export {RedisStore, redisClient}

@@ -20,7 +20,8 @@ export type UpdateUser = {
     friendRequest?: mongoose.Types.ObjectId | undefined,
     friendRequestsPending?: mongoose.Types.ObjectId | undefined,
     status?: string | undefined,
-    boatsFollowing?: mongoose.Types.ObjectId | undefined
+    boatsFollowing?: mongoose.Types.ObjectId | undefined,
+    event?: mongoose.Types.ObjectId | undefined
 }
 
 export type BoatFields = {
@@ -48,10 +49,10 @@ export type NewBoatEntry = {
 }
 
 export type UpdateBoat = {
-    name?: string | undefined,
-    crewRequest?: mongoose.Types.ObjectId | undefined,
-    crew?: mongoose.Types.ObjectId | undefined,
-    follower?: mongoose.Types.ObjectId | undefined
+    name?: string,
+    crewRequest?: mongoose.Types.ObjectId,
+    crew?: mongoose.Types.ObjectId,
+    follower?: mongoose.Types.ObjectId
 }
 
 export type EventFields = {
@@ -68,6 +69,10 @@ export type NewEventEntry = {
   location: string,
   description: string,
   creator: mongoose.Types.ObjectId
+}
+
+export type UpdateEvent = {
+  participant?: mongoose.Types.ObjectId
 }
 
 export type LogFields = {

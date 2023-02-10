@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useState } from "react"
 import { getEvents } from "../../services/events"
-import { Event } from "../../types"
+import { Event} from "../../types"
 import Card from "./Card"
 
 const SideNav = () => {
@@ -14,7 +14,7 @@ const SideNav = () => {
   return (
     <div id="sideNav">
     <div>Upcoming events:</div>
-    {events.map((card) => <Card boat={card.boat} date={card.date} time={card.time} location={card.location} description={card.description}/>)}
+    {events.map((card) => <Card event={card}/>)}
     </div>
 )}
 

@@ -60,7 +60,14 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Boat'
     }    
+  ],
+  events: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event' 
+    }
   ]
+
 })
 
 userSchema.set('toJSON', {

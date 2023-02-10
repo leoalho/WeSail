@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import { toNewEvent} from '../utils/utils'
+import { parseObjectId, toNewEvent} from '../utils/utils'
 import middleware from '../utils/middleware'
-import { getEvents, newEvent, getUpcoming, getBoatEvents } from '../services/eventServices'
+import { getEvents, newEvent, getUpcoming, getBoatEvents, updateEvent } from '../services/eventServices'
+import { UpdateEvent } from '../types'
 //import { UpdateBoat } from '../types';
 //import mongoose from 'mongoose';
 
@@ -23,6 +24,15 @@ router.post('/', middleware.authorize, async (req, res) => {
     }
     res.status(400).send(errorMessage);
 }
+})
+
+router.patch('/:id', async (req, res) => {
+  const event:  UpdateEvent = {}
+  if (req.body.participant) { event.participant = parseObjectId(req.body.participant) }
+
+  const updatedEvent = await updateEvent(req.params.id, event)
+
+  res.json(updatedEvent)
 })
 
 router.get('/', async (_req, res) => {

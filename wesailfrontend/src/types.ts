@@ -27,7 +27,8 @@ export interface User {
   boats: BoatUser[],
   crewMember: BoatUser[],
   boatsCrew: BoatUser[],
-  boatsFollowing: BoatUser[]
+  boatsFollowing: BoatUser[],
+  events: string[]
 }
 
 export type UpdateUser = {
@@ -38,7 +39,8 @@ export type UpdateUser = {
   friendRequest?: string,
   friendRequestsPending?: string,
   status?: string,
-  boatsFollowing?: string
+  boatsFollowing?: string,
+  event?: string
 }
 
 export type UpdateBoat = {
@@ -60,7 +62,13 @@ export interface Event {
   time: string,
   location: string,
   description: string,
-  owner: string
+  owner: string,
+  parrticipants: User[],
+  id: string
+}
+
+export interface UpdateEvent {
+  participant?: string
 }
 
 export interface Log {
