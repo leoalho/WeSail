@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --verbose --forceExit",
+    "test": "cross-env NODE_ENV=test jest",
     "ts-node": "ts-node",
     "dev": "ts-node-dev index.ts",
     "lint": "eslint --ext .ts .",

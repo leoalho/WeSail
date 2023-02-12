@@ -7,10 +7,15 @@ import bcrypt from 'bcrypt'
 
 import config from './config'
 
+export const hashPassword = (password: string) => {
+  const salt = bcrypt.genSaltSync(config.SALTROUNDS)
+  const passwordHash = bcrypt.hashSync(password, salt)
+  return passwordHash
+}
+
 export const toNewUser = (entry: UserFields) => {
     const password = parseString(entry.password)
-    const salt = bcrypt.genSaltSync(config.SALTROUNDS);
-    const passwordHash = bcrypt.hashSync(password, salt);
+    const passwordHash = hashPassword(password)
     const newEntry: NewUserEntry = {
         username: parseString(entry.username),
         passwordHash: passwordHash,

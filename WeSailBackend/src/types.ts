@@ -13,15 +13,15 @@ export type NewUserEntry = {
 }
 
 export type UpdateUser = {
-    username?: string | undefined,
-    passwordHash?: string | undefined,
-    email?: string | undefined,
-    friend?: mongoose.Types.ObjectId | undefined,
-    friendRequest?: mongoose.Types.ObjectId | undefined,
-    friendRequestsPending?: mongoose.Types.ObjectId | undefined,
-    status?: string | undefined,
-    boatsFollowing?: mongoose.Types.ObjectId | undefined,
-    event?: mongoose.Types.ObjectId | undefined
+    username?: string,
+    passwordHash?: string,
+    email?: string,
+    friend?: mongoose.Types.ObjectId,
+    friendRequest?: mongoose.Types.ObjectId,
+    friendRequestsPending?: mongoose.Types.ObjectId,
+    status?: string,
+    boatsFollowing?: mongoose.Types.ObjectId,
+    event?: mongoose.Types.ObjectId
 }
 
 export type BoatFields = {
