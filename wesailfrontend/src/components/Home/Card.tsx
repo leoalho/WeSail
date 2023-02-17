@@ -1,3 +1,4 @@
+import React from "react"
 import { Link } from "react-router-dom"
 import { BoatUser, Friend } from "../../types"
 
@@ -15,11 +16,11 @@ interface Props2 {
   participants: Friend[]
 }
 
-const Participants = ({participants}: Props2) => {
+export const Participants = ({participants}: Props2) => {
   if (participants.length==0){
     return <></>
   }else if (participants.length<4){
-    return <>{participants.map(participant => <><Link to={`/users/${participant.id}`} key={participant.id}>{participant.username}</Link>,</>)}</>
+    return <>{participants.map(participant => <React.Fragment key={participant.id}><Link to={`/users/${participant.id}`}>{participant.username}</Link>,</React.Fragment>)}</>
   } else {
     return <><Link to={`/users/${participants[0].id}`}>{participants[0].username}</Link>, <Link to={`/users/${participants[1].id}`}>{participants[1].username}</Link>, <Link to={`/users/${participants[2].id}`}>{participants[2].username}</Link>...</>
   }

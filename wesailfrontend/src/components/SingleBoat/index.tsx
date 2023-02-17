@@ -14,10 +14,15 @@ import { getBoatLogs } from "../../services/logs"
 import LogCard from "../Home/Card"
 import EventCard from "../Sidenav/Card"
 import { getBoatEvents } from "../../services/events"
+import Crew from "./Crew"
+import Owner from "./Owner"
+import User from "./User"
 
 const SingleBoat = () => {
   const [boat, setBoat] = useState<(Boat | null)>(null)
   const [isFollowing, setIsFollowing] = useState(false)
+  const [isOwner, setIsOwner] = useState(false)
+  const [isCrew, setIsCrew] = useState(false)
   const [logs, setLogs] = useState<Log[]>([])
   const [events, setEvents] = useState<Event[]>([])
   const { id } = useParams();
@@ -33,12 +38,25 @@ const SingleBoat = () => {
   }, [id])
 
   useEffect(() => {
+    setIsOwner(false)
     setIsFollowing(false)
     user.boatsFollowing.forEach((follower) => {
       if (follower.id===id){
         setIsFollowing(true)
         return
       }
+    })
+    user.boats.forEach((boat) => {
+        if (boat.id===id){
+            setIsOwner(true)
+            return
+        }
+    })
+    user.crewMember.forEach((boat) => {
+        if (boat.id===id){
+            setIsCrew(true)
+            return
+        }
     })
   }, [id, user])
 
@@ -48,7 +66,7 @@ const SingleBoat = () => {
   }
 
   const followBoat = async () => {
-    await updateUser(user.id, {boatsFollowing: boat.id})
+    await updateUser(user.id, {op: "add", path: "/boatsFollowing", value: boat.id})
     const newuser = await getUser()
     dispatch(updateFollowing(newuser.boatsFollowing))
     await updateBoat(boat.id, {follower: user.id})
@@ -64,8 +82,9 @@ const SingleBoat = () => {
     <div className="main">
       <div className="single_content">
         {boat && boat.name}<br/>
-        {isFollowing ? <button onClick={unFollowBoat}>Unfollow</button> : <button onClick={followBoat}>Start following</button>}<br/>
-        <button>Apply for crew</button><br/>
+        {isOwner && <Owner />}
+        {isCrew && <Crew />}
+        {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat}/>}
         {logs.length>0 && <div><b>Boat log:</b></div>}
         {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
         {events.length>0 && <div><b>Upcoming boat events:</b></div>}

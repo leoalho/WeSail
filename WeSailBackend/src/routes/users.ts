@@ -2,10 +2,10 @@
 
 import express from 'express'
 
-import { getUsers, newUser, deleteUser, updateUser, findUserId, deleteFriend, deleteFriendRequest } from '../services/userServices'
-import mongoose from 'mongoose'
-import { toNewUser, parseObjectId } from '../utils/utils'
-import { UpdateUser } from '../types'
+import { getUsers, newUser, deleteUser, findUserId, userJsonPatch } from '../services/userServices'
+//import mongoose from 'mongoose'
+import { toNewUser } from '../utils/utils'
+//import { UpdateUser } from '../types'
 
 const router = express.Router();
 
@@ -35,40 +35,11 @@ router.get('/:id', async (req, res) => {
   res.json(user)
 })
 
-
-/*
 router.patch('/:id', async (req, res) => {
-  await patchUser(req.params.id, req.body.patch)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  await userJsonPatch(req.params.id, req.body.patch)
   const user = await findUserId(req.params.id)
   res.json(user)
-})
-*/
-
-router.patch('/:id', async (req, res) => {
-
-    const user:  UpdateUser = {}
-    if (req.body.friend) { user.friend = parseObjectId(req.body.friend) }
-    if (req.body.friendRequest) { user.friendRequest = parseObjectId(req.body.friendRequest) }
-      //username: parseString(req.body.content),
-      //passwordHash: parseString(req.body.important),
-      //email: parseString(req.body.email),
-      //status: parseString(req.body.status)
-    if (req.body.event) { user.event = parseObjectId(req.body.event)}
-    if (req.body.boatsFollowing) {user.boatsFollowing = parseObjectId(req.body.boatsFollowing)}
-    const userId = new mongoose.Types.ObjectId(req.params.id)
-    const updatedUser = await updateUser(userId, user)
-
-    res.json(updatedUser)
-})
-
-router.delete('/:id/friends/:friend', async (req, res) => {
-  await deleteFriend(req.params.id, req.params.friend)
-  res.status(204).send('deleted friend')
-})
-
-router.delete('/:id/friendrequests/:friend', async (req, res) => {
-    await deleteFriendRequest(req.params.id, req.params.friend)
-    res.status(204).send('deleted friendRequest')
 })
 
 router.delete('/:id', async (req, res) => {

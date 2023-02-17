@@ -15,11 +15,13 @@
 - [x] Users can accepts friend requests
 - [x] USers can remove friends
 - [x] Users can follow boats
+- [X] Users can join events
+- [X] Users can unjoin events
 - [] Users can apply to be crewmembers of a boat
 - [] Boatowners can acceps crewmember requests
 - [X] BoatPage contains the boat's log and upcoming events
 - [X] UserPage contains the user's log
-- [] Boatpage has a different view for users, crewmembers and owners
+- [X] Boatpage has a different view for users, crewmembers and owners
 
 ###  Views:
 - [x] LoginView

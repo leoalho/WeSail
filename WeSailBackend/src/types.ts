@@ -12,18 +12,6 @@ export type NewUserEntry = {
     email: string
 }
 
-export type UpdateUser = {
-    username?: string,
-    passwordHash?: string,
-    email?: string,
-    friend?: mongoose.Types.ObjectId,
-    friendRequest?: mongoose.Types.ObjectId,
-    friendRequestsPending?: mongoose.Types.ObjectId,
-    status?: string,
-    boatsFollowing?: mongoose.Types.ObjectId,
-    event?: mongoose.Types.ObjectId
-}
-
 export type BoatFields = {
     name: unknown,
     registrationNumber?:  unknown,
@@ -101,4 +89,25 @@ export type NewLogEntry = {
     endTime: Date,
     start: string,
     end: string
+}
+
+const userReplacables = ["email", "passwordHash"] as const
+export type UserReplacable = typeof userReplacables[number]
+
+const userArrays = ["friends", "friendRequests", "friendRequestsPending", "boats", "crewRequestsPending", "crewMember", "boatsFollowing", "events"] as const
+export type UserArray = typeof userArrays[number]
+
+const eventArrays = ["participants"] as const
+export type EventArray = typeof eventArrays[number]
+
+type Op = 'add' | 'remove' | 'replace'
+
+export interface Patch {op: Op, path: string, value: string}
+
+export const isUserReplacable = (path: string): path is UserReplacable => {
+	return (userReplacables as readonly string[]).indexOf(path) >= 0
+}
+
+export const isUserArray = (path: string): path is UserArray => {
+  return (userArrays as readonly string[]).indexOf(path) >= 0
 }

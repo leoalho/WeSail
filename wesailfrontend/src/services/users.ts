@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import axios from 'axios'
-import { User, UpdateUser } from '../types'
+import { User, Patch } from '../types'
 const baseUrl = '/api/users'
 
 interface newUser {
@@ -24,15 +24,7 @@ export const getUser = async (id: (string | undefined)): Promise<User> => {
   return user.data
 }
 
-export const updateUser = async (id: string, user: UpdateUser): Promise<User> => {
-  const UpdatedUser = await axios.patch(`${baseUrl}/${id}`, user)
+export const updateUser = async (id: string, patch: Patch): Promise<User> => {
+  const UpdatedUser = await axios.patch(`${baseUrl}/${id}`, {patch: patch})
   return UpdatedUser.data
-}
-
-export const declineFriendRequest = async (id: string, request: string) => {
-  await axios.delete(`${baseUrl}/${id}/friendrequests/${request}`)
-}
-
-export const removeFriend = async (id: string, friend: string) => {
-  await axios.delete(`${baseUrl}/${id}/friends/${friend}`)
 }

@@ -2,9 +2,8 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RootState } from '../types'
-import { removeFriend, updateUser, declineFriendRequest } from '../services/users'
+import { updateUser } from '../services/users'
 import { useDispatch } from 'react-redux'
-import getLoggedInUser from "../services/user"
 import { updateFriends, updateFriendRequests } from '../reducers/userReducer'
  
 const UserInput = () => {
@@ -12,21 +11,19 @@ const UserInput = () => {
   const dispatch = useDispatch()
 
   const acceptRequest = async (id: string) => {
-    await updateUser(user.id, {friend: id})
-    const newUser = await getLoggedInUser()
+    await updateUser(user.id, {op: "remove", path: "/friendRequests", value: id})
+    const newUser = await updateUser(user.id, {op: "add", path: "/friends", value: id})
     dispatch(updateFriends(newUser.friends))
     dispatch(updateFriendRequests(newUser.friendRequests))
   }
 
   const declineRequest = async (request: string) => {
-    await declineFriendRequest(user.id, request)
-    const newUser = await getLoggedInUser()
+    const newUser = await updateUser(user.id, {op: "remove", path: "/friendRequests", value: request})
     dispatch(updateFriendRequests(newUser.friendRequests))
   }
 
   const deleteFriend = async (friend: string) => {
-    await removeFriend(user.id, friend)
-    const newUser = await getLoggedInUser()
+    const newUser = await updateUser(user.id, {op: "remove", path: "/friends", value: friend})
     dispatch(updateFriends(newUser.friends))
   }
 

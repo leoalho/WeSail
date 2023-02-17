@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import User from '../models/user'
-import {NewUserEntry, UpdateUser} from '../types';
+import {EventArray, Patch, isUserArray, isUserReplacable, NewUserEntry, UserArray, UserReplacable} from '../types';
 import { hashPassword } from '../utils/utils';
 import mongoose from 'mongoose';
+import { addToEventArray, removeFromEventArray } from './eventServices';
 
 export const getUsers = async () => {
     const users = await User.find({})
@@ -43,35 +45,9 @@ export const deleteUser = async (id: string) => {
     await User.deleteOne({ _id: id })
 }
 
-export const deleteFriend = async (user: string, friend: string) => {
-  await User.findByIdAndUpdate(user, {$pull: {friends: friend}})
-  await User.findByIdAndUpdate(friend, {$pull: {friends: user}})
-}
-
-export const deleteFriendRequest = async (user: string, friend: string) => {
-    await User.findByIdAndUpdate(user, {$pull: {friendRequests: friend}})
-    await User.findByIdAndUpdate(friend, {$pull: {friendRequestsPending: user}})
-}
-
-const userReplacables = ["email", "passwordHash"] as const
-export type UserReplacable = typeof userReplacables[number]
-
-const userArrays = ["friends", "friendRequests", "friendRequestsPending", "boats", "crewRequestsPending", "crewMember", "boatsFollowing", "events"] as const
-export type UserArray = typeof userArrays[number]
-
-type Op = 'add' | 'remove' | 'replace'
-
-export interface Patch {op: Op, path: string, value: string}
-
 export interface UserSideEffect {field: UserArray, field2: UserArray}
 
-export const isUserReplacable = (path: any): path is UserReplacable => {
-	return (userReplacables as readonly string[]).indexOf(path) >= 0
-}
-
-export const isUserArray = (path: any): path is UserArray => {
-  return (userArrays as readonly string[]).indexOf(path) >= 0
-}
+export interface EventSideEffect {field: UserArray, field2: EventArray}
 
 type UserArrayField = {
   friends?: mongoose.Types.ObjectId,
@@ -84,14 +60,18 @@ type UserArrayField = {
   crewMember?: mongoose.Types.ObjectId
 }
 
-type UpdateUserArray = {
+type AppendUserArray = {
   $addToSet: UserArrayField
 }
 
-const addToArray = async (id: string, field:UserArray, value:string) => {
+type DeleteUserArray = {
+  $pull: UserArrayField
+}
+
+const addToUserArray = async (id: string, field:UserArray, value:string) => {
   const user = await User.findById(id)
   if (user){
-    var update: UpdateUserArray = {$addToSet: {}}
+    const update: AppendUserArray = {$addToSet: {}}
     const valueId = new mongoose.Types.ObjectId(value)
     update.$addToSet[field]=valueId
     await user.updateOne(update)
@@ -99,12 +79,12 @@ const addToArray = async (id: string, field:UserArray, value:string) => {
   }
 }
 
-const removeFromArray = async (id: string, field:UserArray, value:string) => {
+const removeFromUserArray = async (id: string, field:UserArray, value:string) => {
   const user = await User.findById(id)
   if (user){
-    var update: UpdateUserArray = {$addToSet: {}}
+    const update: DeleteUserArray = {$pull: {}}
     const valueId = new mongoose.Types.ObjectId(value)
-    update.$addToSet[field]=valueId
+    update.$pull[field]=valueId
     await user.updateOne(update)
     await user.save()
   }
@@ -120,10 +100,15 @@ const updateField = async (id: string, field:UserReplacable, value:string) => {
 
 const userSideEffects: UserSideEffect[] = [
 	{field: "friends", field2: "friends"},
-	{field: "friendRequestsPending", field2: "friendRequests"}
+    {field: "friendRequestsPending", field2: "friendRequests"},
+	{field: "friendRequests", field2: "friendRequestsPending"},
 ]
 
-export const UserJsonPatch = async (id: string, patch: Patch) => {
+const eventSideEffects: EventSideEffect[] = [
+	{field: "events", field2: "participants"}, 
+]
+
+export const userJsonPatch = async (id: string, patch: Patch) => {
 	const parsedPath =  patch.path.split("/")
   if (parsedPath.length === 0){
     return
@@ -132,28 +117,38 @@ export const UserJsonPatch = async (id: string, patch: Patch) => {
 	switch (patch.op){
 		case "add":
 			if (isUserArray(path)){
-        await addToArray(id, path, patch.value)
-				userSideEffects.forEach(async (sideEffect) => {
-					if (path===sideEffect.field){
-            await addToArray(patch.value, sideEffect.field2, id)
-					}	
-				})
+                await addToUserArray(id, path, patch.value)
+                userSideEffects.forEach(async (sideEffect) => {
+                    if (path===sideEffect.field){
+                        await addToUserArray(patch.value, sideEffect.field2, id)
+                    }	
+                })
+                eventSideEffects.forEach(async (sideEffect) => {
+                    if (path===sideEffect.field){
+                        await addToEventArray(patch.value, sideEffect.field2, id)
+                    }	
+                })
       }
 			break
 		case "remove":
       if (isUserArray(path)){
-        await removeFromArray(id, path, patch.value)
+        await removeFromUserArray(id, path, patch.value)
 				userSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-            await removeFromArray(patch.value, sideEffect.field2, id)
+                        await removeFromUserArray(patch.value, sideEffect.field2, id)
+					}	
+				})
+                eventSideEffects.forEach(async (sideEffect) => {
+					if (path===sideEffect.field){
+                        await removeFromEventArray(patch.value, sideEffect.field2, id)
 					}	
 				})
       }
 			break
 		case "replace":
 			if (path==="password"){
-        const password = hashPassword(patch.value)
-        await updateField(id, "passwordHash", password)
+                const password = hashPassword(patch.value)
+                await updateField(id, "passwordHash", password)
 			}
 			if (isUserReplacable(path)){
 				await updateField(id, path, patch.value)
@@ -161,29 +156,3 @@ export const UserJsonPatch = async (id: string, patch: Patch) => {
 			break
 	}
 }
-
-export const updateUser = async (id:mongoose.Types.ObjectId, user: UpdateUser) => {
-    const oldUser = await User.findById(id).populate('boatsFollowing', {name: 1})
-    if (oldUser){
-        if (user.email){
-            oldUser.email = user.email
-        }
-        if (user.boatsFollowing){
-          await oldUser.updateOne({$addToSet: {boatsFollowing: user.boatsFollowing}})
-        }
-        if (user.friend && user.friend !== id){
-          await oldUser.updateOne({$addToSet: {friends: user.friend}, $pull: {friendRequests: user.friend}})
-          await User.findByIdAndUpdate(user.friend, {$addToSet: {friends: id}, $pull: {friendRequestsPending: id}})    
-        }
-        if (user.friendRequest){
-          await oldUser.updateOne({$addToSet: {friendRequests: user.friendRequest}})
-          await User.findByIdAndUpdate(user.friendRequest, {$addToSet: {friendRequestsPending: id}})
-        }
-        if (user.event){
-          await oldUser.updateOne({$addToSet: {events: user.event}})
-        } 
-        await oldUser.save()
-    }
-    
-    return oldUser
-  }

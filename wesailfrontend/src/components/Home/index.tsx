@@ -15,8 +15,8 @@ const Home = () => {
       <div className="main">
         <SideNav />
         <div className="right">
-          <div>Show (all, your activity, your friends activity)</div>
-          {logs.map(log => <Card boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
+          <div className='content'>Show (all, your activity, your friends activity)</div>
+          {logs.map(log => <Card key={log.id} boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
         </div>
       </div>
     )

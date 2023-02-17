@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState, useEffect } from "react"
-import { updateUser, getUser, removeFriend } from "../services/users"
-import getLoggedInUser from "../services/user"
+import { updateUser, getUser } from "../services/users"
 import { User, RootState, Log, Application } from "../types"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -48,15 +47,13 @@ const SingleUser = () => {
   }
 
   const unfriend = async () => {
-    await removeFriend(currentUser.id, id)
-    const newUser = await getLoggedInUser()
+    const newUser = await updateUser(currentUser.id, {op: "remove", path: "/friends", value: id})
     dispatch(updateFriends(newUser.friends))
     setFriend(Application.No)
   }
 
   const sendRequest = async () => {
-    await updateUser(id, {friendRequest: currentUser.id})
-    const newUser = await getLoggedInUser()
+    const newUser = await updateUser(currentUser.id, {op: "add", path: "/friendRequestsPending", value: id})
     dispatch(updatePendingFriends(newUser.friendRequestsPending))
     setFriend(Application.Pending)
   }

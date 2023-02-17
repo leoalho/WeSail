@@ -43,6 +43,14 @@ export type UpdateUser = {
   event?: string
 }
 
+type Op = 'add' | 'remove' | 'replace'
+
+export type Patch = {
+  op: Op,
+  path: string,
+  value: string
+}
+
 export type UpdateBoat = {
   name?: string,
   crewRequest?: string,
@@ -63,7 +71,7 @@ export interface Event {
   location: string,
   description: string,
   owner: string,
-  parrticipants: User[],
+  participants: User[],
   id: string
 }
 
