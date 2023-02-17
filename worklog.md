@@ -29,4 +29,5 @@
 | 8.2.23 | 5 | Updated the userReducer, refactored backend structure. Created first backend tests with jest and supertest |
 | 9.2.23 | 3 | Refactored backend services. Added front- and backend functionality to join events |
 | 10.2.23 | 2 | Created new backend tests for user paths |
-| Total | 107 ||
+| 17.2.23 | 5 | Refactoring backend for updating users. Created new views for boat depending on user's status. Upcoming events can be filtered|
+| Total | 112 ||

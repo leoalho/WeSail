@@ -1,4 +1,4 @@
-## Minimal working requirements:
+## Workng requirements for V1.0.0:
 - [x] Users can log in
 - [x] Users can log out
 - [x] New users can sign up
@@ -8,8 +8,8 @@
 - [x] Upcoming events visible on the main page
 - [x] Events are sorted by date and only upcoming events are shown
 - [X] Logs are visible on the main page
-- [] It is possible to toggle which logs are displayed on the main page
-- [] It is possible to toggle which events are displayed on the main page
+- [X] It is possible to toggle which logs are displayed on the main page
+- [X] It is possible to toggle which events are displayed on the main page
 - [x] Users can search for boats and friends
 - [x] Users can send friend requests
 - [x] Users can accepts friend requests
@@ -18,7 +18,7 @@
 - [X] Users can join events
 - [X] Users can unjoin events
 - [] Users can apply to be crewmembers of a boat
-- [] Boatowners can acceps crewmember requests
+- [] Boatowners can accept crewmember requests
 - [X] BoatPage contains the boat's log and upcoming events
 - [X] UserPage contains the user's log
 - [X] Boatpage has a different view for users, crewmembers and owners
@@ -33,6 +33,9 @@
 - [x] BoatPage
 - [x] Page for creating a new event
 - [x] Page for creating a new Log
+
+## Further working specifications:
+- [] Users can comment on logs
 
 ## Further ideas: 
 - further specifications for boat

@@ -22,46 +22,39 @@ const SideNav = () => {
   }, [])
 
   useEffect(() => {
-
     filterEvents()
   }, [yourboats, followingboats, crewboats])
 
   const filterEvents = () => {
-    let newEvents = events
-    if (yourboats){
-        newEvents = newEvents.filter((event) => {
-            let yourboat = false
+    const newEvents: Event[] = []
+    events.forEach((event) => {
+        let newEvent = false
+        if (yourboats){
             currentUser.boats.forEach((boat) => {
                 if (boat.id===event.boat.id){
-                    yourboat = true
+                    newEvent = true
                 }
             })
-            return yourboat
-        })
-    }
-    if (followingboats){
-        newEvents = newEvents.filter((event) => {
-            let yourboat = false
+        }
+        if (followingboats && !newEvent){
             currentUser.boatsFollowing.forEach((boat) => {
                 if (boat.id===event.boat.id){
-                    console.log("Tænne")
-                    yourboat = true
+                    newEvent = true
                 }
             })
-            return yourboat
-        })
-    }
-    if (crewboats){
-        newEvents = newEvents.filter((event) => {
-            let yourboat = false
+        }
+        if (crewboats && !newEvent){
             currentUser.crewMember.forEach((boat) => {
                 if (boat.id===event.boat.id){
-                    yourboat = true
+                    newEvent = true
                 }
             })
-            return yourboat
-        })
-    }
+        }
+        if (newEvent){
+            newEvents.push(event)
+        }
+    })
+
     setFilteredEvents(newEvents)
   }
 
