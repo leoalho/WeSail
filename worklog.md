@@ -29,5 +29,8 @@
 | 8.2.23 | 5 | Updated the userReducer, refactored backend structure. Created first backend tests with jest and supertest |
 | 9.2.23 | 3 | Refactored backend services. Added front- and backend functionality to join events |
 | 10.2.23 | 2 | Created new backend tests for user paths |
-| 17.2.23 | 5 | Refactoring backend for updating users. Created new views for boat depending on user's status. Upcoming events can be filtered|
-| Total | 112 ||
+| 17.2.23 | 7 | Refactoring backend for updating users. Created new views for boat depending on user's status. Upcoming events can be filtered |
+| 19.2.23 | 2 | Changed backend methods for adding friends. |
+| 20.2.23 | 5 | Asking and accepting crew member applications works on the backend: Small style edits |
+| 21.2.23 | 2 | Rejecting crew applications works on both front- and backend |
+| Total | 121 ||

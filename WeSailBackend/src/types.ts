@@ -94,11 +94,14 @@ export type NewLogEntry = {
 const userReplacables = ["email", "passwordHash"] as const
 export type UserReplacable = typeof userReplacables[number]
 
-const userArrays = ["friends", "friendRequests", "friendRequestsPending", "boats", "crewRequestsPending", "crewMember", "boatsFollowing", "events"] as const
+const userArrays = ["friendRequests", "friendRequestsPending", "boats", "crewRequestsPending", "crewMember", "boatsFollowing", "events"] as const
 export type UserArray = typeof userArrays[number]
 
 const eventArrays = ["participants"] as const
 export type EventArray = typeof eventArrays[number]
+
+const boatArrays = ["crew", "crewRequests", "followers"] as const
+export type BoatArray = typeof boatArrays[number]
 
 type Op = 'add' | 'remove' | 'replace'
 
@@ -110,4 +113,8 @@ export const isUserReplacable = (path: string): path is UserReplacable => {
 
 export const isUserArray = (path: string): path is UserArray => {
   return (userArrays as readonly string[]).indexOf(path) >= 0
+}
+
+export const isBoatArray = (path: string): path is BoatArray => {
+    return (boatArrays as readonly string[]).indexOf(path) >= 0
 }

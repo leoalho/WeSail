@@ -17,8 +17,9 @@
 - [x] Users can follow boats
 - [X] Users can join events
 - [X] Users can unjoin events
-- [] Users can apply to be crewmembers of a boat
-- [] Boatowners can accept crewmember requests
+- [X] Users can apply to be crewmembers of a boat
+- [x] Boatowners can accept crewmember requests
+- [x] Boatowners can reject crewmember requests
 - [X] BoatPage contains the boat's log and upcoming events
 - [X] UserPage contains the user's log
 - [X] Boatpage has a different view for users, crewmembers and owners
@@ -36,6 +37,10 @@
 
 ## Further working specifications:
 - [] Users can comment on logs
+- [] Create a todo list for boats visible and editable for CrewMembers and boat owners
+- [] Users can add profile image for themselves
+- [] Boatowners can add profile image for their boats
+- [] Notifications when logged in
 
 ## Further ideas: 
 - further specifications for boat
@@ -46,3 +51,4 @@
 - Chaging of password via email
 - Users can comment on log entries
 - Users can edit logs and events
+- Create real-time updated with sockets

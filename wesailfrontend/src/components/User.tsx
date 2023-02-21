@@ -11,7 +11,7 @@ const UserInput = () => {
   const dispatch = useDispatch()
 
   const acceptRequest = async (id: string) => {
-    await updateUser(user.id, {op: "remove", path: "/friendRequests", value: id})
+    //await updateUser(user.id, {op: "remove", path: "/friendRequests", value: id})
     const newUser = await updateUser(user.id, {op: "add", path: "/friends", value: id})
     dispatch(updateFriends(newUser.friends))
     dispatch(updateFriendRequests(newUser.friendRequests))

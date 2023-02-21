@@ -38,6 +38,4 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Docker
 - Docker-compose
 - Nginx
-- Github actions
-- AWS lightsail
 - Github Actions

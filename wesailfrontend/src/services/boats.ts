@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import axios from 'axios'
-import { Boat, UpdateBoat } from '../types'
+import { Boat, Patch } from '../types'
 const baseUrl = '/api/boats'
 
 interface NewBoat {
@@ -23,8 +23,8 @@ export const getBoats = async (): Promise<Boat[]> => {
   return boats.data
 }
 
-export const updateBoat = async (id: string, update: UpdateBoat): Promise<Boat> => {
-  const boat = await axios.patch(`${baseUrl}/${id}`, update)
+export const updateBoat = async (id: string, patch: Patch): Promise<Boat> => {
+  const boat = await axios.patch(`${baseUrl}/${id}`, {patch: patch})
   return boat.data
 }
 

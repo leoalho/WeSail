@@ -3,13 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import { useState, useEffect } from "react"
-import { deleteFollower, getBoat, updateBoat } from "../../services/boats"
-import { Boat, Log, RootState, Event } from "../../types"
+import { getBoat, updateBoat } from "../../services/boats"
+import { Boat, Log, RootState, Event, Application } from "../../types"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { updateUser } from "../../services/users"
-import getUser from "../../services/user"
-import { updateFollowing } from "../../reducers/userReducer"
+import { updateFollowing, updatePendingCrew } from "../../reducers/userReducer"
 import { getBoatLogs } from "../../services/logs"
 import LogCard from "../Home/Card"
 import EventCard from "../Sidenav/Card"
@@ -25,6 +24,8 @@ const SingleBoat = () => {
   const [isCrew, setIsCrew] = useState(false)
   const [logs, setLogs] = useState<Log[]>([])
   const [events, setEvents] = useState<Event[]>([])
+  const [crewApplication, setCrewApplication] = useState<Application>(Application.No)
+
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
@@ -58,6 +59,14 @@ const SingleBoat = () => {
             return
         }
     })
+    setCrewApplication(Application.No)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    user.crewRequestsPending.forEach((request) => {
+        if (request.id===id){
+            setCrewApplication(Application.Pending)
+            return
+        }
+    })
   }, [id, user])
 
 
@@ -66,25 +75,39 @@ const SingleBoat = () => {
   }
 
   const followBoat = async () => {
-    await updateUser(user.id, {op: "add", path: "/boatsFollowing", value: boat.id})
-    const newuser = await getUser()
+    const newuser = await updateUser(user.id, {op: "add", path: "/boatsFollowing", value: boat.id})
     dispatch(updateFollowing(newuser.boatsFollowing))
-    await updateBoat(boat.id, {follower: user.id})
   }
 
   const unFollowBoat = async () => {
-    await deleteFollower(boat.id, user.id)
-    const newuser = await getUser()
+    const newuser = await updateUser(user.id, {op: "remove", path: "/boatsFollowing", value: boat.id})
     dispatch(updateFollowing(newuser.boatsFollowing))
+  }
+
+  const sendCrewRequest = async () => {
+    const newUser = await updateUser(user.id, {op: "add", path: "/crewRequestsPending", value: boat.id})
+    dispatch(updatePendingCrew(newUser.crewRequestsPending))
+  }
+
+  const acceptCrewRequest = async (userId: string) => {
+    const newBoat = await updateBoat(boat.id, {op: "add", path: "/crew", value: userId})
+    console.log(newBoat)
+    setBoat(newBoat)
+  }
+
+  const rejectCrewRequest = async (userId: string) => {
+    const newBoat = await updateBoat(boat.id, {op: "remove", path: "/crewRequests", value: userId})
+    console.log(newBoat)
+    setBoat(newBoat)
   }
 
   return (
     <div className="main">
       <div className="single_content">
-        {boat && boat.name}<br/>
-        {isOwner && <Owner />}
+        <h2>{boat && boat.name}</h2><br/>
+        {isOwner && <Owner applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
         {isCrew && <Crew />}
-        {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat}/>}
+        {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat} sendCrewRequest={sendCrewRequest} crewApplication={crewApplication}/>}
         {logs.length>0 && <div><b>Boat log:</b></div>}
         {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
         {events.length>0 && <div><b>Upcoming boat events:</b></div>}

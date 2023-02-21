@@ -25,6 +25,7 @@ export interface User {
   friendRequests: Friend[],
   friendRequestsPending: Friend[],
   boats: BoatUser[],
+  crewRequestsPending: BoatUser[]
   crewMember: BoatUser[],
   boatsCrew: BoatUser[],
   boatsFollowing: BoatUser[],

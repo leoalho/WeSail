@@ -29,14 +29,16 @@ const SingleUser = () => {
     currentUser.friends.forEach((friend) => {
         if (friend.id===id){
         setFriend(Application.Accepted)
+        return
         }
     })
     currentUser.friendRequestsPending.forEach(request => {
       if (request.id===id){
         setFriend(Application.Pending)
+        return
       }
     });
-  }, [id, currentUser])
+  }, [id, currentUser]) //currentUSer could perhaps be removed here?
 
   if (!id) {
     return <>Wrong path</>

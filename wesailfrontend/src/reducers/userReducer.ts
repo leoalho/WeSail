@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { User, Boat, Friend } from '../types'
+import { User, Boat, Friend, BoatUser } from '../types'
 
 interface UserBoat {
   name: string,
@@ -48,6 +48,11 @@ const userSlice = createSlice({
       if (state){
         state.events = action.payload
       }
+    },
+    updatePendingCrew(state, action: PayloadAction<BoatUser[]>) {
+      if (state){
+        state.crewRequestsPending = action.payload
+      }
     } 
   }
 })
@@ -58,5 +63,7 @@ export const {newUser,
               updatePendingFriends,
               updateFriends,
               updateFriendRequests,
-              updateEvents} = userSlice.actions
+              updateEvents,
+              updatePendingCrew
+            } = userSlice.actions
 export default userSlice.reducer

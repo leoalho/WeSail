@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-
-import { getUsers, newUser, deleteUser, findUserId, userJsonPatch } from '../services/userServices'
-//import mongoose from 'mongoose'
+import { userJsonPatch } from '../services/userPatch';
+import { getUsers, newUser, deleteUser, findUserId} from '../services/userServices'
 import { toNewUser } from '../utils/utils'
-//import { UpdateUser } from '../types'
 
 const router = express.Router();
 

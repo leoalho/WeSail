@@ -7,67 +7,17 @@ const userSchema = new mongoose.Schema({
     unique: true,
     minlength: 3
   },
-  email: {
-    type: String,
-    required: true
-  },
-  passwordHash: {
-    type: String,
-    required: true
-  },
-  status: {
-    type: String,
-    default: 'user'
-  },
-  friends: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  friendRequests: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'    
-    }
-  ],
-  friendRequestsPending: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'    
-    }
-  ],
-  boats: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Boat'
-    }
-  ],
-  crewRequestsPending: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Boat'
-    }
-  ],
-  crewMember: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Boat'
-    }
-  ],
-  boatsFollowing: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Boat'
-    }    
-  ],
-  events: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event' 
-    }
-  ]
-
+  email: {type: String, required: true},
+  passwordHash: {type: String, required: true},
+  status: { type: String, default: 'user' },
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  friendRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  friendRequestsPending: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  boats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Boat' }],
+  crewRequestsPending: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Boat' }],
+  crewMember: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Boat' }],
+  boatsFollowing: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Boat'}],
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
 })
 
 userSchema.set('toJSON', {
