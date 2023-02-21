@@ -19,6 +19,12 @@ const NewEvent = () => {
     user.boats.forEach((boat) => userBoats.push(<option key={boat.id as React.Key} value={boat.id}>{boat.name}</option>))
   }
 
+  const style = {
+    backgroundColor: "white",
+    padding: "5px",
+    flex: "0 0"
+  }
+
   const createEvent = async () => {
     await newEvent(
       {
@@ -33,7 +39,8 @@ const NewEvent = () => {
 
   return (
     <div className="main">
-      <div className="single_content">
+      <div>
+      <div style={style}>
         <select onChange={({target}) => setBoat(target.value)}>
           {userBoats}
         </select><br/>
@@ -42,6 +49,7 @@ const NewEvent = () => {
         Location: <input onChange={({target}) => setLocation(target.value)}></input><br/>
         Description: <input onChange={({target}) => setDescription(target.value)}></input><br/>
         <button onClick={createEvent}>Create event</button>
+      </div>
       </div>
     </div>
   )

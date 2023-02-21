@@ -41,6 +41,7 @@ const SingleBoat = () => {
   useEffect(() => {
     setIsOwner(false)
     setIsFollowing(false)
+    setIsCrew(false)
     user.boatsFollowing.forEach((follower) => {
       if (follower.id===id){
         setIsFollowing(true)
@@ -103,14 +104,25 @@ const SingleBoat = () => {
 
   return (
     <div className="main">
-      <div className="single_content">
-        <h2>{boat && boat.name}</h2><br/>
+      <div className="boat_info">
+        <div className="boat_info_card">
+        <img src="http://localhost:3001/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
+        <div style={{padding: "5px"}}>
+        <center><h2>{boat.name}</h2></center>
         {isOwner && <Owner applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
         {isCrew && <Crew />}
         {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat} sendCrewRequest={sendCrewRequest} crewApplication={crewApplication}/>}
-        {logs.length>0 && <div><b>Boat log:</b></div>}
+        </div>
+        </div>
+      </div>
+      <div>
+        <div><b>Boat log:</b></div>
+        {logs.length===0 && <div className="content">No log yet</div>}
         {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
-        {events.length>0 && <div><b>Upcoming boat events:</b></div>}
+      </div>
+      <div style={{marginLeft: "10px"}}>
+        <div><b>Upcoming events:</b></div>
+        {events.length===0 && <div className="eventCard">No upcoming events</div>}
         {events.map((card) => <EventCard event={card}/>)}
       </div>
     </div>

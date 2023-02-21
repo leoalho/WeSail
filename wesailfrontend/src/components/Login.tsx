@@ -25,9 +25,6 @@ const Login = () => {
         username, password,
       })
       dispatch(newUser(NewUser))
-      //setUser(NewUser.username)
-      //blogService.setToken(user.token)
-      //window.localStorage.setItem('loggedUser', JSON.stringify(user.username))
       setUsername('')
       setPassword('')
       navigate('/')
@@ -49,7 +46,7 @@ const Login = () => {
       password
       <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} />
     </div>
-    <button type="submit">login</button>&nbsp;&nbsp;&nbsp;&nbsp;<Link to="/signup">  sign up</Link>
+    <button className="button" type="submit">login</button>&nbsp;&nbsp;&nbsp;&nbsp;<Link to="/signup">sign up</Link>
     </center>
   </form>
   </div>

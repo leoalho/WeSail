@@ -77,7 +77,7 @@ const NavUser = () => {
   return (
     <>
     <div className='navbarLeft'>
-    <Link to="/">Wesail</Link>
+    <Link to="/"><b>Wesail</b></Link>
     {user.boats.length>0 &&
           <div className="dropdown">
             <div className="dropdownTitle">Boats</div>

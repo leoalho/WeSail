@@ -48,9 +48,15 @@ const NewLog = () => {
     )
   }
 
+  const style = {
+    backgroundColor: "white",
+    padding: "10px"
+  }
+
   return (
     <div className="main">
-      <div className="single_content">
+      <div>
+        <div style={style}>
         <select onChange={({target}) => setBoat(target.value)}>
           {userBoats}
         </select><br/>
@@ -63,6 +69,7 @@ const NewLog = () => {
         Weather: <input onChange={({target}) => setWeather(target.value)}></input><br />
         Description: <input onChange={({target}) => setDescription(target.value)}></input><br/>
         <button onClick={createEvent}>Create log entry</button>
+      </div>
       </div>
     </div>
   )

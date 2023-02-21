@@ -15,15 +15,22 @@ const NewBoat = () => {
     setBoatname("")
   }
 
+  const style = {
+    backgroundColor: "white",
+    padding: "10px"
+  }
+
   return (
     <div className="main">
-      <div className="single_content">
+      <div>
+      <div style={style}>
         <form onSubmit={handleNewBoat}>
           <div>
             boat name: <input type="text" value={boatname} onChange={({ target }) => setBoatname(target.value)} />
           </div>
           <button type="submit">Create new boat</button>
         </form>
+      </div>
       </div>
     </div>
   )

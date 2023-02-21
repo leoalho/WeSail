@@ -33,6 +33,7 @@ app.use(
 app.use(express.json());
 //app.use(express.static('../wesailfrontend/build'))
 //app.use(cors)
+app.use(express.static('images'))
 app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)
 app.use('/api/logout', logoutRoute)

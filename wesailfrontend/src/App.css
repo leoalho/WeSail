@@ -11,6 +11,8 @@ body {
 #root {
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 input {
@@ -23,23 +25,30 @@ input {
 }
 
 .navbar {
-  background-color: grey; 
-  height: 15vh;
+  background-color: white; 
+  flex: 0 0 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%
 }
 
+a {
+    color: #002f6c;
+    text-decoration: none;
+}
+
 .navbar a {
-  color: black;
-  text-decoration: none;
   display: flex;
   align-items: center;
 }
 
 .navbar a:hover {
-  color: white;
+  color: #0018D9;
+}
+
+.main a:hover {
+    text-decoration: underline;
 }
 
 .btn {
@@ -47,8 +56,27 @@ input {
   background-color: inherit;
   cursor: pointer;
   display: inline-block;
-  font-size: inherit;
-  
+  font-size: inherit; 
+  color: #002f6c;
+}
+
+.btn:hover {
+    color: #0018D9;
+}
+
+.button {
+    font-size: 16px;
+    color: #002f6c;
+    border-color: #002f6c;
+    background-color: white;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-width: 1px;
+}
+
+.button:hover {
+    color: white;
+    background-color: #002f6c;
 }
 
 .navbarRight {
@@ -66,16 +94,15 @@ input {
 }
 
 .main {
-    background-color: lightgrey;
+    background-color: #eeeeee;
     display: flex;
-    height: 85vh;
-    width: 100%
+    flex: 1;
+    justify-content: center;
+    padding:10px
 }
 
 .right {
     overflow-y: scroll;
-    width: 100%;
-    height: 100%;
 }
 
 .form {
@@ -89,35 +116,24 @@ input {
 
 .eventCard {
   background-color: white;
-  margin-right: 5px;
-  margin-left: 5px;
   margin-top: 5px;
   padding-left: 5px;
+  padding-bottom: 5px;
+  width: 230px;
 }
 
 .content {
   background-color: white;
-  margin-right: 5px;
-  margin-left: 5px;
   margin-top: 5px;
   padding-left: 5px;
   width: 700px;
 }
 
-.single_content {
-  background-color: white;
-  height: 85vh;
-  width: 100%;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-
 #sideNav {
   color: black;
-  width: 30%;
-  padding-left: 5%; 
-  background-color: lightgrey; 
+  background-color: #eeeeee; 
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .dropdown {
@@ -125,13 +141,13 @@ input {
 }
 
 .dropdown:hover {
-  color: white;
+  color: #0018D9;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: grey;
+  background-color: white;
   padding: 5px;
   min-width: 60px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -155,11 +171,9 @@ input {
 }
 
 .leaflet-container {
-  height: 75vh;
-  width: 90%;
-  margin-top: 20px;
+  height: 90%;
+  z-index: 1;
   margin-bottom: 10px;
-  z-index: 1
 }
 
 iframe
@@ -170,7 +184,6 @@ iframe
 .navbar-input {
   padding: 6px;
   font-size: 17px;
-  border: none;
 }
 
 .search-no-content {
@@ -185,7 +198,7 @@ iframe
 .search-content {
   display: block;
   position: absolute;
-  background-color: grey;
+  background-color: white;
   padding: 5px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 99;
@@ -197,3 +210,47 @@ iframe
   display: flex;
   align-items: center;
 }
+
+.boat_info {
+  margin: 5px;
+}
+
+.boat_info_card {
+    background-color: white;
+    margin-top: 100px;
+    margin-right: 10px;
+}
+
+.boat_avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-top: -100px;
+}
+
+.user_avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-top: -60px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #eeeeee; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

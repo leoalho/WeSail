@@ -27,8 +27,14 @@ const UserInput = () => {
     dispatch(updateFriends(newUser.friends))
   }
 
+  const style = {
+    backgroundColor: "white",
+    padding: "5px"
+  }
+
   return (
-    <div key={user.id}>
+    <div>
+    <div style={style}>
       username: {user.username}<br/>
       email: {user.email} <button>change</button><br />
       <button>Change password</button><br />
@@ -38,6 +44,7 @@ const UserInput = () => {
       {user.friends.map(friend => <>{friend.username} <button onClick={async () => await deleteFriend(friend.id)}>Remove</button> <br/></>)}
       <Link to="../newBoat">Add boat</Link>
     </div>
+    </div>
   )
 }
 
@@ -46,7 +53,7 @@ const Home = () => {
 
   return (
       <div className="main">
-        <div className="single_content">
+        <div>
           {user && <UserInput/>}
         </div>
       </div>

@@ -32,5 +32,5 @@
 | 17.2.23 | 7 | Refactoring backend for updating users. Created new views for boat depending on user's status. Upcoming events can be filtered |
 | 19.2.23 | 2 | Changed backend methods for adding friends. |
 | 20.2.23 | 5 | Asking and accepting crew member applications works on the backend: Small style edits |
-| 21.2.23 | 2 | Rejecting crew applications works on both front- and backend |
-| Total | 121 ||
+| 21.2.23 | 6 | Rejecting crew applications works on both front- and backend. Created a colour scheme for the app, added new styles |
+| Total | 125 ||

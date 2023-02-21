@@ -32,6 +32,12 @@ const Logger = () => {
     }
   }
 
+  const style = {
+    backgroundColor: "white",
+    padding: "10px",
+    width: "75%"
+  }
+
   interface myComponent {
     logging: boolean,
     setLogging: React.Dispatch<React.SetStateAction<boolean>>
@@ -85,7 +91,7 @@ const Logger = () => {
 
   return (
     <div className="main">
-      <div className="single_content">
+      <div style={style}>
         
         <MapContainer center={[latitude,longitude]} zoom={15} scrollWheelZoom={false}>
           <MyComponent logging={logging} setLogging={setLogging}/>
@@ -105,7 +111,7 @@ const Logger = () => {
             ? <><button onClick={() => logging ? pauseLogging(): continueLogging()}>{logging ? <>Pause</>: <>Continue</>}</button>
              latitude: {latitude}, longitude: {longitude} {speed && <>, speed {speed}</>} {heading && <>, {heading}</>} <br/>
              last updated {new Date(updated).toISOString()}</>
-            : <><button onClick={startLogging}>Start</button><Link to="/newLog">Create log entry without location</Link></>
+            : <><button onClick={startLogging}>Start</button> or <Link to="/newLog">Create log entry without location</Link></>
           }
           {(logActive && !logging) && <button>Submit</button>}
         </div>
