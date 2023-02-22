@@ -38,6 +38,10 @@ a {
     text-decoration: none;
 }
 
+.form a:hover {
+    color: #0018D9; 
+}
+
 .navbar a {
   display: flex;
   align-items: center;
@@ -101,6 +105,14 @@ a {
     padding:10px
 }
 
+.login {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    background-image: url("http://localhost:3001/login.png");
+    background-position: bottom;
+}
+
 .right {
     overflow-y: scroll;
 }
@@ -108,9 +120,8 @@ a {
 .form {
   margin: auto;
   margin-top: 30px;
-  width: 40%;
+  background: rgba(255, 255, 255, 0.8);
   font-size: x-large;
-  background-color: white;
   padding: 15px;
 }
 
@@ -134,10 +145,12 @@ a {
   background-color: #eeeeee; 
   overflow-x: hidden;
   overflow-y: scroll;
+  margin-right: 10px;
 }
 
 .dropdown {
   display: inline-block;
+  color:#002f6c
 }
 
 .dropdown:hover {

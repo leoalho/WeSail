@@ -34,19 +34,19 @@ const Login = () => {
   }
 
   return (
-    <div className="main">
+    <div className="login">
     <form onSubmit={handleLogin} className="form">
     <center><h2>LOG IN</h2></center>
     <center>
     <div>
-      username
+      username: 
       <input type="text" value={username} name="Username " onChange={({ target }) => setUsername(target.value)} />
     </div>
     <div> 
-      password
+      password: 
       <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} />
     </div>
-    <button className="button" type="submit">login</button>&nbsp;&nbsp;&nbsp;&nbsp;<Link to="/signup">sign up</Link>
+    <button className="button" type="submit" style={{fontSize:"20px", width: "100%"}}>login</button><br/>
     </center>
   </form>
   </div>

@@ -24,7 +24,7 @@ const SignUp = () => {
     }
     return (
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        <div className='main'>
+        <div className='login'>
         <form onSubmit={handleSignUp} className="form">
         <center><h2>SIGNUP</h2></center>
         <div>
@@ -43,7 +43,7 @@ const SignUp = () => {
         password again: 
         <input type="password" name="Password2" id="password2" />
         </div>
-        <Button type="submit">Create user</Button>
+        <Button className="button" type="submit" style={{fontSize:"20px", width: "100%", border: "1px"}}>Create user</Button>
     </form>
     </div>
     )
