@@ -4,6 +4,7 @@
 - Empty form fields when creating a new log
 - Refactor single boat page into several components, right now it is quite bloated
 - Update event card when a user joins/unjoins the event
+- Make a edit page for boatowners for editing privacy settings
 
 ## BACKEND: 
 - Add Error middleware

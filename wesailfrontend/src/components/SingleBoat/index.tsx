@@ -128,6 +128,13 @@ const SingleBoat = () => {
     setBoat(newBoat)
   }
 
+  const doneTodos = () => {
+    if (confirm("Create a og entry?")){
+        console.log("Tänne")
+    }
+    setSelectTodos(false)
+  }
+
   return (
     <div className="main">
       <div className="boat_info">
@@ -163,12 +170,17 @@ const SingleBoat = () => {
         </div>
         {newTodo && <NewTodo setNewTodo={setNewTodo} setBoat={setBoat} boatId={boat.id} userId={user.id}/>}
         {selectTodos && 
-            <>
+            <div className="eventCard">
                 <Select isMulti name="todos" options={options} className="basic-multi-select" classNamePrefix="select" />
                 <button className="button" onClick={() => setSelectTodos(false)}>Cancel</button>
-            </>
+                <button className="button" onClick={doneTodos}> Mark as done</button>
+            </div>
         }
-        <div><button className="button" onClick={() => {setNewTodo(true)}}>Create New</button><button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button></div>
+        {!newTodo && !selectTodos &&
+        <div>
+            <button className="button" onClick={() => {setNewTodo(true)}}>Create New</button>
+            <button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button>
+        </div>}
         <div><b>Past events:</b></div>
         {pastEvents.map((card) => <PastEventCard event={card}/>)}
       </div>

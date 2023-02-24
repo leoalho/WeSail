@@ -55,7 +55,7 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
         }
         if (friendActivity && !newEvent){
             currentUser.friends.forEach((friend) => {
-                if (friend.id===event.owner){
+                if (friend.id===event.creator){
                     newEvent = true
                 }
             })

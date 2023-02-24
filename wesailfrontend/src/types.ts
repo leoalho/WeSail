@@ -84,15 +84,18 @@ export type Option = {
 
 export type Payload = User | null
 
+type LogType = "sail" | "maintenance"
+
 export interface Event {
   boat: BoatUser,
   date: string,
   time: string,
   location: string,
   description: string,
-  owner: string,
+  creator: string,
   participants: User[],
-  id: string
+  id: string,
+  eventType: LogType
 }
 
 export interface UpdateEvent {
@@ -108,7 +111,8 @@ export interface Log {
     endTime: string,
     start: string,
     end: string,
-    id: string
+    id: string,
+    logType: LogType
 }
 
 export enum Application {
