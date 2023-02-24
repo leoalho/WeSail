@@ -2,7 +2,8 @@
 import mongoose from 'mongoose'
 import Boat from '../models/boat'
 import User from '../models/user'
-import { BoatArray, isBoatArray, NewBoatEntry, Patch, UserArray }from '../types'
+import { BoatArray, isBoatArray, NewBoatEntry, Patch, TodoEntry, UserArray }from '../types'
+import { parseString } from '../utils/utils'
 import { removeFromUserArray } from './userPatch'
 
 export const getBoats = async () => {
@@ -45,6 +46,24 @@ const addCrew = async (ownerId: (string | undefined), boatId: string, userId: st
     }
 }
 
+const addTodo = async (boatId: string, todo: TodoEntry) => {
+    const boat = await Boat.findById(boatId)
+    //check for crew and captain
+    if (boat){
+        boat.todos.push(todo)
+        await boat.save()
+    }
+}
+
+export const checkCrew = async (boatId: string, userId: (string | undefined)) => {
+    const boatObjectId = new mongoose.Types.ObjectId(boatId)
+    const user = await User.findById(userId)
+    if (user){
+        return user.crewMember.includes(boatObjectId)
+    }
+    return false
+}
+
 export const checkOWner = async (boatId: string, userId: (string | undefined)) => {
     const boatObjectId = new mongoose.Types.ObjectId(boatId)
     const user = await User.findById(userId)
@@ -57,7 +76,8 @@ export const checkOWner = async (boatId: string, userId: (string | undefined)) =
 type BoatArrayField = {
     followers?: mongoose.Types.ObjectId,
     crew?: mongoose.Types.ObjectId,
-    crewRequests?: mongoose.Types.ObjectId
+    crewRequests?: mongoose.Types.ObjectId,
+    todos?: TodoEntry
 }
 
 type AppendBoatArray = {
@@ -96,8 +116,12 @@ const userSideEffects: UserSideEffect[] = [
 	{field: "crewRequests", field2: "crewRequestsPending"},
 ]
 
+const todoEntryGuard = (value: unknown): value is TodoEntry => {
+    return (value as TodoEntry).value !== undefined
+}
+
 export const boatJsonPatch = async (adderId: (string | undefined), boatId: string, patch: Patch) => {
-	const parsedPath =  patch.path.split("/")
+    const parsedPath =  patch.path.split("/")
   if (parsedPath.length === 0){
     return
   }
@@ -105,16 +129,19 @@ export const boatJsonPatch = async (adderId: (string | undefined), boatId: strin
 	switch (patch.op){
 		case "add":
             if (path==="crew"){
-                await addCrew(adderId, boatId, patch.value)
+                await addCrew(adderId, boatId, parseString(patch.value))
+            }
+            if (path==="todos" && todoEntryGuard(patch.value)){
+                await addTodo(boatId, patch.value)
             }
 			break
 		case "remove":
             if (isBoatArray(path)){
-                await removeFromBoatArray(boatId, path, patch.value)
+                await removeFromBoatArray(boatId, path, parseString(patch.value))
             }
             userSideEffects.forEach(async (sideEffect) => {
                 if (path===sideEffect.field){
-                    await removeFromUserArray(patch.value, sideEffect.field2, boatId)
+                    await removeFromUserArray(parseString(patch.value), sideEffect.field2, boatId)
                 }
             })
 			break

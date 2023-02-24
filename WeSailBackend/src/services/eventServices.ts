@@ -35,6 +35,20 @@ export const getUpcoming = async (id: string) => {
     return events
 }
 
+export const getPastBoatEvents = async (id: string) => {
+    const events = await Event
+        .find(
+            {$and: [
+                {boat: id},
+                {date: {$lte: new Date()}}
+            ]}
+        )
+        .sort({date: 1})
+        .populate('boat', {name: 1})
+        .populate('participants', {username: 1})
+    return events
+}
+
 export const getBoatEvents = async (id: string) => {
     const events = await Event
         .find(
@@ -90,4 +104,8 @@ export const updateEvent = async (id: string, event: UpdateEvent) => {
       await oldEvent.updateOne({$addToSet: {participants: event.participant}})
     }
   }
+}
+
+export const deleteEvent = async (id: string) => {
+    await Event.deleteOne({_id: id })
 }

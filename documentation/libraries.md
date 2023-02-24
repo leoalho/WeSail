@@ -28,6 +28,7 @@ A list for my self to keep track of all the technologies and libraries used in t
 - @reduxjs/toolkit
 - Leaflet
 - Leaflet-react
+- React select
 
 ### Development
 - Deep freeze

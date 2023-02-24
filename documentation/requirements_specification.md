@@ -23,6 +23,8 @@
 - [X] BoatPage contains the boat's log and upcoming events
 - [X] UserPage contains the user's log
 - [X] Boatpage has a different view for users, crewmembers and owners
+- [X] BoatView contains a list of todos
+- [X] Cremembers and owners can create todos
 
 ###  Views:
 - [x] LoginView

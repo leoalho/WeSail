@@ -3,13 +3,27 @@ export interface Friend {
   username: string
 }
 
+export interface TodoEntry {
+    createdBy: string,
+    created: string | Date,
+    value: string
+}
+
+export interface Todo {
+    _id: string,
+    createdBy: string,
+    created: string | Date,
+    value: string
+}
+
 export interface Boat {
   name: string,
   id: string,
   owners: Friend[],
   crew: Friend[],
   crewRequests: Friend[],
-  followers: Friend[]
+  followers: Friend[],
+  todos: Todo[]
 }
 
 export interface BoatUser {
@@ -49,7 +63,7 @@ type Op = 'add' | 'remove' | 'replace'
 export type Patch = {
   op: Op,
   path: string,
-  value: string
+  value: string | TodoEntry
 }
 
 export type UpdateBoat = {
@@ -61,6 +75,11 @@ export type UpdateBoat = {
 
 export interface RootState {
   user: User
+}
+
+export type Option = {
+    value: string,
+    label: string
 }
 
 export type Payload = User | null

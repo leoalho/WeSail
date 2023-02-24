@@ -30,8 +30,16 @@ const Card = (props: Props) => {
   const date = new Date(props.endTime)
   return (
     <div className="content">
-      <b><Link to={`/boats/${props.boat.id}`}>{props.boat.name}</Link></b> with <Participants participants={props.participants}/><br/>
-      {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br />
+      <div style={{display: "flex", alignItems: "center"}}>
+        <div>
+          <img src="http://localhost:3001/boat_profile_images/default.jpg" alt="Avatar" className="boat_card"></img>
+        </div>
+        <div style={{marginLeft: "10px"}}>
+          <b><Link to={`/boats/${props.boat.id}`}>{props.boat.name}</Link></b> with <Participants participants={props.participants}/><br/>
+          {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br />
+        </div>
+      </div>
+      
       From {props.start} to {props.end}<br />
       {props.description}< br />
     </div>

@@ -73,15 +73,15 @@ const SingleUser = () => {
       <div style={style}>
       <center><img src="http://localhost:3001/user_profile_images/default.jpg" alt="Avatar" className="user_avatar"></img></center>
       <div style={{padding: "5px"}}>
-        <center><b><u>{user.username}</u></b><br/></center>
+        <div><center><b><u>{user.username}</u></b><br/></center></div>
         {currentUser.id!==user.id && friend===Application.No && <button onClick={sendRequest}>Send friend request</button>}
         {friend===Application.Pending && <>Friend application sent</>}
-        {friend===Application.Accepted && <button onClick={unfriend}>UnFriend</button>}<br/>
+        {friend===Application.Accepted && <button className="button" onClick={unfriend}>UnFriend</button>}<br/>
       </div>
       </div>
     </div>
     <div>
-      <b>User log:</b><br/>
+      <div style={{width: "705px"}}><b>User log:</b></div>
       {logs.map(log => <Card boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
     </div>
   </div>

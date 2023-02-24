@@ -11,7 +11,8 @@ const logSchema = new mongoose.Schema({
     startTime: Date,
     endTime: Date,
     start: String,
-    end: String
+    end: String,
+    logType: String
 })
 
 logSchema.set('toJSON', {

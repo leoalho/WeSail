@@ -3,19 +3,26 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import { useState, useEffect } from "react"
-import { getBoat, updateBoat } from "../../services/boats"
-import { Boat, Log, RootState, Event, Application } from "../../types"
+import Select from 'react-select'
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { updateUser } from "../../services/users"
+
+import { Boat, Log, RootState, Event, Application, Option } from "../../types"
 import { updateFollowing, updatePendingCrew } from "../../reducers/userReducer"
+
 import { getBoatLogs } from "../../services/logs"
+import { getBoat, updateBoat } from "../../services/boats"
+import { updateUser } from "../../services/users"
+import { getBoatEvents, getPastBoatEvents } from "../../services/events"
+
 import LogCard from "../Home/Card"
 import EventCard from "../Sidenav/Card"
-import { getBoatEvents } from "../../services/events"
 import Crew from "./Crew"
 import Owner from "./Owner"
 import User from "./User"
+import PastEventCard from "./PastEventCard"
+import NewTodo from "./NewTodo"
+import TodoCard from "./TodoCard"
 
 const SingleBoat = () => {
   const [boat, setBoat] = useState<(Boat | null)>(null)
@@ -24,7 +31,14 @@ const SingleBoat = () => {
   const [isCrew, setIsCrew] = useState(false)
   const [logs, setLogs] = useState<Log[]>([])
   const [events, setEvents] = useState<Event[]>([])
+  const [pastEvents, setPastEvents] = useState<Event[]>([])
+  const [selectTodos, setSelectTodos] = useState(false)
+  //const [selectedTodos, setSelectedTodos] = useState<Todo[]>([])
   const [crewApplication, setCrewApplication] = useState<Application>(Application.No)
+  const [sails, setSails] = useState(true)
+  const [maintenances, setMaintenances] = useState(true)
+  const [newTodo, setNewTodo] = useState(false)
+  const [options, setOptions] = useState<Option[]>([])
 
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user)
@@ -35,6 +49,7 @@ const SingleBoat = () => {
         getBoat(id).then((boat) => {setBoat(boat)}).catch(e => console.log(e))
         getBoatLogs(id).then(newLogs => setLogs(newLogs)).catch(e => console.log(e))
         getBoatEvents(id).then(newEvents => setEvents(newEvents)).catch(e => console.log(e))
+        getPastBoatEvents(id).then(newEvents => setPastEvents(newEvents)).catch(e => console.log(e))
     }
   }, [id])
 
@@ -69,6 +84,17 @@ const SingleBoat = () => {
         }
     })
   }, [id, user])
+
+  useEffect(() => {
+    setOptions([])
+    const newOptions: Option[] = []
+    if (boat){
+        boat.todos.forEach((todo) => {
+            newOptions.push({value: todo._id, label: todo.value})
+        })
+        setOptions(newOptions)
+    }
+  }, [id, boat])
 
 
   if (!boat){
@@ -116,14 +142,35 @@ const SingleBoat = () => {
         </div>
       </div>
       <div>
-        <div><b>Boat log:</b></div>
-        {logs.length===0 && <div className="content">No log yet</div>}
+        <div>
+          <b>Boat log:</b><br/>
+           Show: 
+          <input type="checkbox" id="sails" name="sails" checked={sails} onChange={() => setSails(!sails)}/>sails
+          <input type="checkbox" id="maintenances" name="maintenances" checked={maintenances} onChange={() => setMaintenances(!maintenances)}/>maintenances</div>
+        {logs.length===0 && <div className="content">No logs yet</div>}
         {logs.map(log => <LogCard boat={log.boat} startTime={log.startTime} endTime={log.endTime} start={log.start} end={log.end} participants={log.participants} description={log.description} />)}
       </div>
       <div style={{marginLeft: "10px"}}>
         <div><b>Upcoming events:</b></div>
         {events.length===0 && <div className="eventCard">No upcoming events</div>}
         {events.map((card) => <EventCard event={card}/>)}
+        <div><b>Todos:</b></div>
+        <div className="eventCard">
+            {(boat.todos.length===0)
+                ?<div>No Todos</div>
+                :<ul>{boat.todos.map(todo => <TodoCard key={todo._id} todo={todo}/>)}</ul>
+            }
+        </div>
+        {newTodo && <NewTodo setNewTodo={setNewTodo} setBoat={setBoat} boatId={boat.id} userId={user.id}/>}
+        {selectTodos && 
+            <>
+                <Select isMulti name="todos" options={options} className="basic-multi-select" classNamePrefix="select" />
+                <button className="button" onClick={() => setSelectTodos(false)}>Cancel</button>
+            </>
+        }
+        <div><button className="button" onClick={() => {setNewTodo(true)}}>Create New</button><button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button></div>
+        <div><b>Past events:</b></div>
+        {pastEvents.map((card) => <PastEventCard event={card}/>)}
       </div>
     </div>
   )

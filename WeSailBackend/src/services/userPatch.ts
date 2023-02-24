@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {EventArray, Patch, isUserArray, isUserReplacable, UserArray, UserReplacable, BoatArray} from '../types';
-import { hashPassword } from '../utils/utils';
+import { hashPassword, parseString } from '../utils/utils';
 import mongoose from 'mongoose';
 import { addToEventArray, removeFromEventArray } from './eventServices';
 import Boat from '../models/boat';
@@ -123,60 +123,60 @@ export const userJsonPatch = async (id: string, patch: Patch) => {
 	switch (patch.op){
 		case "add":
             if (path==="friends"){
-                await addFriend(id, patch.value)
+                await addFriend(id, parseString(patch.value))
             }
             else if (path==="friendRequestsPending"){
-                await addFriendRequest(id, patch.value)
+                await addFriendRequest(id, parseString(patch.value))
             }
             else if (path==="crewRequestsPending"){
-                await addCrewRequest(id, patch.value)
+                await addCrewRequest(id, parseString(patch.value))
             }
 			else if (isUserArray(path)){
-                await addToUserArray(id, path, patch.value)
+                await addToUserArray(id, path, parseString(patch.value))
                 userSideEffects.forEach(async (sideEffect) => {
                     if (path===sideEffect.field){
-                        await addToUserArray(patch.value, sideEffect.field2, id)
+                        await addToUserArray(parseString(patch.value), sideEffect.field2, id)
                     }	
                 })
                 eventSideEffects.forEach(async (sideEffect) => {
                     if (path===sideEffect.field){
-                        await addToEventArray(patch.value, sideEffect.field2, id)
+                        await addToEventArray(parseString(patch.value), sideEffect.field2, id)
                     }	
                 })
                 boatSideEffects.forEach(async (sideEffect) => {
                     if (path===sideEffect.field){
-                        await addToBoatArray(patch.value, sideEffect.field2, id)
+                        await addToBoatArray(parseString(patch.value), sideEffect.field2, id)
                     }	
                 })
       }
 			break
 		case "remove":
       if (isUserArray(path)){
-        await removeFromUserArray(id, path, patch.value)
+        await removeFromUserArray(id, path, parseString(patch.value))
 				userSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromUserArray(patch.value, sideEffect.field2, id)
+                        await removeFromUserArray(parseString(patch.value), sideEffect.field2, id)
 					}	
 				})
                 eventSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromEventArray(patch.value, sideEffect.field2, id)
+                        await removeFromEventArray(parseString(patch.value), sideEffect.field2, id)
 					}	
 				})
                 boatSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromBoatArray(patch.value, sideEffect.field2, id)
+                        await removeFromBoatArray(parseString(patch.value), sideEffect.field2, id)
 					}                    
                 })
       }
 			break
 		case "replace":
 			if (path==="password"){
-                const password = hashPassword(patch.value)
+                const password = hashPassword(parseString(patch.value))
                 await updateField(id, "passwordHash", password)
 			}
 			if (isUserReplacable(path)){
-				await updateField(id, path, patch.value)
+				await updateField(id, path, parseString(patch.value))
 			}	
 			break
 	}

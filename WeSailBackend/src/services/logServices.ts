@@ -23,7 +23,7 @@ export const getMainLogs = async (id: (string | undefined)) => {
                 {creator: {$in: user.friends}}
             ]}
         )
-        .sort({date: 1})
+        .sort({endTime: -1})
         .populate('boat', {name: 1})
         .populate('creator', {username: 1})
         .populate('participants', {username: 1})
@@ -33,7 +33,7 @@ export const getMainLogs = async (id: (string | undefined)) => {
 export const getBoatLogs = async (id: (string | undefined)) => {
     const logs = await Log
         .find({boat: id})
-        .sort({date: 1})
+        .sort({endTime: -1})
         .populate('boat', {name: 1})
         .populate('creator', {username: 1})
         .populate('participants', {username: 1})
@@ -43,7 +43,7 @@ export const getBoatLogs = async (id: (string | undefined)) => {
 export const getUserLogs = async (id: (string | undefined)) => {
     const logs = await Log
         .find({participants: id})
-        .sort({date: 1})
+        .sort({endTime: -1})
         .populate('boat', {name: 1})
         .populate('creator', {username: 1})
         .populate('participants', {username: 1})

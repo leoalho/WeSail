@@ -4,7 +4,7 @@
 import express from 'express'
 import { parseObjectId, toNewEvent} from '../utils/utils'
 import middleware from '../utils/middleware'
-import { getEvents, newEvent, getUpcoming, getBoatEvents, updateEvent } from '../services/eventServices'
+import { getEvents, newEvent, getUpcoming, getBoatEvents, updateEvent, getPastBoatEvents, deleteEvent } from '../services/eventServices'
 import { UpdateEvent } from '../types'
 //import { UpdateBoat } from '../types';
 //import mongoose from 'mongoose';
@@ -47,9 +47,28 @@ router.get('/upcoming', middleware.authorize, async (req, res) => {
     }
 })
 
+router.get('/boats/:id/past', async (req,res) => {
+    const events = await getPastBoatEvents(req.params.id)
+    res.json(events)
+})
+
 router.get('/boats/:id', async (req,res) => {
     const events = await getBoatEvents(req.params.id)
     res.json(events)
+})
+
+router.delete('/:id', async (req, res) => {
+    try{
+        await deleteEvent(req.params.id)
+        res.status(204).send('deleted user')
+    } catch (error: unknown){
+        let errorMessage = 'Something went wrong.';
+        if (error instanceof Error) {
+        errorMessage += ' Error: ' + error.message;
+        }
+        res.status(400).send(errorMessage);
+    }
+
 })
 
 export default router

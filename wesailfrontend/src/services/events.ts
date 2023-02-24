@@ -14,6 +14,11 @@ export const getBoatEvents = async(id: string): Promise<Event[]> => {
     return events.data
 }
 
+export const getPastBoatEvents = async(id: string): Promise<Event[]> => {
+    const events = await axios.get(`${baseUrl}/boats/${id}/past`)
+    return events.data
+}
+
 interface NewEvent {
   boat: string,
   date: string,
@@ -30,4 +35,8 @@ export const newEvent = async (event: NewEvent): Promise<Event> => {
 export const updateEvent = async (id: string, event: UpdateEvent): Promise<Event> => {
   const updateEvent = await axios.patch(`${baseUrl}/${id}`, event)
   return updateEvent.data
+}
+
+export const deleteEvent = async (id: string) => {
+    await axios.delete(`${baseUrl}/${id}`)
 }

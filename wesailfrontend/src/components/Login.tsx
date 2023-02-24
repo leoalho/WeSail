@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { useState } from "react"
-
-//import { LoginProps } from "../types"
-
-import login from '../services/login'
 import { useNavigate} from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { newUser } from '../reducers/userReducer'
 import { User } from '../types'
-import { useDispatch } from "react-redux";
+import login from '../services/login'
 
 const Login = () => {
   const [username, setUsername] = useState<string>("")

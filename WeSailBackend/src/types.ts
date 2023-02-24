@@ -91,6 +91,8 @@ export type NewLogEntry = {
     end: string
 }
 
+export type LogType = 'sail' | 'maintenance'
+
 const userReplacables = ["email", "passwordHash"] as const
 export type UserReplacable = typeof userReplacables[number]
 
@@ -105,7 +107,13 @@ export type BoatArray = typeof boatArrays[number]
 
 type Op = 'add' | 'remove' | 'replace'
 
-export interface Patch {op: Op, path: string, value: string}
+export interface TodoEntry {
+    created: string,
+    createdBy: string,
+    value: string
+}
+
+export interface Patch {op: Op, path: string, value: (string | TodoEntry)}
 
 export const isUserReplacable = (path: string): path is UserReplacable => {
 	return (userReplacables as readonly string[]).indexOf(path) >= 0
