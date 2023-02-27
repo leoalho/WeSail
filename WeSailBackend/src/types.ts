@@ -74,7 +74,8 @@ export type LogFields = {
     startTime: unknown,
     endTime: unknown,
     start: unknown,
-    end: unknown
+    end: unknown,
+    logType: unknown
 }
 
 export type NewLogEntry = {
@@ -83,12 +84,13 @@ export type NewLogEntry = {
     participants?: mongoose.Types.ObjectId[],
     description: string,
     weather?: string,
-    distance: number,
-    distanceSailed: number,
+    distance?: number,
+    distanceSailed?: number,
     startTime: Date,
     endTime: Date,
     start: string,
-    end: string
+    end?: string,
+    logType: string
 }
 
 export type LogType = 'sail' | 'maintenance'

@@ -55,6 +55,16 @@ const addTodo = async (boatId: string, todo: TodoEntry) => {
     }
 }
 
+const removeTodo = async (boatId: string, todoId: string) => {
+    const boat = await Boat.findById(boatId)
+    //check for crew and captain
+    if (boat){
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        await boat.todos.id(todoId)!.remove()
+        await boat.save()
+    }
+}
+
 export const checkCrew = async (boatId: string, userId: (string | undefined)) => {
     const boatObjectId = new mongoose.Types.ObjectId(boatId)
     const user = await User.findById(userId)
@@ -120,32 +130,37 @@ const todoEntryGuard = (value: unknown): value is TodoEntry => {
     return (value as TodoEntry).value !== undefined
 }
 
-export const boatJsonPatch = async (adderId: (string | undefined), boatId: string, patch: Patch) => {
+export const boatJsonPatch = async (adderId: (string | undefined), boatId: string, patches: Patch[]) => {
+  for (const patch of patches) {
     const parsedPath =  patch.path.split("/")
-  if (parsedPath.length === 0){
-    return
-  }
-  const path = parsedPath[1]
-	switch (patch.op){
-		case "add":
-            if (path==="crew"){
-                await addCrew(adderId, boatId, parseString(patch.value))
-            }
-            if (path==="todos" && todoEntryGuard(patch.value)){
-                await addTodo(boatId, patch.value)
-            }
-			break
-		case "remove":
-            if (isBoatArray(path)){
-                await removeFromBoatArray(boatId, path, parseString(patch.value))
-            }
-            userSideEffects.forEach(async (sideEffect) => {
-                if (path===sideEffect.field){
-                    await removeFromUserArray(parseString(patch.value), sideEffect.field2, boatId)
+    if (parsedPath.length === 0){
+        return
+    }
+    const path = parsedPath[1]
+        switch (patch.op){
+            case "add":
+                if (path==="crew"){
+                    await addCrew(adderId, boatId, parseString(patch.value))
                 }
-            })
-			break
-		case "replace":
-			break
-	}
+                if (path==="todos" && todoEntryGuard(patch.value)){
+                    await addTodo(boatId, patch.value)
+                }
+                break
+            case "remove":
+                if (isBoatArray(path)){
+                    await removeFromBoatArray(boatId, path, parseString(patch.value))
+                }
+                if (path==="todos"){
+                    await removeTodo(boatId, parseString(patch.value))
+                }
+                userSideEffects.forEach(async (sideEffect) => {
+                    if (path===sideEffect.field){
+                        await removeFromUserArray(parseString(patch.value), sideEffect.field2, boatId)
+                    }
+                })
+                break
+            case "replace":
+                break
+        }
+  }
 }

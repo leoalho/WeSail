@@ -23,7 +23,7 @@ export const getBoats = async (): Promise<Boat[]> => {
   return boats.data
 }
 
-export const updateBoat = async (id: string, patch: Patch): Promise<Boat> => {
+export const updateBoat = async (id: string, patch: Patch[]): Promise<Boat> => {
   const boat = await axios.patch(`${baseUrl}/${id}`, {patch: patch})
   return boat.data
 }

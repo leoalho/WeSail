@@ -19,11 +19,11 @@ const NewTodo = ({setNewTodo, setBoat, boatId, userId}: Props) => {
             createdBy: userId,
             value: todoValue
         }
-        const patch: Patch = {
+        const patch: Patch[] = [{
             op: "add",
             value: todo,
             path: "/todos"
-        }
+        }]
         const newBoat = await updateBoat(boatId, patch)
         setTodoValue("")
         setBoat(newBoat)

@@ -30,7 +30,8 @@ interface NewLog {
     startTime: string,
     endTime: string,
     start: string,
-    end: string
+    end?: string,
+    logType: string
 }
 
 export const newLog = async (log: NewLog) => {

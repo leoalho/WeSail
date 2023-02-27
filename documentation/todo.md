@@ -5,6 +5,7 @@
 - Refactor single boat page into several components, right now it is quite bloated
 - Update event card when a user joins/unjoins the event
 - Make a edit page for boatowners for editing privacy settings
+- Add type for new events, implement type when creating new logs
 
 ## BACKEND: 
 - Add Error middleware

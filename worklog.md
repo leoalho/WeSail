@@ -34,5 +34,5 @@
 | 20.2.23 | 5 | Asking and accepting crew member applications works on the backend: Small style edits |
 | 21.2.23 | 6 | Rejecting crew applications works on both front- and backend. Created a colour scheme for the app, added new styles |
 | 22.2.23 | 6 | Added styling for login and signup pages. Edied styling for cards in main feed. Added a todo list for boats, that is visible for crewmembers and owners. Added a list of past events for boats which as well is visible for crewmembers and owners |
-| 24.2.23 | 4 | Todos on boatpage can be added and deleted. |
-| Total | 135 ||
+| 24.2.23 | 7 | Todos on boatpage can be added and deleted. Added new fields with react select for adding crewmembers when creating logs. USers can mark todos as done when creating new logs.|
+| Total | 138 ||

@@ -56,7 +56,8 @@ export const toNewLog = (entry: LogFields, creator: (string | undefined)) => {
         end: parseString(entry.end),
         distance: parseNumber(entry.distance),
         distanceSailed: parseNumber(entry.distanceSailed),
-        participants: [parseObjectId(creator)]
+        participants: [parseObjectId(creator)],
+        logType: parseString(entry.logType)
     }
     if (entry.weather){
         newLog.weather = parseString(entry.weather)
