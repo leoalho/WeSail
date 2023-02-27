@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { newEvent } from "../services/events"
 import { RootState } from "../types"
@@ -12,12 +12,13 @@ const NewEvent = () => {
   const [time, setTime] = useState("")
   const [location, setLocation] = useState("")
   const [description, setDescription] = useState("")
-  
-  const userBoats: JSX.Element[] = []
+  const [eventType, setEventType] = useState("sail")
 
-  if (user.boats) {
-    user.boats.forEach((boat) => userBoats.push(<option key={boat.id as React.Key} value={boat.id}>{boat.name}</option>))
-  }
+  useEffect(() => {
+    if (user.boats.length>0){
+        setBoat(user.boats[0].id)
+    }
+  }, [])
 
   const style = {
     backgroundColor: "white",
@@ -26,28 +27,36 @@ const NewEvent = () => {
   }
 
   const createEvent = async () => {
-    await newEvent(
-      {
+    await newEvent({
         boat: boat,
         date: date,
         time: time,
         location: location,
-        description: description
-      }
-    )
+        description: description,
+        eventType: eventType
+    })
+    setDate("")
+    setTime("")
+    setLocation("")
+    setDescription("")
+    setEventType("sail")
   }
 
   return (
     <div className="main">
       <div>
       <div style={style}>
-        <select onChange={({target}) => setBoat(target.value)}>
-          {userBoats}
+        <select value={eventType} onChange={({target}) => setEventType(target.value)}>
+            <option value="sail">Sail</option>
+            <option value="maintenance">Maintenance</option>
+        </select>
+        <select value={boat} onChange={({target}) => setBoat(target.value)}>
+          {user.boats.map(boat => <option key={boat.id as React.Key} value={boat.id}>{boat.name}</option>)}
         </select><br/>
-        <input onChange={({target}) => setDate(target.value)} type="date" id="start" name="trip-start" value={date}></input>
-        <input onChange={({target}) => setTime(target.value)} type="time" id="start-time" name="start-time"></input><br />
-        Location: <input onChange={({target}) => setLocation(target.value)}></input><br/>
-        Description: <input onChange={({target}) => setDescription(target.value)}></input><br/>
+        <input value={date} onChange={({target}) => setDate(target.value)} type="date" id="start" name="trip-start"></input>
+        <input value={time} onChange={({target}) => setTime(target.value)} type="time" id="start-time" name="start-time"></input><br />
+        Location: <input value={location} onChange={({target}) => setLocation(target.value)}></input><br/>
+        Description: <input value={description} onChange={({target}) => setDescription(target.value)}></input><br/>
         <button onClick={createEvent}>Create event</button>
       </div>
       </div>

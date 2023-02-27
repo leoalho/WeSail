@@ -39,8 +39,7 @@ const Card = (props: Props) => {
           {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br />
         </div>
       </div>
-      
-      From {props.start} to {props.end}<br />
+      {(props.start && props.end)?<>From {props.start} to {props.end}<br /></>:<>@{props.start} </>}
       {props.description}< br />
     </div>
   )

@@ -22,7 +22,7 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
         setEvents(newEvents)
         setFilteredEvents(newEvents)
     }).catch(e => console.log(e))
-  }, [])
+  }, [currentUser])
 
   useEffect(() => {
     filterEvents()

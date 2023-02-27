@@ -24,7 +24,8 @@ interface NewEvent {
   date: string,
   time: string,
   location: string,
-  description: string
+  description: string,
+  eventType: string
 }
 
 export const newEvent = async (event: NewEvent): Promise<Event> => {

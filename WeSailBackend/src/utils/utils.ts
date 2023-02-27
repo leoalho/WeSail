@@ -40,7 +40,8 @@ export const toNewEvent = (entry: EventFields, creator: (string | undefined)) =>
     date: parseDateTime(entry.date, entry.time),
     creator: parseObjectId(creator),
     location: parseString(entry.location),
-    description: parseString(entry.description)
+    description: parseString(entry.description),
+    eventType: parseString(entry.eventType)
   }
   return newEntry
 }
@@ -53,15 +54,13 @@ export const toNewLog = (entry: LogFields, creator: (string | undefined)) => {
         startTime: parseDate(entry.startTime),
         endTime: parseDate(entry.endTime),
         start: parseString(entry.start),
-        end: parseString(entry.end),
-        distance: parseNumber(entry.distance),
-        distanceSailed: parseNumber(entry.distanceSailed),
         participants: [parseObjectId(creator)],
         logType: parseString(entry.logType)
     }
-    if (entry.weather){
-        newLog.weather = parseString(entry.weather)
-    }
+    if (entry.distanceSailed) newLog.distanceSailed = parseNumber(entry.distanceSailed)
+    if (entry.distance) newLog.distance = parseNumber(entry.distance)
+    if (entry.end) newLog.end = parseString(entry.end)
+    if (entry.weather) newLog.weather = parseString(entry.weather)
     return newLog
 }
 
@@ -101,14 +100,14 @@ export const parseDate = (date: unknown): Date => {
 
 export const parseString = (name: unknown): string => {
     if (!name || !isString(name)){
-        throw new Error('Incorrect or missing value');
+        throw new Error(`Incorrect or missing string value: ${name}`);
     }
     return name;
 };
 
 export const parseObjectId = (name: unknown): mongoose.Types.ObjectId => {
     if (!name || !isObjectId(name)){
-        throw new Error('Incorrect or missing value');
+        throw new Error(`Incorrect or missing ObjectId value: ${name}`);
     }
 
     return name;

@@ -48,7 +48,8 @@ export type EventFields = {
   date: unknown,
   time: unknown,
   location: unknown,
-  description: unknown
+  description: unknown,
+  eventType: unknown
 }
 
 export type NewEventEntry = {
@@ -56,7 +57,8 @@ export type NewEventEntry = {
   date: Date,
   location: string,
   description: string,
-  creator: mongoose.Types.ObjectId
+  creator: mongoose.Types.ObjectId,
+  eventType: string
 }
 
 export type UpdateEvent = {
@@ -81,7 +83,7 @@ export type LogFields = {
 export type NewLogEntry = {
     boat: mongoose.Types.ObjectId,
     creator: mongoose.Types.ObjectId,
-    participants?: mongoose.Types.ObjectId[],
+    participants: mongoose.Types.ObjectId[],
     description: string,
     weather?: string,
     distance?: number,

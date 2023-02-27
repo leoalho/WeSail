@@ -25,6 +25,10 @@
 - [X] Boatpage has a different view for users, crewmembers and owners
 - [X] BoatView contains a list of todos
 - [X] Cremembers and owners can create todos
+- [X] Todos can be marked as done
+- [X] When marking todos as done, it is possible to create a log enty
+- [X] Past events are shown on the single boat page
+- [X] PAst events can be either deleted or used to create new events
 
 ###  Views:
 - [x] LoginView
@@ -39,7 +43,6 @@
 
 ## Further working specifications:
 - [] Users can comment on logs
-- [] Create a todo list for boats visible and editable for CrewMembers and boat owners
 - [] Users can add profile image for themselves
 - [] Boatowners can add profile image for their boats
 - [] Notifications when logged in
@@ -54,3 +57,4 @@
 - Users can comment on log entries
 - Users can edit logs and events
 - Create real-time updated with sockets
+- Make a mobile friendly page

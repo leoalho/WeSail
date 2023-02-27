@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { Boat, Log, RootState, Event, Application, Option, Patch } from "../../types"
 import { updateFollowing, updatePendingCrew } from "../../reducers/userReducer"
-
 import { getBoatLogs } from "../../services/logs"
 import { getBoat, updateBoat } from "../../services/boats"
 import { updateUser } from "../../services/users"
@@ -49,8 +48,6 @@ const SingleBoat = () => {
     if (id){
         getBoat(id).then((boat) => {setBoat(boat)}).catch(e => console.log(e))
         getBoatLogs(id).then(newLogs => setLogs(newLogs)).catch(e => console.log(e))
-        getBoatEvents(id).then(newEvents => setEvents(newEvents)).catch(e => console.log(e))
-        getPastBoatEvents(id).then(newEvents => setPastEvents(newEvents)).catch(e => console.log(e))
     }
   }, [id])
 
@@ -84,6 +81,10 @@ const SingleBoat = () => {
             return
         }
     })
+    if (id){
+      getBoatEvents(id).then(newEvents => setEvents(newEvents)).catch(e => console.log(e))
+      getPastBoatEvents(id).then(newEvents => setPastEvents(newEvents)).catch(e => console.log(e))
+    }
   }, [id, user])
 
   useEffect(() => {
@@ -196,7 +197,7 @@ const SingleBoat = () => {
             <button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button>
         </div>}
         <div><b>Past events:</b></div>
-        {pastEvents.map((card) => <PastEventCard key={card.id} boatId={boat.id} event={card}/>)}
+        {pastEvents.map((card) => <PastEventCard key={card.id} boatId={boat.id} setPastEvents={setPastEvents} event={card}/>)}
       </div>
     </div>
   )

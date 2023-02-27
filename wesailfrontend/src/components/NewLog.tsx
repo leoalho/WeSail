@@ -6,9 +6,9 @@ import { useSelector } from "react-redux"
 import Select from 'react-select'
 import { useLocation } from "react-router-dom"
 
-import { getBoat } from "../services/boats"
+import { getBoat, updateBoat } from "../services/boats"
 import { newLog } from "../services/logs"
-import { RootState, Option } from "../types"
+import { RootState, Option, Patch } from "../types"
 
 const NewLog = () => {
   const user = useSelector((state: RootState) => state.user)
@@ -29,16 +29,14 @@ const NewLog = () => {
   const [todos, setTodos] = useState<Option[]>([])
 
   useEffect(() => {
-    
     setParticipants([{value: user.id, label: user.username}])
     if (location.state){
         setBoat(location.state.boat)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         setParticipants([...location.state.participants])
         setLogType(location.state.type)
-        if (location.state.description){
-            setDescription(location.state.description)
-        }
+        if (location.state.description) {setDescription(location.state.description)}
+        if (location.state.location) {setStartLocation(location.state.location)}
     }
     if (boat){
         const newOptions: Option[] = []
@@ -65,6 +63,14 @@ const NewLog = () => {
     }
   }, [])
 
+  const doneTodos = async () => {
+    const todoPatches: Patch[] = []
+    todos.forEach(todo => {
+        todoPatches.push({op: "remove", path: "/todos", value: todo.value})
+    })
+    await updateBoat(boat, todoPatches)
+  }
+
   const createEvent = async () => {
     await newLog(
         {
@@ -81,7 +87,20 @@ const NewLog = () => {
             logType: logType
         }
     )
-    console.log(todos)
+    await doneTodos()
+    setBoat(user.boats[0].id)
+    setLogType("sail")
+    setBoat("")
+    setParticipants([])
+    setStartTime("")
+    setEndTime("")
+    setStartLocation("")
+    setEndLocation("")
+    setDescription("")
+    setTodos([])
+    setWeather("")
+    setDistance("")
+    setDistanceSailed("")
   }
 
   const style = {
