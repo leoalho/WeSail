@@ -109,8 +109,8 @@ a {
     display: flex;
     flex: 1;
     justify-content: center;
-    background-image: url("http://localhost:3001/login.png");
     background-position: bottom;
+    background-image: url("http://165.227.170.94/login.png");
 }
 
 .right {

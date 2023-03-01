@@ -151,7 +151,7 @@ const SingleBoat = () => {
     <div className="main">
       <div className="boat_info">
         <div className="boat_info_card">
-        <img src="http://localhost:3001/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
+        <img src="http://165.227.170.94/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
         <div style={{padding: "5px"}}>
         <center><h2>{boat.name}</h2></center>
         {isOwner && <Owner applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
@@ -163,7 +163,7 @@ const SingleBoat = () => {
       <div>
         <div>
           <b>Boat log:</b><br/>
-           Show: 
+           Show: loca
           <input type="checkbox" id="sails" name="sails" checked={sails} onChange={() => setSails(!sails)}/>sails
           <input type="checkbox" id="maintenances" name="maintenances" checked={maintenances} onChange={() => setMaintenances(!maintenances)}/>maintenances</div>
         {logs.length===0 && <div className="content">No logs yet</div>}

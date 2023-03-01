@@ -36,4 +36,6 @@
 | 22.2.23 | 6 | Added styling for login and signup pages. Edied styling for cards in main feed. Added a todo list for boats, that is visible for crewmembers and owners. Added a list of past events for boats which as well is visible for crewmembers and owners |
 | 24.2.23 | 7 | Todos on boatpage can be added and deleted. Added new fields with react select for adding crewmembers when creating logs.
 | 25.2.23 | 4 | |USers can mark todos as done when creating new logs. Event cards are updated when a user joins/unjoins them. Past events can be either discarded or new log entries can be created from them. Started preparing for launching fist version.|
-| Total | 142 ||
+| 27.2.23 | 6 | Fixed some bugs with adding a new event and a new log entry, should work seamlesly now. Todos can be deleted. Users can create a log entry when marking todos as done |
+| 1.3.23 | 5 | Added nginx as a reverse proxy for the backend. Started creating kubernetes configuration files |
+| Total | 151 ||

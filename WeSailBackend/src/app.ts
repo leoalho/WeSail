@@ -31,7 +31,7 @@ app.use(
     })
 )
 app.use(express.json());
-if (process.env.NODE_END==='production') {app.use(express.static('frontend'))}
+if (process.env.NODE_ENV==='production') {app.use(express.static('frontend'))}
 //app.use(cors)
 app.use(express.static('images'))
 app.use('/api/users', userRoute)
