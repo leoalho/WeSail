@@ -3,7 +3,7 @@ import { UserFields, NewUserEntry,
         EventFields, NewEventEntry,
         LogFields, NewLogEntry } from "../types"
 import mongoose, { isValidObjectId} from "mongoose"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 import config from './config'
 
