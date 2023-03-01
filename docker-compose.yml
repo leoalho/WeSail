@@ -18,10 +18,17 @@ services:
   app:
     image: wesailapp
     build: .
-    ports:
-      - 3001:3001
     environment: 
       - REDIS_URI=redis://redis:6379
       - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database
       - NODE_ENV=production
       - SECRET=secret
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - app # wait for the app container to be started
