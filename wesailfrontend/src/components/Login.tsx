@@ -13,7 +13,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch()
-
   const handleLogin = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     try {

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import {Button} from 'react-bootstrap'
 import {signUp} from '../services/users'
 import { useNavigate } from 'react-router-dom'
 
@@ -43,7 +42,7 @@ const SignUp = () => {
         password again: 
         <input type="password" name="Password2" id="password2" />
         </div>
-        <Button className="button" type="submit" style={{fontSize:"20px", width: "100%", border: "1px"}}>Create user</Button>
+        <button className="button" type="submit">Create user</button>
     </form>
     </div>
     )
