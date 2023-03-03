@@ -40,10 +40,10 @@ const Card = ({event}: Props) => {
 
   return (
     <div className="eventCard">
-      <div><b><Link to={`/boats/${event.boat.id}`}>{event.boat.name}</Link></b> @{event.location} with <Participants participants={event.participants}/></div>
+      <div><b><Link to={`/boats/${event.boat.id}`}>{event.boat.name}</Link></b> @{event.location} <Participants participants={event.participants}/></div>
       {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br/>
-      <div>{event.description}</div>
-      {joining ? <button className="button" onClick={()=>unjoinEvent()}>Unjoin</button> : <button className="button" onClick={() => joinEvent()}>Join</button>}
+      <div >{event.description}</div>
+      <div style={{display: "flex", justifyContent: "right"}}>{joining ? <button className="button" onClick={()=>unjoinEvent()}>Unjoin</button> : <button className="button" onClick={() => joinEvent()}>Join</button>}</div>
     </div>
   )
 

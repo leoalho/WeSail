@@ -42,7 +42,7 @@ const Login = () => {
       password: 
       <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} />
     </div>
-    <button className="button" type="submit" style={{fontSize:"20px", width: "100%"}}>login</button><br/>
+    <button className="button" type="submit" style={{fontSize:"20px", width: "100%", marginTop: "15px"}}>login</button><br/>
     </center>
   </form>
   </div>

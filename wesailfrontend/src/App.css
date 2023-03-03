@@ -39,7 +39,7 @@ a {
 }
 
 .form a:hover {
-    color: #0018D9; 
+    color: #5ea4ff; 
 }
 
 .navbar a {
@@ -48,7 +48,7 @@ a {
 }
 
 .navbar a:hover {
-  color: #0018D9;
+  color: #5ea4ff;
 }
 
 .main a:hover {
@@ -65,7 +65,7 @@ a {
 }
 
 .btn:hover {
-    color: #0018D9;
+    color: #5ea4ff;
 }
 
 .button {
@@ -111,6 +111,7 @@ a {
     justify-content: center;
     background-position: bottom;
     background-image: url("http://165.227.170.94/login.png");
+    background-size:cover;
 }
 
 .right {
@@ -128,8 +129,8 @@ a {
 .eventCard {
   background-color: white;
   margin-top: 5px;
-  padding-left: 5px;
-  padding-bottom: 5px;
+  border-radius: 10px;
+  padding: 10px;
   width: 280px;
 }
 
@@ -154,7 +155,7 @@ a {
 }
 
 .dropdown:hover {
-  color: #0018D9;
+  color: #5ea4ff;
 }
 
 .dropdown-content {

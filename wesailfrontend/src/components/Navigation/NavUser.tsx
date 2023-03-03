@@ -86,8 +86,8 @@ const NavUser = () => {
             </div>
           </div>
     }
-    <Link to="/logger">Start Loggin</Link>
-    <Link to="/newEvent">New Event</Link>
+    <Link to="/logger">Start logging</Link>
+    <Link to="/newEvent">New event</Link>
     <div className="search-container">
               <form className='formtitle'>
                 <input className="navbar-input" type="text" placeholder="Search.." value={filter} onChange={e => setFilter(e.target.value)} name="search"/>

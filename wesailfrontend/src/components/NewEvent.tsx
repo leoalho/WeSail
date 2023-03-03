@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { newEvent } from "../services/events"
 import { RootState } from "../types"
 
 const NewEvent = () => {
   const user = useSelector((state: RootState) => state.user)
+  const navigate = useNavigate()
   const [boat, setBoat] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
@@ -35,11 +37,12 @@ const NewEvent = () => {
         description: description,
         eventType: eventType
     })
-    setDate("")
-    setTime("")
-    setLocation("")
-    setDescription("")
-    setEventType("sail")
+    navigate("/")
+    //setDate("")
+    //setTime("")
+    //setLocation("")
+    //setDescription("")
+    //setEventType("sail")
   }
 
   return (

@@ -71,6 +71,7 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
   return (
     <div id="sideNav">
     <div style={{width: "285px"}}>Upcoming events:</div>
+    {filteredEvents.length===0 && <center style={{marginTop: "10px"}}>No upcoming events</center>}
     {filteredEvents.map((card) => <Card key={card.id} event={card}/>)}    
     </div>
 )}
