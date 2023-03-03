@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 
@@ -29,7 +29,7 @@ function App() {
       if (newuser) {
         dispatch(newUser(newuser))
       }
-    }).catch(e => console.log(e.response.data.error))
+    }).catch(e => console.log(e))
   }, [])
 
   return (
