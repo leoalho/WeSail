@@ -2,7 +2,7 @@ FROM node:16
 WORKDIR /usr/src/app
 COPY wesailfrontend .
 RUN npm ci
-CMD npm run build
+RUN npm run build
 
 FROM node:16
 WORKDIR /usr/src/app
