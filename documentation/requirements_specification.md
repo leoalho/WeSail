@@ -45,7 +45,7 @@
 - [] Users can comment on logs
 - [] Users can add profile image for themselves
 - [] Boatowners can add profile image for their boats
-- [] Notifications when logged in
+- [x] Notifications
 
 ## Further ideas: 
 - further specifications for boat
@@ -54,7 +54,6 @@
 - Profile pictures
 - email authentication for new users
 - Chaging of password via email
-- Users can comment on log entries
 - Users can edit logs and events
 - Create real-time updated with sockets
 - Make a mobile friendly page

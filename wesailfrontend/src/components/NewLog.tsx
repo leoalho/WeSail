@@ -4,13 +4,15 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import Select from 'react-select'
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
 
 import { getBoat, updateBoat } from "../services/boats"
 import { newLog } from "../services/logs"
 import { RootState, Option, Patch } from "../types"
 
 const NewLog = () => {
+  const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.user)
   const location = useLocation()
   const [logType, setLogType] = useState("sail")
@@ -72,8 +74,8 @@ const NewLog = () => {
   }
 
   const createEvent = async () => {
-    await newLog(
-        {
+    try {
+      await newLog({
             boat: boat,
             participants: participants.map(participant => participant.value),
             description: description,
@@ -85,22 +87,13 @@ const NewLog = () => {
             start: startLocation,
             end: endLocation,
             logType: logType
-        }
-    )
-    await doneTodos()
-    setBoat(user.boats[0].id)
-    setLogType("sail")
-    setBoat("")
-    setParticipants([])
-    setStartTime("")
-    setEndTime("")
-    setStartLocation("")
-    setEndLocation("")
-    setDescription("")
-    setTodos([])
-    setWeather("")
-    setDistance("")
-    setDistanceSailed("")
+        })
+      await doneTodos()
+      toast.success('Created new log entry')
+      navigate('/')
+    } catch (e) {
+      toast.error('Error creating new log')
+    }
   }
 
   const style = {

@@ -154,7 +154,7 @@ const SingleBoat = () => {
         <img src="http://165.227.170.94/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
         <div style={{padding: "5px"}}>
         <center><h2>{boat.name}</h2></center>
-        {isOwner && <Owner applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
+        {isOwner && <Owner boat={boat} applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
         {isCrew && <Crew />}
         {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat} sendCrewRequest={sendCrewRequest} crewApplication={crewApplication}/>}
         </div>
@@ -173,7 +173,10 @@ const SingleBoat = () => {
         <div><b>Upcoming events:</b></div>
         {events.length===0 && <div className="eventCard">No upcoming events</div>}
         {events.map((card) => <EventCard key={card.id} event={card}/>)}
-        <div><b>Todos:</b></div>
+        
+        {(isOwner || isCrew) && 
+        <>
+                  <div><b>Todos:</b></div>
         <div className="eventCard">
             {(boat.todos.length===0)
                 ?<div>No Todos</div>
@@ -196,6 +199,9 @@ const SingleBoat = () => {
             <button className="button" onClick={() => {setNewTodo(true)}}>Create New</button>
             <button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button>
         </div>}
+        </>
+        }
+
         <div><b>Past events:</b></div>
         {pastEvents.map((card) => <PastEventCard key={card.id} boatId={boat.id} setPastEvents={setPastEvents} event={card}/>)}
       </div>

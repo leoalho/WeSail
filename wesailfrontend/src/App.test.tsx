@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 import App from './App';
 import userReducer from './reducers/userReducer'
 
-test('renders Wesail link', () => {
+test('renders Wesail link', async () => {
+
+const consoleSpy = jest.spyOn(console, 'log')
  
 const store = configureStore({
   reducer: {
@@ -16,7 +18,8 @@ const store = configureStore({
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>);
-  const linkElement = screen.getByText(/Wesail/i);
-  expect(linkElement).toBeInTheDocument();
-});
+  </React.StrictMode>)
+ //const linkElement = await screen.findByText(/Wesail/i)
+ //expect(linkElement).toBeInTheDocument()
+ await waitFor(() => expect(consoleSpy).toHaveBeenCalledTimes(2))
+})

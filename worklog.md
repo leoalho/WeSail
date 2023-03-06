@@ -39,5 +39,6 @@
 | 27.2.23 | 6 | Fixed some bugs with adding a new event and a new log entry, should work seamlesly now. Todos can be deleted. Users can create a log entry when marking todos as done |
 | 1.3.23 | 5 | Added nginx as a reverse proxy for the backend. Started creating kubernetes configuration files |
 | 2.3.23 | 4 | Debuggin to get a working version, small changes to the docker compose files. |
-| 3.3.23 | 5 | First version now online hosted via digital ocean! Started writing tests for frontend. There was quite a lot of problems with getting the frontend tests to work. Created first babel.config.js and jest.config.ts files and tried configurating these, but this did not have any help. Finally Adding environmental variables to the package.json fixed the issue.|
-| Total | 160 ||
+| 3.3.23 | 10 | First version now online hosted via digital ocean! Started writing tests for frontend. There was quite a lot of problems with getting the frontend tests to work. Created first babel.config.js and jest.config.ts files and tried configurating these, but this did not have any help. Finally Adding environmental variables to the package.json fixed the issue. Made some styling changes here and there. |
+| 5.3.23 | 3 | Added notifications via react-hot-toast. Edited the single boat page. Made some small style changes here and there. |
+| Total | 172 ||

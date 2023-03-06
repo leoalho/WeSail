@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
+import toast from 'react-hot-toast';
+
 import { newUser } from '../reducers/userReducer'
 import { User } from '../types'
 import login from '../services/login'
@@ -24,8 +26,9 @@ const Login = () => {
       setUsername('')
       setPassword('')
       navigate('/')
+      toast.success(`Logged in as ${username}`)
     } catch (exception) {
-      console.log('Wrong credentials')
+      toast.error('Wrong credentials')
     }
   }
 

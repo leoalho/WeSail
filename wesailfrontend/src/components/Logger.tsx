@@ -111,7 +111,7 @@ const Logger = () => {
             ? <><button onClick={() => logging ? pauseLogging(): continueLogging()}>{logging ? <>Pause</>: <>Continue</>}</button>
              latitude: {latitude}, longitude: {longitude} {speed && <>, speed {speed}</>} {heading && <>, {heading}</>} <br/>
              last updated {new Date(updated).toISOString()}</>
-            : <><button onClick={startLogging}>Start</button> or <Link to="/newLog">Create log entry without location</Link></>
+            : <><button className="button" onClick={startLogging}>Start</button> or <Link to="/newLog">Create log entry without location</Link></>
           }
           {(logActive && !logging) && <button>Submit</button>}
         </div>

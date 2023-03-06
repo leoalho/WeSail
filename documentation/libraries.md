@@ -29,6 +29,7 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Leaflet
 - Leaflet-react
 - React select
+- react-hot-toast
 
 ### Development
 - Deep freeze

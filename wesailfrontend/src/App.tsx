@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
+import { Toaster } from 'react-hot-toast';
 
 import Navigation from './components/Navigation'
 import Home from './components/Home'
@@ -29,7 +30,7 @@ function App() {
       if (newuser) {
         dispatch(newUser(newuser))
       }
-    }).catch(e => console.log(e))
+    }).catch(e => console.log(e.message))
   }, [])
 
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/users/:id" element={user ? <SingleUser /> : <Login/>} />
         <Route path="/newLog" element={user ? <NewLog /> : <Login />} />
       </Routes>
+      <Toaster/>
     </Router>
     )
 }

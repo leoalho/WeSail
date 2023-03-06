@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
+
 import { newEvent } from "../services/events"
 import { RootState } from "../types"
 
@@ -29,20 +31,20 @@ const NewEvent = () => {
   }
 
   const createEvent = async () => {
-    await newEvent({
+    try {
+      await newEvent({
         boat: boat,
         date: date,
         time: time,
         location: location,
         description: description,
         eventType: eventType
-    })
-    navigate("/")
-    //setDate("")
-    //setTime("")
-    //setLocation("")
-    //setDescription("")
-    //setEventType("sail")
+      })
+      navigate("/")
+      toast.success('created new event')
+    } catch {
+      toast.error('error creating new event')
+    }
   }
 
   return (
@@ -60,7 +62,7 @@ const NewEvent = () => {
         <input value={time} onChange={({target}) => setTime(target.value)} type="time" id="start-time" name="start-time"></input><br />
         Location: <input value={location} onChange={({target}) => setLocation(target.value)}></input><br/>
         Description: <input value={description} onChange={({target}) => setDescription(target.value)}></input><br/>
-        <button onClick={createEvent}>Create event</button>
+        <button className="button" onClick={createEvent}>Create event</button>
       </div>
       </div>
     </div>
