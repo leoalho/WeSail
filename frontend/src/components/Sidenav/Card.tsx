@@ -43,7 +43,7 @@ const Card = ({event}: Props) => {
       <div><b><Link to={`/boats/${event.boat.id}`}>{event.boat.name}</Link></b> @{event.location} <Participants participants={event.participants}/></div>
       {date.toLocaleDateString()} {(date.getHours()<10?'0':'') + date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}<br/>
       <div >{event.description}</div>
-      <div style={{display: "flex", justifyContent: "right"}}>{joining ? <button className="button" onClick={()=>unjoinEvent()}>Unjoin</button> : <button className="button" onClick={() => joinEvent()}>Join</button>}</div>
+      <div style={{display: "flex", justifyContent: "right"}}>{joining ? <button className="button" style={{borderRadius: "5px"}} onClick={()=>unjoinEvent()}>Unjoin</button> : <button className="button" style={{borderRadius: "5px"}} onClick={() => joinEvent()}>Join</button>}</div>
     </div>
   )
 

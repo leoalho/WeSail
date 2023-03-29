@@ -31,9 +31,9 @@ const NewTodo = ({setNewTodo, setBoat, boatId, userId}: Props) => {
     }
 
     return (
-        <div>
+        <div style={{marginTop: "5px"}}>
             <input type="text" value={todoValue} onChange={({target}) => setTodoValue(target.value)}></input>
-            <button className="button" onClick={saveTodo}>save</button><button className="button" onClick={() => {setNewTodo(false)}}>cancel</button>
+            <button className="button" onClick={saveTodo} style={{marginRight: "5px"}}>save</button><button className="button" onClick={() => {setNewTodo(false)}}>cancel</button>
         </div>
     )
 }

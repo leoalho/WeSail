@@ -25,25 +25,15 @@ const SignUp = () => {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         <div className='login'>
         <form onSubmit={handleSignUp} className="form">
-        <center><h2>SIGNUP</h2></center>
-        <div>
-        username: 
-        <input type="text" name="Username" id="username"  />
-        </div>
-        <div>
-        Email: 
-        <input type="text" name="Email" id="email"  />
-        </div>
-        <div> 
-        password: 
-        <input type="password" name="Password" id="password" />
-        </div>
-        <div> 
-        password again: 
-        <input type="password" name="Password2" id="password2" />
-        </div>
-        <button className="button" type="submit">Create user</button>
-    </form>
+          <center><h2>SIGNUP</h2></center>
+          <center>
+          <div><input type="text" name="Username" id="username" placeholder='username' style={{fontSize:"15px", width: "90%"}}/></div>
+          <div><input type="text" name="Email" id="email"  placeholder='email' style={{fontSize:"15px", width: "90%", marginTop: "10px"}}/></div>
+          <div> <input type="password" name="Password" id="password" placeholder='password' style={{fontSize:"15px", width: "90%", marginTop: "10px"}}/></div>
+          <div> <input type="password" name="Password2" id="password2" placeholder='password again' style={{fontSize:"15px", width: "90%", marginTop: "10px"}}/></div>
+        <button className="button" type="submit" style={{fontSize:"20px", width: "100%", marginTop: "15px"}}>Create user</button>
+        </center>
+        </form>
     </div>
     )
 }

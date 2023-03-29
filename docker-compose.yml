@@ -8,13 +8,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
       MONGO_INITDB_DATABASE: the_database
     volumes:
-      - ./WeSailBackend/mongo/dev-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - ./WeSailBackend/mongo/data:/data/db
+      - ./backend/mongo/dev-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./backend/mongo/data:/data/db
   redis:
     image: redis
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
-      - ./WeSailBackend/redis/data:/data
+      - ./backend/redis/data:/data
   app:
     image: wesailapp
     build: .

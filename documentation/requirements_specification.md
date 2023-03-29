@@ -46,14 +46,12 @@
 - [] Users can add profile image for themselves
 - [] Boatowners can add profile image for their boats
 - [x] Notifications
+- [] email authentication for new users
+- [] Changing of password via email
 
 ## Further ideas: 
-- further specifications for boat
+- further specifications for boats
 - Boatowners can edit boat specs
 - Users can edit their own profiles
-- Profile pictures
-- email authentication for new users
-- Chaging of password via email
 - Users can edit logs and events
-- Create real-time updated with sockets
 - Make a mobile friendly page

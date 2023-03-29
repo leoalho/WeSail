@@ -39,5 +39,6 @@ A list for my self to keep track of all the technologies and libraries used in t
 ## DEvOps
 - Docker
 - Docker-compose
+- Kubernetes
 - Nginx
 - Github Actions

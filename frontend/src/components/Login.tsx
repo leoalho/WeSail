@@ -37,14 +37,8 @@ const Login = () => {
     <form onSubmit={handleLogin} className="form">
     <center><h2>LOG IN</h2></center>
     <center>
-    <div>
-      username: 
-      <input type="text" value={username} name="Username " onChange={({ target }) => setUsername(target.value)} />
-    </div>
-    <div> 
-      password: 
-      <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} />
-    </div>
+    <div><input type="text" value={username} name="Username " onChange={({ target }) => setUsername(target.value)} placeholder="username" style={{fontSize:"15px", width: "90%"}}/></div>
+    <div> <input type="password" value={password} name="Password " onChange={({ target }) => setPassword(target.value)} placeholder="password" style={{fontSize:"15px", width: "90%", marginTop: "10px"}}/></div>
     <button className="button" type="submit" style={{fontSize:"20px", width: "100%", marginTop: "15px"}}>login</button><br/>
     </center>
   </form>

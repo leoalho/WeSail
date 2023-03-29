@@ -124,6 +124,7 @@ a {
   background: rgba(255, 255, 255, 0.8);
   font-size: x-large;
   padding: 15px;
+  width: 200px;
 }
 
 .eventCard {

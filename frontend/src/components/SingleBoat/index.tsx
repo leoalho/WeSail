@@ -187,16 +187,18 @@ const SingleBoat = () => {
         {selectTodos && 
             <div className="eventCard">
                 <Select isMulti name="todos" options={options} onChange={(option) => setSelectedTodos([...option])} className="basic-multi-select" classNamePrefix="select" />
-                <button className="button" onClick={() => {
+                <div style={{marginTop: "5px"}}>
+                <button className="button" style={{marginRight: "5px"}} onClick={() => {
                     setSelectTodos(false)
                     setSelectedTodos([])}}
                 >Cancel</button>
                 <button className="button" onClick={doneTodos}> Mark as done</button>
+                </div>
             </div>
         }
         {!newTodo && !selectTodos &&
-        <div>
-            <button className="button" onClick={() => {setNewTodo(true)}}>Create New</button>
+        <div style={{margin: "5px"}}>
+            <button className="button" style={{marginRight: "5px"}} onClick={() => {setNewTodo(true)}}>Create New</button>
             <button className="button" onClick={() => setSelectTodos(true)}>Mark todos as done</button>
         </div>}
         </>
