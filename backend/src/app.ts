@@ -9,9 +9,6 @@ import eventRoute from './routes/events'
 import logRoute from './routes/logs'
 import config from './utils/config'
 import { RedisStore, redisClient } from './redis'
-//import redisClient from './redis'
-
-//redisClient.connect().then(_result => console.log("connected to redis"))
 
 const app = express();
 app.disable('x-powered-by');
@@ -31,8 +28,7 @@ app.use(
     })
 )
 app.use(express.json());
-if (process.env.NODE_ENV==='production') {app.use(express.static('frontend'))}
-//app.use(cors)
+if (process.env.NODE_ENV==='production') {app.use(express.static('frontend'))}bv6tvbybybn drgy n
 app.use(express.static('images'))
 app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)

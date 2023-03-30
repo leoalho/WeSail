@@ -35,4 +35,4 @@ services:
       - 80:80
     container_name: reverse-proxy
     depends_on:
-      - app # wait for the app container to be started
+      - app

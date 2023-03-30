@@ -42,5 +42,6 @@
 | 3.3.23 | 10 | First version now online hosted via digital ocean! Started writing tests for frontend. There was quite a lot of problems with getting the frontend tests to work. Created first babel.config.js and jest.config.ts files and tried configurating these, but this did not have any help. Finally Adding environmental variables to the package.json fixed the issue. Made some styling changes here and there. |
 | 5.3.23 | 3 | Added notifications via react-hot-toast. Edited the single boat page. Made some small style changes here and there. |
 | 6.3.23 | 3 | Got the first unit test finally to work. Started working on E2E tests via Cypress. |
-| 29.3.23 | 3 | Wrote a proper README. Worked on E2E testing. Small style changes in fronted. Started working on adding a SSL certificate for the production version
+| 29.3.23 | 3 | Wrote a proper README. Enabled https so the geolocationAPI works in production as well. |
+| 30.3.23 |||
 | Total | 178 ||
