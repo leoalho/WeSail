@@ -1,9 +1,6 @@
-FROM node:16
-
+FROM node:19-alpine
 WORKDIR /usr/src/app
-
 COPY . .
-
 RUN npm ci
 
-CMD npm run dev
+CMD npm run start

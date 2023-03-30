@@ -1,5 +1,5 @@
 node_modules
 .env
 build
-mongo
+mongo/data
 redis

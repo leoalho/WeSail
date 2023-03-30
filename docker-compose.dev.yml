@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes:
+      - ./backend/mongo/dev-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./backend/mongo/data:/data/db
+  redis:
+    image: redis
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./backend/redis/data:/data
+  backend:
+    image: wesailbackend
+    build: ./backend
+    environment: 
+        - url = http://localhost:3001
+        - REDIS_URI=redis://redis:6379
+        - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
+        - NODE_ENV=development
+        - SECRET=secret
+    depends_on:
+      - redis
+      - mongo
+    ports:
+      - 3001:3001
+  frontend:
+    image: wesailfrontend
+    build: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+      
