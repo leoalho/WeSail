@@ -19,7 +19,6 @@ services:
     image: wesailapp
     build: .
     environment: 
-      - url = http://localhost
       - REDIS_URI=redis://redis:6379
       - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
       - NODE_ENV=production
@@ -31,8 +30,10 @@ services:
     image: nginx:1.20.1
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/var/ssl
     ports:
       - 80:80
+      - 443:443
     container_name: reverse-proxy
     depends_on:
       - app

@@ -1,7 +1,7 @@
 Wesail is a web application created as a project for the "fullstackopen" course. It is a social media for logging sail trips, managing boat maintenance and boating trips.
 
 ## Running the application
-The application is Hosted via digital ocean, running on [](http://joukko.io). The application is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
+The application is Hosted via digital ocean, running on <https://joukko.io>. The application is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
 
 The application is written in typescript. The backend runs on express, and the frontend is done with React with redux as global state management. Session management is implemented via Redis and express session, and data storing via MongodB and Mongoose. In addition nginx is used as a reverse proxy. CI is implemented via github actions. A complete list of libraries used is available here.
 

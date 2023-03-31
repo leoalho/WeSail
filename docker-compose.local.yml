@@ -15,25 +15,16 @@ services:
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ./backend/redis/data:/data
-  backend:
-    image: wesailbackend
-    build: ./backend
+  app:
+    image: wesailapp
+    build: .
     environment: 
-        - url = http://localhost:3001
-        - REDIS_URI=redis://redis:6379
-        - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
-        - NODE_ENV=development
-        - SECRET=secret
+      - REDIS_URI=redis://redis:6379
+      - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
+      - NODE_ENV=production
+      - SECRET=secret
     depends_on:
       - redis
       - mongo
     ports:
       - 3001:3001
-  frontend:
-    image: wesailfrontend
-    build: ./frontend
-    ports:
-      - 3000:3000
-    depends_on:
-      - backend
-      
