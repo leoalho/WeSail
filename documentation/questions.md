@@ -1,5 +1,4 @@
 - Is it a good idea to have a common types.ts file for both front and backend?
-- When signing in and signing up should the password be hashed already at the frontend? 
 - When for instance adding a new friend to a user is it better to just update the global state or is it better to fetch the user data from the backend
 - Is it wise to have a object as a redux slice? or refactor the object into multiple slices
 - IS it better to have one big useEffect or several small useEffects.

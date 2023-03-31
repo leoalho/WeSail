@@ -43,8 +43,8 @@
 
 ## Further working specifications:
 - [] Users can comment on logs
-- [] Users can add profile image for themselves
-- [] Boatowners can add profile image for their boats
+- [] Users can add a profile image for themselves
+- [] Boatowners can add a profile image for their boats
 - [x] Notifications
 - [] email authentication for new users
 - [] Changing of password via email
