@@ -15,9 +15,10 @@ services:
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ./backend/redis/data:/data
+    deploy:
+      replicas: 2
   app:
-    image: wesailapp
-    build: .
+    image: leoalho/wesail
     environment: 
       - REDIS_URI=redis://redis:6379
       - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
@@ -26,7 +27,26 @@ services:
     depends_on:
       - redis
       - mongo
-    ports:
-      - 3001:3001
     deploy:
+      replicas: 2
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginxlocal.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 3000:80
+    depends_on:
+      - app
+    deploy:
+      replicas: 2
+  shepherd:
+    image: mazzolino/shepherd
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - IGNORELIST_SERVICES=mongo
+    deploy:
+      placement:
+        constraints:
+        - node.role == manager
       replicas: 2
