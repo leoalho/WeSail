@@ -15,6 +15,8 @@ services:
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ./backend/redis/data:/data
+    deploy:
+      replicas: 2
   app:
     image: leoalho/wesail
     environment: 
@@ -25,6 +27,8 @@ services:
     depends_on:
       - redis
       - mongo
+    deploy:
+      replicas: 2
   nginx:
     image: nginx:1.20.1
     volumes:
@@ -33,3 +37,16 @@ services:
       - 3000:80
     depends_on:
       - app
+    deploy:
+      replicas: 2
+  shepherd:
+    image: mazzolino/shepherd
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - IGNORELIST_SERVICES="mongo shepherd"
+      - SLEEP_TIME=15m
+    deploy:
+      placement:
+        constraints:
+        - node.role == manager
