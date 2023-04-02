@@ -11,7 +11,7 @@ import User from './components/User'
 import Logger from './components/Logger'
 import NewBoat from './components/NewBoat'
 import SingleBoat from './components/SingleBoat'
-import SingleUser from './components/SingleUSer'
+import SingleUser from './components/SingleUser'
 import NewEvent from './components/NewEvent'
 import NewLog from './components/NewLog'
 
