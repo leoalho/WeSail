@@ -44,5 +44,5 @@
 | 6.3.23 | 3 | Got the first unit test finally to work. Started working on E2E tests via Cypress. |
 | 29.3.23 | 3 | Wrote a proper README. Enabled https so the geolocationAPI works in production as well. |
 | 30.3.23 |2 | Created a new dockerfile for running the app locally. Small style changes. |
-| 2.4.23 | 2 | Updated Pipeline
+| 2.4.23 | 2 | Updated Pipeline.|
 | Total | 182 ||
