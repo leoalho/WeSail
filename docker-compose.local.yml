@@ -43,7 +43,10 @@ services:
     image: mazzolino/shepherd
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - IGNORELIST_SERVICES=mongo
     deploy:
       placement:
         constraints:
         - node.role == manager
+      replicas: 2
