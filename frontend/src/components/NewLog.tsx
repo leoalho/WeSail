@@ -123,7 +123,7 @@ const NewLog = () => {
         }
         Description: <input value={description} onChange={({target}) => setDescription(target.value)}></input><br/>
         Todos Done: <Select isMulti name="todos" options={todoOptions} className="basic-multi-select" classNamePrefix="select" onChange={(option) => setTodos([...option])}/>
-        <button onClick={createEvent}>Create log entry</button>
+        <button className="button" onClick={createEvent}>Create log entry</button>
       </div>
       </div>
     </div>

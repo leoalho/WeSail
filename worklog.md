@@ -43,5 +43,5 @@
 | 5.3.23 | 3 | Added notifications via react-hot-toast. Edited the single boat page. Made some small style changes here and there. |
 | 6.3.23 | 3 | Got the first unit test finally to work. Started working on E2E tests via Cypress. |
 | 29.3.23 | 3 | Wrote a proper README. Enabled https so the geolocationAPI works in production as well. |
-| 30.3.23 |||
-| Total | 178 ||
+| 30.3.23 |2 |Created a new dockerfile for running the app locally. Small style changes. |
+| Total | 180 ||

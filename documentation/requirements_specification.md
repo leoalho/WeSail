@@ -1,4 +1,4 @@
-## Workng requirements for V1.0.0:
+## Requirements for V1.0.0:
 - [x] Users can log in
 - [x] Users can log out
 - [x] New users can sign up

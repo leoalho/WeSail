@@ -9,6 +9,7 @@ on:
     types: [opened, synchronize]
 jobs:
   backend:
+    name: backend
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -29,6 +30,7 @@ jobs:
       - name: test
         run: npm run test
   frontend:
+    name: frontend
     runs-on: ubuntu-20.04
     defaults:
       run:

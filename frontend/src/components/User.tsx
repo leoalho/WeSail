@@ -36,8 +36,8 @@ const UserInput = () => {
     <div>
     <div style={style}>
       username: {user.username}<br/>
-      email: {user.email} <button>change</button><br />
-      <button>Change password</button><br />
+      email: {user.email} <button className="button">change</button><br />
+      <button className="button">Change password</button><br />
       friend requests:<br />
       {user.friendRequests.map(friend => <div key={friend.id as React.Key}> {friend.username} <button onClick={() => acceptRequest(friend.id)}>Approve</button> <button onClick={()=> declineRequest(friend.id)}>Decline</button> </div>)}
       friends:<br />
