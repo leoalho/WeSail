@@ -42,12 +42,13 @@
 - [x] Page for creating a new Log
 
 ## Further working specifications:
-- [] Users can comment on logs
+- [] Users can comment on log entries
 - [] Users can add a profile image for themselves
 - [] Boatowners can add a profile image for their boats
 - [x] Notifications
 - [] email authentication for new users
 - [] Changing of password via email
+- [] boat owners can add more boat owners
 
 ## Further ideas: 
 - further specifications for boats
