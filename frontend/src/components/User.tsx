@@ -10,6 +10,9 @@ import { useState } from 'react'
 const UserInput = () => {
   const [editPassword, setEditPassword] = useState(false)
   const [editEmail, setEditEmail] = useState(false)
+  const [newPwd, setNewPwd] = useState('')
+  const [newPwd2, setNewPwd2] = useState('')
+  const [newEmail, setNewEmail] = useState('')
 
   const user = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
@@ -30,24 +33,40 @@ const UserInput = () => {
     dispatch(updateFriends(newUser.friends))
   }
 
+  const cancelEmail = () => {
+    setEditEmail(!editEmail)
+    setNewEmail('')
+  }
+
+  const cancelPwd = () => {
+    setEditPassword(!editPassword)
+    setNewPwd('')
+    setNewPwd2('')
+  }
+
   return (
     <div className="content">
       username: {user.username}<br/>
       {editEmail
-        ? <><input></input><button className='button'>Save</button><button className='button' onClick={()=>setEditEmail(!editEmail)}>Cancel</button></>
-        : <>email: {user.email} <button className="button" onClick={()=>setEditEmail(!editEmail)}>change</button></>}
+        ? <><input value={newEmail} onChange={({ target }) => setNewEmail(target.value)} placeholder="new email address" /><button className='button'>Save</button><button className='button' onClick={cancelEmail}>Cancel</button></>
+        : <>email: {user.email} <button className="button" onClick={()=> setEditEmail(!editEmail)}>change</button></>}
       <br />
       {editPassword
-        ? <><input></input><br />
-          <input></input><button className='button'>Send</button><button className='button' onClick={()=>setEditPassword(!editPassword)}>Cancel</button></>
+        ? <><input value={newPwd} type="password" placeholder="New password" onChange={({ target }) => setNewPwd(target.value)} /><br />
+          <input value={newPwd2} type="password" placeholder="New password again" onChange={({ target }) => setNewPwd2(target.value)} /><button className='button'>Send</button><button className='button' onClick={cancelPwd}>Cancel</button></>
         : <><button className="button" onClick={()=>setEditPassword(!editPassword)}>Change password</button></>}
       <br />
-
+      {user.friendRequests.length>0 &&
+      <>
       friend requests:<br />
       {user.friendRequests.map(friend => <div key={friend.id as React.Key}> {friend.username} <button onClick={() => acceptRequest(friend.id)}>Approve</button> <button onClick={()=> declineRequest(friend.id)}>Decline</button> </div>)}
+      </>}
+      {user.friends.length>0 &&
+      <>
       friends:<br />
       {user.friends.map(friend => <>{friend.username} <button onClick={async () => await deleteFriend(friend.id)}>Remove</button> <br/></>)}
-      <Link to="../newBoat">Add boat</Link>
+      </>} 
+      <Link to="../newBoat">Add a new boat</Link>
     </div>
   )
 }
