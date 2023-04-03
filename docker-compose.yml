@@ -16,7 +16,7 @@ services:
     volumes:
       - ./backend/redis/data:/data
   app:
-    image: leoalho/wesail
+    image: leoalho/wesail:latest
     environment: 
       - REDIS_URI=redis://redis:6379
       - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
