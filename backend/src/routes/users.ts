@@ -34,8 +34,8 @@ router.get('/:id', async (req, res) => {
 })
 
 router.patch('/:id', async (req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   try{
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     await userJsonPatch(req.params.id, req.body.patch)
     const user = await findUserId(req.params.id)
     res.json(user)
