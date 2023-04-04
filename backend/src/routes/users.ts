@@ -34,10 +34,19 @@ router.get('/:id', async (req, res) => {
 })
 
 router.patch('/:id', async (req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  await userJsonPatch(req.params.id, req.body.patch)
-  const user = await findUserId(req.params.id)
-  res.json(user)
+  try{
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    await userJsonPatch(req.params.id, req.body.patch)
+    const user = await findUserId(req.params.id)
+    res.json(user)
+  } catch (error: unknown){
+      let errorMessage = 'Something went wrong.';
+      if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+      }
+      res.status(400).send(errorMessage);
+  }
+  
 })
 
 router.delete('/:id', async (req, res) => {
