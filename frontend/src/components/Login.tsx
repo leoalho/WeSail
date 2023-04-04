@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useState } from "react"
-import { useNavigate} from "react-router-dom";
-import { useDispatch } from "react-redux";
-import toast from 'react-hot-toast';
+import { useNavigate} from "react-router-dom"
+import { useDispatch } from "react-redux"
+import toast from 'react-hot-toast'
 
 import { newUser } from '../reducers/userReducer'
 import { User } from '../types'

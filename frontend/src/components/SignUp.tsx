@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import {signUp} from '../services/users'
+
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
+
+import {signUp} from '../services/users'
 
 const SignUp = () => {
 
@@ -14,11 +17,11 @@ const SignUp = () => {
         const password2 = (document.getElementById('password2') as HTMLInputElement).value
         const email = (document.getElementById('email') as HTMLInputElement).value
         if (password !== password2){
-            console.log("Passwords don't match")
+            toast.error("Passwords don't match")
             return
         }
         await signUp({username, password, email})
-        console.log("Created new user")
+        toast.success("Created new user")
         navigate('/')
     }
     return (

@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+
 import { RootState } from '../types'
 import { updateUser } from '../services/users'
-import { useDispatch } from 'react-redux'
-import { updateFriends, updateFriendRequests } from '../reducers/userReducer'
-import { useState } from 'react'
+import { updateFriends, updateFriendRequests, updateEmail } from '../reducers/userReducer'
  
 const UserInput = () => {
   const [editPassword, setEditPassword] = useState(false)
@@ -33,6 +35,24 @@ const UserInput = () => {
     dispatch(updateFriends(newUser.friends))
   }
 
+  const updateMail = async () => {
+    const newUser = await updateUser(user.id, {op: "replace", path: "/email", value: newEmail})
+    dispatch(updateEmail(newUser.email))
+    toast.success('Updated email')
+    cancelEmail()
+  }
+
+  const updatePassword = async () => {
+    if (newPwd!==newPwd2){
+      toast.error('Passwords do not match')
+    }else{
+      await updateUser(user.id, {op: "replace", path: "/password", value: newPwd})
+      cancelPwd()
+      toast.success('Updated Password')
+    }
+    
+  }
+
   const cancelEmail = () => {
     setEditEmail(!editEmail)
     setNewEmail('')
@@ -48,12 +68,12 @@ const UserInput = () => {
     <div className="content">
       username: {user.username}<br/>
       {editEmail
-        ? <><input value={newEmail} onChange={({ target }) => setNewEmail(target.value)} placeholder="new email address" /><button className='button'>Save</button><button className='button' onClick={cancelEmail}>Cancel</button></>
+        ? <><input value={newEmail} onChange={({ target }) => setNewEmail(target.value)} placeholder="new email address" /><button className='button' onClick={updateMail}>Save</button><button className='button' onClick={cancelEmail}>Cancel</button></>
         : <>email: {user.email} <button className="button" onClick={()=> setEditEmail(!editEmail)}>change</button></>}
       <br />
       {editPassword
         ? <><input value={newPwd} type="password" placeholder="New password" onChange={({ target }) => setNewPwd(target.value)} /><br />
-          <input value={newPwd2} type="password" placeholder="New password again" onChange={({ target }) => setNewPwd2(target.value)} /><button className='button'>Send</button><button className='button' onClick={cancelPwd}>Cancel</button></>
+          <input value={newPwd2} type="password" placeholder="New password again" onChange={({ target }) => setNewPwd2(target.value)} /><button className='button' onClick={updatePassword}>Send</button><button className='button' onClick={cancelPwd}>Cancel</button></>
         : <><button className="button" onClick={()=>setEditPassword(!editPassword)}>Change password</button></>}
       <br />
       {user.friendRequests.length>0 &&
