@@ -47,12 +47,12 @@
 - [] Boatowners can add a profile image for their boats
 - [x] Notifications
 - [] email authentication for new users
-- [] Changing of password via email
+- [] forgot password fnctionality
+- [X] Changing of password via email
 - [] boat owners can add more boat owners
+- [] boat owners can delete their boat
 
 ## Further ideas: 
 - further specifications for boats
-- Boatowners can edit boat specs
-- Users can edit their own profiles
 - Users can edit logs and events
 - Make a mobile friendly page
