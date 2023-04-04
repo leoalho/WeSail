@@ -45,4 +45,6 @@
 | 29.3.23 | 3 | Wrote a proper README. Enabled https so the geolocationAPI works in production as well. |
 | 30.3.23 |2 | Created a new dockerfile for running the app locally. Small style changes. |
 | 2.4.23 | 2 | Updated Pipeline.|
-| Total | 182 ||
+| 3.4.23 | 3 |started with email and password updated |
+| 4.4.23 || Finished with adress and email updating. Added more notifications |
+| Total | 185 ||
