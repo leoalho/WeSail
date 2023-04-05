@@ -67,7 +67,7 @@ jobs:
         context: .
         file: ./Dockerfile.api
         push: true
-        tags: leoalho/wesailApi:latest
+        tags: leoalho/wesailapi:latest
     - name: Build and push server
       if: github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message), ' '), '#skip') != true
       uses: docker/build-push-action@v2
@@ -75,7 +75,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: leoalho/wesailServer:latest
+        tags: leoalho/wesailserver:latest
   tag_release:
     needs: [frontend, backend]
     runs-on: ubuntu-20.04
