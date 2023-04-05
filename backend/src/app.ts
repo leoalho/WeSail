@@ -28,8 +28,7 @@ app.use(
     })
 )
 app.use(express.json());
-if (process.env.NODE_ENV==='production') {app.use(express.static('frontend'))}
-app.use(express.static('images'))
+app.use('/images', express.static('images'))
 app.use('/api/users', userRoute)
 app.use('/api/login', loginRoute)
 app.use('/api/logout', logoutRoute)

@@ -105,15 +105,6 @@ a {
     padding:10px
 }
 
-.login {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    background-position: bottom;
-    background-image: url("https://joukko.io/login.png");
-    background-size:cover;
-}
-
 .right {
     overflow-y: scroll;
 }

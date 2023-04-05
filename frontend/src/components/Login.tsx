@@ -32,8 +32,17 @@ const Login = () => {
     }
   }
 
+  const style = {
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    backgroundPosition: "bottom",
+    backgroundImage: "url('/images/login.png')",
+    backgroundSize: "cover"
+  }
+
   return (
-    <div className="login">
+    <div style={style}>
     <form onSubmit={handleLogin} className="form">
     <center><h2>LOG IN</h2></center>
     <center>
