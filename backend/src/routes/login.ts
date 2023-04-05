@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs'
 import express from 'express'
 import { findUser, findUserId } from '../services/userServices'
 import { parseString } from '../utils/utils'
-//import config from '../utils/config'
 
 declare module "express-session" {
   interface SessionData {

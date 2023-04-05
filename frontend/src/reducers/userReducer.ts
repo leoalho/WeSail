@@ -53,6 +53,11 @@ const userSlice = createSlice({
       if (state){
         state.crewRequestsPending = action.payload
       }
+    },
+    updateEmail(state, action: PayloadAction<string>) {
+      if (state){
+        state.email = action.payload
+      }
     } 
   }
 })
@@ -64,6 +69,7 @@ export const {newUser,
               updateFriends,
               updateFriendRequests,
               updateEvents,
-              updatePendingCrew
+              updatePendingCrew,
+              updateEmail
             } = userSlice.actions
 export default userSlice.reducer
