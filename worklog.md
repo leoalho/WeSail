@@ -46,5 +46,6 @@
 | 30.3.23 |2 | Created a new dockerfile for running the app locally. Small style changes. |
 | 2.4.23 | 2 | Updated Pipeline.|
 | 3.4.23 | 3 |started with email and password updated |
-| 4.4.23 || Finished with adress and email updating. Added more notifications |
-| Total | 185 ||
+| 4.4.23 | 2 | Finished with adress and email updating. Added more notifications |
+| 5.4.23 | 3 | Made chanches to the docker-compose files and nignx conf files, so that the frontend build is now served via nginx and not the backend server as before, this is to enable react router to work even whn refreshing pages. |
+| Total | 187 ||
