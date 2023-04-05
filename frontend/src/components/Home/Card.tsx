@@ -32,7 +32,7 @@ const Card = (props: Props) => {
     <div className="content">
       <div style={{display: "flex", alignItems: "center"}}>
         <div>
-          <img src="/boat_profile_images/default.jpg" alt="Avatar" className="boat_card"></img>
+          <img src="/images/boat_profile_images/default.jpg" alt="Avatar" className="boat_card"></img>
         </div>
         <div style={{marginLeft: "10px"}}>
           <b><Link to={`/boats/${props.boat.id}`}>{props.boat.name}</Link></b> with <Participants participants={props.participants}/><br/>

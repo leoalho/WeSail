@@ -3,7 +3,9 @@ Wesail is a web application created as a project for the "fullstackopen" course.
 ## Running the application
 
 Running the application requires that the user has docker installed and running. The root directory has three docker compose files. 
-The docker-compose.local.dev can be used with docker compose to run the app locally (command: docker compose -f docker-compose.local.yml -d), this will launch the app at http://localhost:3001. 
+
+The docker-compose.local.dev can be used with docker compose to run the app locally (command: docker compose -f docker-compose.local.yml up -d), this will launch the app at http://localhost:3001. 
+
 Docker-compose.yml is intended for production, it has https enabled and nginx won't work without adding a SSL certificate and key into the ./backend/ssl directory.
 The docker-compose.localstack.yml can be used to run the application in swarm mode. The sphepherd container used for automatic updates works only on computers with a UNIX-like filesystem but the application will launch even if spherpherd does not work.
 

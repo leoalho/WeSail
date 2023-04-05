@@ -151,7 +151,7 @@ const SingleBoat = () => {
     <div className="main">
       <div className="boat_info">
         <div className="boat_info_card">
-        <img src="https://joukko.io/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
+        <img src="/images/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
         <div style={{padding: "5px"}}>
         <center><h2>{boat.name}</h2></center>
         {isOwner && <Owner boat={boat} applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
