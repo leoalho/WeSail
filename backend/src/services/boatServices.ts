@@ -46,6 +46,19 @@ const addCrew = async (ownerId: (string | undefined), boatId: string, userId: st
     }
 }
 
+const addOwner = async (boatId: string, ownerId: string) => {
+  const boat = await Boat.findById(boatId)
+  const owner = await User.findById(ownerId)
+  const boatObjectId = new mongoose.Types.ObjectId(boatId)
+  const ownerObjectId = new mongoose.Types.ObjectId(ownerId)
+  if (boat && owner){
+    await boat.updateOne({$addToSet: {owners: ownerObjectId}})
+    await owner.updateOne({$addToSet: {boats: boatObjectId}})
+    await boat.save()
+    await owner.save()
+  }
+}
+
 const addTodo = async (boatId: string, todo: TodoEntry) => {
     const boat = await Boat.findById(boatId)
     //check for crew and captain
@@ -153,6 +166,9 @@ export const boatJsonPatch = async (adderId: (string | undefined), boatId: strin
                 }
                 if (path==="todos" && todoEntryGuard(patch.value)){
                     await addTodo(boatId, patch.value)
+                }
+                if (path==="owners"){
+                    await addOwner(boatId, parseString(patch.value))
                 }
                 break
             case "remove":

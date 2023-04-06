@@ -124,32 +124,32 @@ export const userJsonPatch = async (id: string, patch: Patch) => {
   const path = parsedPath[1]
 	switch (patch.op){
 		case "add":
-            if (path==="friends"){
-                await addFriend(id, parseString(patch.value))
-            }
-            else if (path==="friendRequestsPending"){
-                await addFriendRequest(id, parseString(patch.value))
-            }
-            else if (path==="crewRequestsPending"){
-                await addCrewRequest(id, parseString(patch.value))
-            }
+      if (path==="friends"){
+        await addFriend(id, parseString(patch.value))
+      }
+      else if (path==="friendRequestsPending"){
+        await addFriendRequest(id, parseString(patch.value))
+      }
+      else if (path==="crewRequestsPending"){
+        await addCrewRequest(id, parseString(patch.value))
+      }
 			else if (isUserArray(path)){
-                await addToUserArray(id, path, parseString(patch.value))
-                userSideEffects.forEach(async (sideEffect) => {
-                    if (path===sideEffect.field){
-                        await addToUserArray(parseString(patch.value), sideEffect.field2, id)
-                    }	
-                })
-                eventSideEffects.forEach(async (sideEffect) => {
-                    if (path===sideEffect.field){
-                        await addToEventArray(parseString(patch.value), sideEffect.field2, id)
-                    }	
-                })
-                boatSideEffects.forEach(async (sideEffect) => {
-                    if (path===sideEffect.field){
-                        await addToBoatArray(parseString(patch.value), sideEffect.field2, id)
-                    }	
-                })
+        await addToUserArray(id, path, parseString(patch.value))
+        userSideEffects.forEach(async (sideEffect) => {
+          if (path===sideEffect.field){
+            await addToUserArray(parseString(patch.value), sideEffect.field2, id)
+          }	
+        })
+        eventSideEffects.forEach(async (sideEffect) => {
+          if (path===sideEffect.field){
+            await addToEventArray(parseString(patch.value), sideEffect.field2, id)
+          }	
+        })
+        boatSideEffects.forEach(async (sideEffect) => {
+          if (path===sideEffect.field){
+            await addToBoatArray(parseString(patch.value), sideEffect.field2, id)
+          }	
+        })
       }
 			break
 		case "remove":
@@ -157,19 +157,19 @@ export const userJsonPatch = async (id: string, patch: Patch) => {
         await removeFromUserArray(id, path, parseString(patch.value))
 				userSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromUserArray(parseString(patch.value), sideEffect.field2, id)
+            await removeFromUserArray(parseString(patch.value), sideEffect.field2, id)
 					}	
 				})
-                eventSideEffects.forEach(async (sideEffect) => {
+        eventSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromEventArray(parseString(patch.value), sideEffect.field2, id)
+            await removeFromEventArray(parseString(patch.value), sideEffect.field2, id)
 					}	
 				})
-                boatSideEffects.forEach(async (sideEffect) => {
+        boatSideEffects.forEach(async (sideEffect) => {
 					if (path===sideEffect.field){
-                        await removeFromBoatArray(parseString(patch.value), sideEffect.field2, id)
+            await removeFromBoatArray(parseString(patch.value), sideEffect.field2, id)
 					}                    
-                })
+        })
       }
 			break
 		case "replace":

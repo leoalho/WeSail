@@ -24,6 +24,11 @@ const userSlice = createSlice({
         state.boats.push({name: newBoat.name, id: newBoat.id})
       }
     },
+    updateBoats(state, action: PayloadAction<UserBoat[]>){
+      if (state){
+        state.boats = action.payload
+      }
+    },
     updateFollowing(state, action: PayloadAction<UserBoat[]>) {
       if (state){
         state.boatsFollowing = action.payload
@@ -64,6 +69,7 @@ const userSlice = createSlice({
 
 export const {newUser,
               addBoat,
+              updateBoats,
               updateFollowing,
               updatePendingFriends,
               updateFriends,
