@@ -13,8 +13,16 @@ router.get('/', async (_req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
+  try{
   const boat = await getBoat(req.params.id)
   res.json(boat)
+  } catch (error: unknown){
+    let errorMessage = 'Something went wrong.';
+    if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+    }
+    res.status(400).send(errorMessage);
+  }
 })
 
 router.post('/', middleware.authorize, async (req, res) => {

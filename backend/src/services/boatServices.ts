@@ -85,6 +85,7 @@ export const checkOWner = async (boatId: string, userId: (string | undefined)) =
 
 type BoatArrayField = {
     followers?: mongoose.Types.ObjectId,
+    owners?: mongoose.Types.ObjectId,
     crew?: mongoose.Types.ObjectId,
     crewRequests?: mongoose.Types.ObjectId,
     todos?: TodoEntry

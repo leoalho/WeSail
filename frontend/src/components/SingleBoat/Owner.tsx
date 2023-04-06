@@ -3,10 +3,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useEffect, useState } from "react"
 import Select from 'react-select'
+import { useNavigate } from "react-router-dom"
 
-import { getUsers } from "../../services/users"
+import { getUser, getUsers } from "../../services/users"
 import { deleteBoat } from "../../services/boats"
-import { Boat, Friend, User, Option } from "../../types"
+import { Boat, Friend, User, Option, RootState } from "../../types"
+import { useDispatch, useSelector } from "react-redux"
+import { updateBoats } from "../../reducers/userReducer"
 
 interface Props {
     applications: Friend[],
@@ -20,6 +23,10 @@ const Owner = ({applications, acceptCrewRequest, rejectCrewRequest, boat}: Props
   const [users, setUSers] = useState<Option[]>([])
   const [selectedUsers, setSelectedUsers] = useState<Option[]>([])
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const user = useSelector((state: RootState) => state.user)
+
   useEffect(() => {
     const newUsers: Option[] = []
     getUsers().then((users: User[]) => {
@@ -31,6 +38,9 @@ const Owner = ({applications, acceptCrewRequest, rejectCrewRequest, boat}: Props
   const deleteButton = async () => {
     if (confirm("Are you shure you want to delete?")){
       await deleteBoat(boat.id)
+      const newUser = await getUser(user.id)
+      dispatch(updateBoats(newUser.boats))
+      navigate("/")
     }
   }
 
