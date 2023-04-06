@@ -48,4 +48,5 @@
 | 3.4.23 | 3 |started with email and password updated |
 | 4.4.23 | 2 | Finished with adress and email updating. Added more notifications |
 | 5.4.23 | 3 | Made chanches to the docker-compose files and nignx conf files, so that the frontend build is now served via nginx and not the backend server as before, this is to enable react router to work even whn refreshing pages. |
-| Total | 187 ||
+| 6.4.23 | 2 | Boat owners can now delete their own boats via the single boat page |
+| Total | 189 ||
