@@ -55,6 +55,7 @@ export const removeFromUserArray = async (id: string, field:UserArray, value:str
 }
 
 const updateField = async (id: string, field:UserReplacable, value:string) => {
+  console.log(value)
   const user = await User.findById(id)
   if (user){
     user[field]= value
@@ -115,6 +116,7 @@ const addCrewRequest = async (userId: string, boatId: string) => {
 }
 
 export const userJsonPatch = async (id: string, patch: Patch) => {
+  console.log(patch)
 	const parsedPath =  patch.path.split("/")
   if (parsedPath.length === 0){
     return
@@ -176,8 +178,8 @@ export const userJsonPatch = async (id: string, patch: Patch) => {
                 await updateField(id, "passwordHash", password)
 			}
 			if (isUserReplacable(path)){
-				await updateField(id, path, parseString(patch.value))
-			}	
+        await updateField(id, path, parseString(patch.value))
+      }
 			break
 	}
 }

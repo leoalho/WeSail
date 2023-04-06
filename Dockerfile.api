@@ -1,0 +1,7 @@
+FROM node:19-alpine
+WORKDIR /usr/src/app
+COPY backend/package.json .
+COPY backend/package-lock.json .
+RUN npm ci
+COPY backend .
+CMD npm run start

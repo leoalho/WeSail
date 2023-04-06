@@ -1,18 +1,24 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
+
 import { addBoat } from "../reducers/userReducer"
 import { newBoat } from "../services/boats"
 
 const NewBoat = () => {
-  const [boatname, setBoatname] = useState<string>("")
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const [boatname, setBoatname] = useState<string>("")
 
   const handleNewBoat = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     const newboat = await newBoat({name: boatname})
     dispatch(addBoat(newboat))
-    setBoatname("")
+    toast.success(`created new boat ${boatname}`)
+    navigate(`/boats/${newboat.id}`)
   }
 
   const style = {

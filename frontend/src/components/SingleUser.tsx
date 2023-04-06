@@ -71,7 +71,7 @@ const SingleUser = () => {
     <div className="main">
     <div>
       <div style={style}>
-      <center><img src="https://joukko.io/user_profile_images/default.jpg" alt="Avatar" className="user_avatar"></img></center>
+      <center><img src="/images/user_profile_images/default.jpg" alt="Avatar" className="user_avatar"></img></center>
       <div style={{padding: "5px"}}>
         <div><center><b><u>{user.username}</u></b><br/></center></div>
         {currentUser.id!==user.id && friend===Application.No && <button onClick={sendRequest}>Send friend request</button>}
