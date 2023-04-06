@@ -130,6 +130,14 @@ const todoEntryGuard = (value: unknown): value is TodoEntry => {
     return (value as TodoEntry).value !== undefined
 }
 
+export const deleteBoat = async (user: (string | undefined), id: string) => {
+  if (user && await checkOWner(id, user)){
+    await Boat.deleteOne({_id: id})
+  }else{
+    throw new Error('Not authorized')
+  }
+}
+
 export const boatJsonPatch = async (adderId: (string | undefined), boatId: string, patches: Patch[]) => {
   for (const patch of patches) {
     const parsedPath =  patch.path.split("/")

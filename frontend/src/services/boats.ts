@@ -31,3 +31,7 @@ export const updateBoat = async (id: string, patch: Patch[]): Promise<Boat> => {
 export const deleteFollower = async (id: string, follower: string) => {
   await axios.delete(`${baseUrl}/${id}/followers/${follower}`)
 }
+
+export const deleteBoat = async (id: string) => {
+  await axios.delete(`${baseUrl}/${id}`)
+}

@@ -3,7 +3,7 @@
 import express from 'express';
 import {toNewBoat} from '../utils/utils'
 import middleware from '../utils/middleware';
-import { getBoats, getBoat, newBoat, boatJsonPatch } from '../services/boatServices';
+import { getBoats, getBoat, newBoat, boatJsonPatch, deleteBoat } from '../services/boatServices';
 
 const router = express.Router();
 
@@ -38,5 +38,18 @@ router.patch('/:id', middleware.authorize, async (req, res) => {
     const boat = await getBoat(req.params.id)
     res.json(boat)
   })
+
+router.delete('/:id', middleware.authorize, async (req, res) => {
+  try{
+    await deleteBoat(req.session.user, req.params.id)
+    res.status(204).send('Deleted boat')
+  } catch (error: unknown){
+    let errorMessage = 'Something went wrong.';
+      if (error instanceof Error) {
+        errorMessage += ' Error: ' + error.message;
+      }
+      res.status(400).send(errorMessage);
+  }
+})
 
 export default router
