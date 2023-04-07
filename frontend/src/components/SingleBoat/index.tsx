@@ -153,10 +153,10 @@ const SingleBoat = () => {
         <div className="boat_info_card">
         <img src="/images/boat_profile_images/default.jpg" alt="Avatar" className="boat_avatar"></img>
         <div style={{padding: "5px"}}>
-        <center><h2>{boat.name}</h2></center>
-        {isOwner && <Owner boat={boat} applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
-        {isCrew && <Crew />}
-        {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat} sendCrewRequest={sendCrewRequest} crewApplication={crewApplication}/>}
+          <center><h2>{boat.name}</h2></center>
+          {isOwner && <Owner boat={boat} setBoat={setBoat} applications={boat.crewRequests} acceptCrewRequest={acceptCrewRequest} rejectCrewRequest={rejectCrewRequest}/>}
+          {isCrew && <Crew />}
+          {!isOwner && !isCrew && <User isFollowing={isFollowing} followBoat={followBoat} unFollowBoat={unFollowBoat} sendCrewRequest={sendCrewRequest} crewApplication={crewApplication}/>}
         </div>
         </div>
       </div>
