@@ -60,7 +60,7 @@ router.get('/boats/:id', async (req,res) => {
 router.delete('/:id', async (req, res) => {
     try{
         await deleteEvent(req.params.id)
-        res.status(204).send('deleted user')
+        res.status(204).send('deleted event')
     } catch (error: unknown){
         let errorMessage = 'Something went wrong.';
         if (error instanceof Error) {

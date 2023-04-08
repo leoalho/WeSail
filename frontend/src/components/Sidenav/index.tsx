@@ -26,10 +26,11 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
 
   useEffect(() => {
     filterEvents()
-  }, [yourboats, followingboats, crewboats, friendActivity])
+  }, [yourboats, followingboats, crewboats, friendActivity, events])
 
   const filterEvents = () => {
     const newEvents: Event[] = []
+    console.log(events)
     events.forEach((event) => {
         let newEvent = false
         if (yourboats){
@@ -72,7 +73,7 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
     <div id="sideNav">
     <div style={{width: "300px"}}>Upcoming events:</div>
     {filteredEvents.length===0 && <center style={{marginTop: "10px"}}>No upcoming events</center>}
-    {filteredEvents.map((card) => <Card key={card.id} event={card}/>)}    
+    {filteredEvents.map((card) => <Card key={card.id} event={card} setEvents={setEvents} />)}    
     </div>
 )}
 
