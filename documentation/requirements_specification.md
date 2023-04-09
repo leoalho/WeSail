@@ -28,7 +28,7 @@
 - [X] Todos can be marked as done
 - [X] When marking todos as done, it is possible to create a log enty
 - [X] Past events are shown on the single boat page
-- [X] PAst events can be either deleted or used to create new events
+- [X] Past events can be either deleted or used to create new events
 
 ###  Views:
 - [x] LoginView
@@ -39,20 +39,20 @@
 - [x] Page for creating a new boat
 - [x] BoatPage
 - [x] Page for creating a new event
+- [X] PAge for logging the location
 - [x] Page for creating a new Log
 
-## Further working specifications:
+## Requirement specifications for V2.0.0:
 - [] Users can comment on log entries
 - [] Users can add a profile image for themselves
 - [] Boatowners can add a profile image for their boats
 - [x] Notifications
 - [] email authentication for new users
-- [] forgot password fnctionality
+- [] forgot password fnctionality via email
 - [X] Changing of password via email
-- [] boat owners can add more boat owners
-- [] boat owners can delete their boat
-
-## Further ideas: 
-- further specifications for boats
-- Users can edit logs and events
-- Make a mobile friendly page
+- [X] boat owners can add more boat owners
+- [X] boat owners can delete their boat
+- [] further specifications for boats when creating and editing a boat
+- [X] Creators of events can edit their events
+- [] Users can edit logs
+- [] Make a mobile friendly page
