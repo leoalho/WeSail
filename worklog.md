@@ -49,4 +49,7 @@
 | 4.4.23 | 2 | Finished with adress and email updating. Added more notifications |
 | 5.4.23 | 3 | Made chanches to the docker-compose files and nignx conf files, so that the frontend build is now served via nginx and not the backend server as before, this is to enable react router to work even whn refreshing pages. |
 | 6.4.23 | 2 | Boat owners can now delete their own boats via the single boat page |
-| Total | 189 ||
+| 7.4.23 | 3 | Boat owners can add more owners to their boats. |
+| 8.4.23 | 3 | Started working on editing upcoming events |
+| 9.4.23 | 3 | Events can now be edited by the creator of the event. |
+| Total | 198 ||
