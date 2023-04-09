@@ -2,12 +2,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import express from 'express'
-import { parseObjectId, toNewEvent} from '../utils/utils'
+
+import { toNewEvent } from '../utils/utils'
 import middleware from '../utils/middleware'
 import { getEvents, newEvent, getUpcoming, getBoatEvents, updateEvent, getPastBoatEvents, deleteEvent } from '../services/eventServices'
-import { UpdateEvent } from '../types'
-//import { UpdateBoat } from '../types';
-//import mongoose from 'mongoose';
 
 const router = express.Router()
 
@@ -26,13 +24,19 @@ router.post('/', middleware.authorize, async (req, res) => {
 }
 })
 
-router.patch('/:id', async (req, res) => {
-  const event:  UpdateEvent = {}
-  if (req.body.participant) { event.participant = parseObjectId(req.body.participant) }
-
-  const updatedEvent = await updateEvent(req.params.id, event)
-
-  res.json(updatedEvent)
+router.patch('/:id', middleware.authorize, async (req, res) => {
+  console.log(req.body.patch)
+  try{
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const updatedEvent = await updateEvent(req.session.user, req.params.id, req.body.patch)
+    res.json(updatedEvent)
+  } catch (error: unknown){
+    let errorMessage = 'Something went wrong.';
+    if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+    }
+    res.status(400).send(errorMessage);
+  }
 })
 
 router.get('/', async (_req, res) => {
@@ -60,7 +64,7 @@ router.get('/boats/:id', async (req,res) => {
 router.delete('/:id', async (req, res) => {
     try{
         await deleteEvent(req.params.id)
-        res.status(204).send('deleted user')
+        res.status(204).send('deleted event')
     } catch (error: unknown){
         let errorMessage = 'Something went wrong.';
         if (error instanceof Error) {

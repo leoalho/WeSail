@@ -116,10 +116,9 @@ const addCrewRequest = async (userId: string, boatId: string) => {
 }
 
 export const userJsonPatch = async (id: string, patch: Patch) => {
-  console.log(patch)
 	const parsedPath =  patch.path.split("/")
   if (parsedPath.length === 0){
-    return
+    throw new Error('Incorrect patch path')
   }
   const path = parsedPath[1]
 	switch (patch.op){

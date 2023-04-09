@@ -163,7 +163,7 @@ const SingleBoat = () => {
       <div>
         <div>
           <b>Boat log:</b><br/>
-           Show: loca
+           Show: 
           <input type="checkbox" id="sails" name="sails" checked={sails} onChange={() => setSails(!sails)}/>sails
           <input type="checkbox" id="maintenances" name="maintenances" checked={maintenances} onChange={() => setMaintenances(!maintenances)}/>maintenances</div>
         {logs.length===0 && <div className="content">No logs yet</div>}
@@ -172,7 +172,7 @@ const SingleBoat = () => {
       <div style={{marginLeft: "10px"}}>
         <div><b>Upcoming events:</b></div>
         {events.length===0 && <div className="eventCard">No upcoming events</div>}
-        {events.map((card) => <EventCard key={card.id} event={card}/>)}
+        {events.map((card) => <EventCard key={card.id} event={card} setEvents={setEvents}/>)}
         
         {(isOwner || isCrew) && 
         <>

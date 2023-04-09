@@ -36,13 +36,6 @@ export type NewBoatEntry = {
     followers?: mongoose.Types.ObjectId[]
 }
 
-export type UpdateBoat = {
-    name?: string,
-    crewRequest?: mongoose.Types.ObjectId,
-    crew?: mongoose.Types.ObjectId,
-    follower?: mongoose.Types.ObjectId
-}
-
 export type EventFields = {
   boat: unknown,
   date: unknown,
@@ -59,10 +52,6 @@ export type NewEventEntry = {
   description: string,
   creator: mongoose.Types.ObjectId,
   eventType: string
-}
-
-export type UpdateEvent = {
-  participant?: mongoose.Types.ObjectId
 }
 
 export type LogFields = {
@@ -103,6 +92,9 @@ export type UserReplacable = typeof userReplacables[number]
 const userArrays = ["friendRequests", "friendRequestsPending", "boats", "crewRequestsPending", "crewMember", "boatsFollowing", "events"] as const
 export type UserArray = typeof userArrays[number]
 
+const eventReplacable = ["date", "location", "description"] as const
+export type EventReplacable = typeof eventReplacable[number]
+
 const eventArrays = ["participants"] as const
 export type EventArray = typeof eventArrays[number]
 
@@ -129,4 +121,8 @@ export const isUserArray = (path: string): path is UserArray => {
 
 export const isBoatArray = (path: string): path is BoatArray => {
     return (boatArrays as readonly string[]).indexOf(path) >= 0
+}
+
+export const isEventReplacable = (path: string): path is EventReplacable => {
+  return (eventReplacable as readonly string[]).indexOf(path) >= 0
 }
