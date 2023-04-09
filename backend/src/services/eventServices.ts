@@ -106,6 +106,11 @@ export const updateEvent = async (id: string, event: UpdateEvent) => {
   }
 }
 
+export const getEvent = async (id: string) => {
+  const event = await Event.findById(id)
+  return event
+}
+
 export const deleteEvent = async (id: string) => {
     await Event.deleteOne({_id: id })
 }

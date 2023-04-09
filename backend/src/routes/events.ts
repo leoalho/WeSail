@@ -29,9 +29,10 @@ router.post('/', middleware.authorize, async (req, res) => {
 router.patch('/:id', async (req, res) => {
   const event:  UpdateEvent = {}
   if (req.body.participant) { event.participant = parseObjectId(req.body.participant) }
-
+  if (req.body.date){}
+  if (req.body.location){}
+  if (req.body.description){}
   const updatedEvent = await updateEvent(req.params.id, event)
-
   res.json(updatedEvent)
 })
 

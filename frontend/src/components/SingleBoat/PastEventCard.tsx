@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
 import { deleteEvent, getPastBoatEvents } from "../../services/events"
 import { Event } from "../../types"
 import { Participants } from "../Home/Card"
@@ -21,6 +22,7 @@ const PastEventCard = ({event, boatId, setPastEvents}: Props) => {
             await deleteEvent(event.id)
             const newEvents = await getPastBoatEvents(boatId)
             setPastEvents(newEvents)
+            toast.success("Deleted event")
         }   
     }
 
