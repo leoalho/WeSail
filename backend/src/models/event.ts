@@ -10,7 +10,8 @@ const eventSchema = new mongoose.Schema({
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'  
+    ref: 'User',
+    required: true  
   },
   location: {
     type: String

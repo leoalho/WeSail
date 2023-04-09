@@ -25,7 +25,6 @@ export const toNewUser = (entry: UserFields) => {
 }
 
 export const toNewBoat = (entry: BoatFields, owner: (string | undefined)) => {
-
   const newEntry: NewBoatEntry = {
     name: parseString(entry.name),
     owners: [parseObjectId(owner)]
