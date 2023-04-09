@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import axios from 'axios'
-import { Event, UpdateEvent } from '../types'
+import { Event, Patch } from '../types'
 const baseUrl = '/api/events'
 
 export const getEvents = async(): Promise<Event[]> => {
@@ -33,8 +33,8 @@ export const newEvent = async (event: NewEvent): Promise<Event> => {
   return newevent.data
 }
 
-export const updateEvent = async (id: string, event: UpdateEvent): Promise<Event> => {
-  const updateEvent = await axios.patch(`${baseUrl}/${id}`, event)
+export const updateEvent = async (id: string, patch: Patch[]): Promise<Event> => {
+  const updateEvent = await axios.patch(`${baseUrl}/${id}`, {patch:patch})
   return updateEvent.data
 }
 

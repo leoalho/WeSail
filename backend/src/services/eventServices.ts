@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
 import Event from '../models/event'
 import User from '../models/user'
-import { EventArray, NewEventEntry, UpdateEvent } from '../types'
+import { EventArray, EventReplacable, isEventReplacable, NewEventEntry, Patch } from '../types'
+import { parseString } from '../utils/utils'
 
 export const newEvent = async (eventEntry: NewEventEntry) => {
   const event = new Event(eventEntry)
@@ -97,14 +98,34 @@ export const removeFromEventArray = async (id: string, field:EventArray, value:s
     }
   }
 
-export const updateEvent = async (id: string, event: UpdateEvent) => {
-  const oldEvent = await Event.findById(id)
-  if (oldEvent) {
-    if (event.participant){
-      await oldEvent.updateOne({$addToSet: {participants: event.participant}})
+export const updateEvent = async (id: string, patches: Patch[]) => {
+  console.log(patches)
+  for (const patch of patches){
+    const parsedPath =  patch.path.split("/")
+    if (parsedPath.length === 0){
+      throw new Error('Incorrect patch path')
+    }
+    const path = parsedPath[1]
+    switch (patch.op){
+      case "replace":
+        if (isEventReplacable(path)){
+          await updateField(id, path, parseString(patch.value))
+        }
     }
   }
 }
+
+const updateField = async (id: string, field:EventReplacable, value:string) => {
+  const event = await Event.findById(id)
+  if (event){
+    if (field==="date"){
+      event["date"]= new Date(value)
+    }else{
+    event[field]= value
+    }
+    await event.save()
+  }
+} 
 
 export const getEvent = async (id: string) => {
   const event = await Event.findById(id)

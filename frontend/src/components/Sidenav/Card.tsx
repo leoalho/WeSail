@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import toast from 'react-hot-toast'
 
-import { Event, RootState } from "../../types"
+import { Event, Patch, RootState } from "../../types"
 import { updateEvents } from '../../reducers/userReducer'
 import { updateUser } from "../../services/users"
-import { deleteEvent, getEvents } from "../../services/events"
+import { deleteEvent, getEvents, updateEvent } from "../../services/events"
 import { Participants } from "../Home/Card"
 
 interface Props {
@@ -21,6 +21,9 @@ const Card = ({event, setEvents}: Props) => {
   const [joining, setJoining] = useState(false)
   const [edit, setEdit] = useState(false)
   const [startTime, setStartTime] = useState("")
+  const [startDate, setStartDate] = useState("")
+  const [description, setDescription] = useState("")
+  const [location, setLocation] = useState("")
   const dispatch = useDispatch()
   
   const date = new Date(event.date)
@@ -50,16 +53,42 @@ const Card = ({event, setEvents}: Props) => {
     return `${date.getFullYear()}-${months}-${days}`
   }
 
-  const updateEvent = () => {
-    console.log(startTime)
-    console.log(date)
+  const getTime = () => {
+    return `${date.getHours()}:${date.getMinutes()}${date.getMinutes()<10?'0':''}`
+  }
+
+  const updatedEvent = async () => {
+    const patches: Patch[] = []
+    if (startTime && startDate){
+      patches.push({op: "replace", path: "/date", value: `${startDate}T${startTime}`})
+    }
+    if (startTime && !startDate){
+      patches.push({op: "replace", path: "/date", value: `${getDate()}T${startTime}`})
+    }
+    if (!startTime && startDate){
+      patches.push({op: "replace", path: "/date", value: `${startDate}T${getTime()}`})
+    }
+    if (description){
+      patches.push({op: "replace", path: "/description", value: description})
+    }
+    if (location){
+      patches.push({op: "replace", path: "/location", value: location})
+    }
+    await updateEvent(event.id, patches)
+    const events = await getEvents()
+    setEvents(events)
+    setEdit(false)
+    setStartTime("")
+    setStartDate("")
+    setDescription("")
+    setLocation("")
     toast.success("Updated event")
+
   }
 
   const deleteEventLocal = async () => {
     await deleteEvent(event.id)
     const events = await getEvents()
-    console.log(`Card events: ${events}`)
     setEvents(events)
     toast.success("Deleted event")
   }
@@ -69,13 +98,13 @@ const Card = ({event, setEvents}: Props) => {
     {edit 
       ? <>
         <div><b><Link to={`/boats/${event.boat.id}`}>{event.boat.name}</Link></b><br />
-        Location: <input defaultValue={event.location}></input></div>
-        Start time: <input onChange={({target}) => setStartTime(target.value)} type="date" defaultValue={getDate()} />
-        <input type="time" defaultValue={`${date.getHours()}:${date.getMinutes()}${date.getMinutes()<10?'0':''}`}/><br />
-        <div>Description: <input defaultValue={event.description} /></div>
+        Location: <input defaultValue={event.location} onChange={({target}) => setLocation(target.value)}></input></div>
+        Start time: <input type="date" defaultValue={getDate()} onChange={({target}) => setStartDate(target.value)} />
+        <input type="time" defaultValue={getTime()} onChange={({target}) => setStartTime(target.value)}/><br />
+        <div>Description: <input defaultValue={event.description} onChange={({target}) => setDescription(target.value)}/></div>
         <div style={{display: "flex", justifyContent: "right"}}>
         <button className="button" style={{marginRight: "5px"}} onClick={deleteEventLocal}>Delete event</button>
-        <button className="button" style={{marginRight: "5px"}} onClick={updateEvent}>Save</button>
+        <button className="button" style={{marginRight: "5px"}} onClick={updatedEvent}>Save</button>
         <button className="button" onClick={() => setEdit(!edit)}>cancel</button>
         </div>        
       </>
