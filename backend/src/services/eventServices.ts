@@ -10,6 +10,14 @@ export const newEvent = async (eventEntry: NewEventEntry) => {
   return event
 }
 
+export const checkOwner = async (eventId: string, userId: (string | undefined)) => {
+  const event = await Event.findById(eventId)
+  if (event && userId){
+    return event.creator.equals(userId)
+  }
+    return false
+}
+
 export const getEvents = async () => {
   const events = await Event.find({}).populate('boat', {name: 1})
   return events
@@ -98,7 +106,10 @@ export const removeFromEventArray = async (id: string, field:EventArray, value:s
     }
   }
 
-export const updateEvent = async (id: string, patches: Patch[]) => {
+export const updateEvent = async (userId: (string|undefined), id: string, patches: Patch[]) => {
+  if (!checkOwner(id, userId)){
+    throw new Error('Not authorized')
+  }
   console.log(patches)
   for (const patch of patches){
     const parsedPath =  patch.path.split("/")

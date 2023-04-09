@@ -28,7 +28,7 @@ router.patch('/:id', middleware.authorize, async (req, res) => {
   console.log(req.body.patch)
   try{
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const updatedEvent = await updateEvent(req.params.id, req.body.patch)
+    const updatedEvent = await updateEvent(req.session.user, req.params.id, req.body.patch)
     res.json(updatedEvent)
   } catch (error: unknown){
     let errorMessage = 'Something went wrong.';
