@@ -53,6 +53,7 @@
 - [X] boat owners can add more boat owners
 - [X] boat owners can delete their boat
 - [] further specifications for boats when creating and editing a boat
+  - model, year, LYS
 - [X] Creators of events can edit their events
 - [] Users can edit logs
 - [] Make a mobile friendly page
