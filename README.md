@@ -18,9 +18,14 @@ The application is written in typescript. The backend runs on express, and the f
 The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
 
 ## Folder architecture
-The file structure should be rather logical. Backend contains all the files for the backend, and frontend for frontend. 
+The file structure should be rather logical. Backend contains all the files for the backend, and frontend for frontend. The root firectory of backend contain some configuration files and subdirectories mongo and redis.
+
+The code itself is located in the ./frontend/src and ./backend/src directories. The ./backend/src has 5 subdirectories: models, routes, services, tests, and utils. Models contains files for the mongoose models, ruotes files for express routing, services for the functionality of routes, tests for testfiles and utils fr helper functions etc. The frontend/src contain three subdirectories: components, reducer and services.
 
 As one can see from the Dockerfile, during production, the frontend is first built and then the built frontend is served from a folder named frontend.
 
 ## Worklog
 [Worklog](./worklog.md)
+
+## Reflection
+The biggest criticism at the moment is the way I have implemented the styling of the frontend. I played with both bootstrap and Material UI but ended up with native css. At the moment there is one large App.css file in the ./frontend/src directory. In addition there are style objects in some components and some inline styling.
