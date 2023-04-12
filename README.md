@@ -14,10 +14,9 @@ After logging in there are already quit a lot of things a user can do, the main 
 ## Architecture
 The application is written in typescript. The backend runs on express, and the frontend is done with React with redux as global state management. Session management is implemented via Redis and express session, and data storing via MongodB and Mongoose. Unit testing is done via Jest both in the back and frontend. E2E testing is done with cypress. Nginx is used as a reverse proxy and for serving the built React app in production mode. CI is implemented via github actions. A complete list of libraries used is available [here](./documentation/libraries.md).
 
-
 ![architecture](./documentation/images/architecture.png)
 
-The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
+The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
 
 ### Folder architecture
 The file structure should be rather logical. Backend contains all the files for the backend, and frontend for frontend. The root firectory of backend contain some configuration files and subdirectories mongo and redis.
