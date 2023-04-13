@@ -52,4 +52,6 @@
 | 7.4.23 | 3 | Boat owners can add more owners to their boats. |
 | 8.4.23 | 3 | Started working on editing upcoming events |
 | 9.4.23 | 3 | Events can now be edited by the creator of the event. |
-| Total | 198 ||
+| 12.4.23 | 3 | Finished with setting up cypress. Wrote first E2E tests with cypress. |
+| 13.4.23 | 3 | More E2E testing. Added a js file to initialize the db |
+| Total | 204 ||
