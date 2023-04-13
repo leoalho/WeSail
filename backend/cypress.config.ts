@@ -3,7 +3,7 @@ import init from './mongo/teardown'
 
 module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config){
+    setupNodeEvents(on){
       on('task', {
         'init:db': async () => {
           await init()

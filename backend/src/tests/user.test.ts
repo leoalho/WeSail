@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 import supertest from 'supertest'
+import { expect } from '@jest/globals'
+
 import app from '../app'
 import User from '../models/user'
 import { connectDB } from '../database'
