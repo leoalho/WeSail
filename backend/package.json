@@ -9,7 +9,9 @@
     "dev": "ts-node-dev index.ts",
     "lint": "eslint --ext .ts .",
     "build": "tsc",
-    "start": "tsc && node build/index.js"
+    "start": "tsc && node build/index.js",
+    "e2e": "npx cypress run -q",
+    "cypress": "npx cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -42,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "cross-env": "^7.0.3",
+    "cypress": "^12.9.0",
     "eslint": "^8.32.0",
     "jest": "^29.4.2",
     "mongodb-memory-server": "^8.11.4",
