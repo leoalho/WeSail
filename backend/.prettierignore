@@ -1,0 +1,10 @@
+node_modules
+.env
+build
+mongo/data
+redis
+images/boat_profile_images
+!images/boat_profile_images/deafult.jpg
+images/user_profile_images
+!images/user_profile_images/deafult.jpg
+/cypress/videos

@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "outDir": "./build/",
-      "module": "commonjs",
-      "types": ["node", "jest"],
-      "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-      "esModuleInterop": true,
-      "allowJs": true,
-      "skipLibCheck": true
-    }
+  "compilerOptions": {
+    "target": "ES6",
+    "outDir": "./build/",
+    "module": "commonjs",
+    "types": ["node", "jest"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "skipLibCheck": true
   }
+}

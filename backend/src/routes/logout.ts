@@ -1,12 +1,12 @@
-import express from 'express'
+import express from "express";
 
-const logoutRouter = express.Router()
+const logoutRouter = express.Router();
 
-logoutRouter.get('/', (req, res) => {
+logoutRouter.get("/", (req, res) => {
   req.session.destroy((e) => {
-    console.log(e)
-  })
-  res.status(200).end()
-})
+    console.log(e);
+  });
+  res.status(200).end();
+});
 
-export default logoutRouter
+export default logoutRouter;

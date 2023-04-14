@@ -1,6 +1,6 @@
-import session from 'express-session'
-import { RedisStore, redisClient } from './redis'
-import config from './utils/config'
+import session from "express-session";
+import { RedisStore, redisClient } from "./redis";
+import config from "./utils/config";
 
 export default session({
   // @ts-expect-error because wrong type definitions of connect-redis
@@ -10,8 +10,8 @@ export default session({
   secret: config.SECRET,
   resave: false,
   cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: 1000 * 60 * 60 * 24 * 365
-  } 
-})
+    httpOnly: true,
+    secure: false,
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+  },
+});
