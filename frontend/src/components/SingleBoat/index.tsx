@@ -120,13 +120,11 @@ const SingleBoat = () => {
 
   const acceptCrewRequest = async (userId: string) => {
     const newBoat = await updateBoat(boat.id, [{op: "add", path: "/crew", value: userId}])
-    console.log(newBoat)
     setBoat(newBoat)
   }
 
   const rejectCrewRequest = async (userId: string) => {
     const newBoat = await updateBoat(boat.id, [{op: "remove", path: "/crewRequests", value: userId}])
-    console.log(newBoat)
     setBoat(newBoat)
   }
 

@@ -55,7 +55,6 @@ export const removeFromUserArray = async (id: string, field:UserArray, value:str
 }
 
 const updateField = async (id: string, field:UserReplacable, value:string) => {
-  console.log(value)
   const user = await User.findById(id)
   if (user){
     user[field]= value

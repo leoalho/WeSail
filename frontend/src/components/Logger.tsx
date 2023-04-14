@@ -81,14 +81,6 @@ const Logger = () => {
     setGeoId(navigator.geolocation.watchPosition(success, errorMessage))
   }
 
-  /*
-  if (logging && logActive){
-    navigator.geolocation.watchPosition(success, errorMessage)
-  }
-  */
-  
-  console.log(testi)
-
   return (
     <div className="main">
       <div style={style}>

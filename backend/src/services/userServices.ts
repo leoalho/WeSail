@@ -36,7 +36,6 @@ export const findUserId = async(id: string) => {
     .populate('boatsFollowing', {name: 1})
     .populate('friendRequests', {username: 1})
     .populate('friendRequestsPending', {username: 1})
-  console.log(user)
   return user
 }
 
