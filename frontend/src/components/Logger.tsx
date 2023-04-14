@@ -24,14 +24,6 @@ const Logger = () => {
     navigator.geolocation.getCurrentPosition(initSuccess, errorMessage)
   }, [])
 
-  const testi = {
-    "type": "Feature" as const,
-    "geometry": {
-      "type": "LineString",
-      "coordinates": route
-    }
-  }
-
   const style = {
     backgroundColor: "white",
     padding: "10px",
