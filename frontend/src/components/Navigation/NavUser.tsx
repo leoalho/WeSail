@@ -11,7 +11,7 @@ import { getUsers } from '../../services/users'
 const NavUser = () => {
 
   const dispatch = useDispatch()
-  const location = useLocation();
+  const location = useLocation()
 
   const user = useSelector((state: RootState) => state.user)
   const [users, setUSers] = useState<User[]>([])

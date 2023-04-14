@@ -12,7 +12,7 @@ import login from '../services/login'
 const Login = () => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const handleLogin = async (event: React.SyntheticEvent) => {

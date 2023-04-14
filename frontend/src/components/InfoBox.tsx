@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
 interface Props {
   onClickOutside: Function
@@ -7,28 +7,28 @@ interface Props {
 }
 
 function InfoBox(props: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { onClickOutside } = props;
+  const ref = useRef<HTMLDivElement>(null)
+  const { onClickOutside } = props
 
   useEffect(() => {
-    const handleClickOutside = (event: { target: any; }) => {
+    const handleClickOutside = (event: { target: any }) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        onClickOutside && onClickOutside();
+        onClickOutside && onClickOutside()
       }
-    };
-    document.addEventListener('click', handleClickOutside, true);
+    }
+    document.addEventListener('click', handleClickOutside, true)
     return () => {
-      document.removeEventListener('click', handleClickOutside, true);
-    };
-  }, [ onClickOutside ]);
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [ onClickOutside ])
 
   if(!props.show)
-    return null;
+    return null
 
   return (
     <div ref={ref} className='info-box'>
         {props.message}
-    </div> );
+    </div> )
 }
 
 export default InfoBox

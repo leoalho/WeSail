@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import {EventArray, Patch, isUserArray, isUserReplacable, UserArray, UserReplacable, BoatArray} from '../types';
-import { hashPassword, parseString } from '../utils/utils';
-import mongoose from 'mongoose';
-import { addToEventArray, removeFromEventArray } from './eventServices';
-import Boat from '../models/boat';
-import User from '../models/user';
-import { addToBoatArray, removeFromBoatArray } from './boatServices';
+import {EventArray, Patch, isUserArray, isUserReplacable, UserArray, UserReplacable, BoatArray} from '../types'
+import { hashPassword, parseString } from '../utils/utils'
+import mongoose from 'mongoose'
+import { addToEventArray, removeFromEventArray } from './eventServices'
+import Boat from '../models/boat'
+import User from '../models/user'
+import { addToBoatArray, removeFromBoatArray } from './boatServices'
 
 export interface UserSideEffect {field: UserArray, field2: UserArray}
 

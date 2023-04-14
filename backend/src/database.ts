@@ -9,8 +9,8 @@ export const connectDB = async () => {
     let dbUrl = config.MONGODB_URI
 
     if (process.env.NODE_ENV === 'test') {
-        const mongod = await MongoMemoryServer.create();
-        dbUrl = mongod.getUri();
+        const mongod = await MongoMemoryServer.create()
+        dbUrl = mongod.getUri()
     }
     
     if (dbUrl){

@@ -1,4 +1,4 @@
-import { UserFields } from "../types";
+import { UserFields } from "../types"
 
 export const user1: UserFields = {
   username: 'Testi',

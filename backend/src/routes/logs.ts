@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import express from 'express';
-//import { toNewLog} from '../utils/utils'
-import middleware from '../utils/middleware';
-import { getBoatLogs, getLogs, getMainLogs, getUserLogs, newLog } from '../services/logServices';
-import { toNewLog } from '../utils/utils';
+import express from 'express'
+
+import middleware from '../utils/middleware'
+import { getBoatLogs, getLogs, getMainLogs, getUserLogs, newLog } from '../services/logServices'
+import { toNewLog } from '../utils/utils'
 
 const router = express.Router()
 
@@ -43,7 +43,7 @@ router.post('/', middleware.authorize, async (req, res) => {
         if (error instanceof Error) {
         errorMessage += ' Error: ' + error.message
         }
-        res.status(400).send(errorMessage);
+        res.status(400).send(errorMessage)
     }
 })
 

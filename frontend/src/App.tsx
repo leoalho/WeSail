@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
 
 import Navigation from './components/Navigation'
 import Home from './components/Home'
@@ -16,7 +16,7 @@ import NewEvent from './components/NewEvent'
 import NewLog from './components/NewLog'
 
 import getUser from './services/user'
-import './App.css';
+import './App.css'
 import { newUser } from './reducers/userReducer'
 import { RootState, Payload } from './types'
 
@@ -53,4 +53,4 @@ function App() {
     )
 }
 
-export default App;
+export default App

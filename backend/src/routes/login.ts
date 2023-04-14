@@ -27,22 +27,20 @@ loginRouter.get('/', async (req, res) => {
 })
 
 loginRouter.post('/', async (req, res) => {
-    const username = parseString(req.body.username)
-    const password = parseString(req.body.password)
-    const user = await findUser(username)
-    if (!user){
-        res.status(401).json({ error: 'Incorrect username' })
-        return
-    }
-    const passwordCorrect = await bcrypt.compare(password, user.passwordHash)
-    if (!passwordCorrect){
-        res.status(401).json({ error: 'Incorrect password' })
-        return
-    }
-    req.session.user = user._id.toString();
-
-    res
-      .status(200).json(user)
+  const username = parseString(req.body.username)
+  const password = parseString(req.body.password)
+  const user = await findUser(username)
+  if (!user){
+    res.status(401).json({ error: 'Incorrect username' })
+    return
+  }
+  const passwordCorrect = await bcrypt.compare(password, user.passwordHash)
+  if (!passwordCorrect){
+    res.status(401).json({ error: 'Incorrect password' })
+    return
+  }
+  req.session.user = user._id.toString()
+  res.status(200).json(user)
 
 })
 

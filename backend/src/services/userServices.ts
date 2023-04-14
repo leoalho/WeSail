@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import User from '../models/user'
-import { NewUserEntry } from '../types';
+import { NewUserEntry } from '../types'
 
 export const getUsers = async () => {
     const users = await User.find({})

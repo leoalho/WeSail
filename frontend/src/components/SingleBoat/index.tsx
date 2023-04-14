@@ -40,7 +40,7 @@ const SingleBoat = () => {
   const [newTodo, setNewTodo] = useState(false)
   const [options, setOptions] = useState<Option[]>([])
 
-  const { id } = useParams();
+  const { id } = useParams()
   const user = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
 

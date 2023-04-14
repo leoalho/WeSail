@@ -7,7 +7,7 @@ db.createUser({
       db: 'the_database',
     },
   ],
-});
+})
 
 db.createCollection('users')
 

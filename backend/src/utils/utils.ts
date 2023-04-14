@@ -73,7 +73,7 @@ export const parseDateTime = (date: unknown, time:unknown): Date => {
     const newDate = new Date(`${date}T${time}`)
     return newDate
   } catch {
-    throw new Error('Incorrect date value');
+    throw new Error('Incorrect date value')
   }
 }
 
@@ -92,23 +92,23 @@ export const parseDate = (date: unknown): Date => {
         const newDate = new Date(date)
         return newDate
       } catch {
-        throw new Error('Incorrect date value');
+        throw new Error('Incorrect date value')
       }
 }
 
 export const parseString = (name: unknown): string => {
     if (!name || !isString(name)){
-        throw new Error(`Incorrect or missing string value: ${name}`);
+        throw new Error(`Incorrect or missing string value: ${name}`)
     }
-    return name;
-};
+    return name
+}
 
 export const parseObjectId = (name: unknown): mongoose.Types.ObjectId => {
     if (!name || !isObjectId(name)){
-        throw new Error(`Incorrect or missing ObjectId value: ${name}`);
+        throw new Error(`Incorrect or missing ObjectId value: ${name}`)
     }
 
-    return name;
+    return name
 }
 
 const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
@@ -116,5 +116,5 @@ const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
 }
 
 const isString = (text: unknown): text is string => {
-    return typeof text === 'string' || text instanceof String;
+    return typeof text === 'string' || text instanceof String
 }

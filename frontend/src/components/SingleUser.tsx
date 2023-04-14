@@ -37,7 +37,7 @@ const SingleUser = () => {
         setFriend(Application.Pending)
         return
       }
-    });
+    })
   }, [id, currentUser]) //currentUSer could perhaps be removed here?
 
   if (!id) {
