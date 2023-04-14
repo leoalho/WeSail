@@ -24,14 +24,6 @@ const Logger = () => {
     navigator.geolocation.getCurrentPosition(initSuccess, errorMessage)
   }, [])
 
-  const testi = {
-    "type": "Feature" as const,
-    "geometry": {
-      "type": "LineString",
-      "coordinates": route
-    }
-  }
-
   const style = {
     backgroundColor: "white",
     padding: "10px",
@@ -80,14 +72,6 @@ const Logger = () => {
     setLogging(true)
     setGeoId(navigator.geolocation.watchPosition(success, errorMessage))
   }
-
-  /*
-  if (logging && logActive){
-    navigator.geolocation.watchPosition(success, errorMessage)
-  }
-  */
-  
-  console.log(testi)
 
   return (
     <div className="main">

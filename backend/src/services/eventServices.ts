@@ -109,7 +109,6 @@ export const removeFromEventArray = async (id: string, field:EventArray, value:s
 export const updateEvent = async (userId: (string|undefined), id: string, patches: Patch[]) => {
   const isOwner = await checkOwner(id, userId)
   if (!isOwner) {throw new Error('Not authorized')}
-  console.log(patches)
   for (const patch of patches){
     const parsedPath =  patch.path.split("/")
     if (parsedPath.length === 0){

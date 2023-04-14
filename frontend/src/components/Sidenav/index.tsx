@@ -30,7 +30,6 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
 
   const filterEvents = () => {
     const newEvents: Event[] = []
-    console.log(events)
     events.forEach((event) => {
         let newEvent = false
         if (yourboats){
@@ -65,7 +64,6 @@ const SideNav = ({yourboats, followingboats, crewboats, friendActivity}: Props) 
             newEvents.push(event)
         }
     })
-    console.log(newEvents)
     setFilteredEvents(newEvents)
   }
 
