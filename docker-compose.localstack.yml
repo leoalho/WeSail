@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mongo:
@@ -12,14 +12,14 @@ services:
       - ./backend/mongo/data:/data/db
   redis:
     image: redis
-    command: ['redis-server', '--appendonly', 'yes']
+    command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./backend/redis/data:/data
     deploy:
       replicas: 2
   api:
-    image: leoalho/wesailAPI
-    environment: 
+    image: leoalho/wesailapi
+    environment:
       - REDIS_URI=redis://redis:6379
       - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
       - NODE_ENV=production
@@ -32,7 +32,7 @@ services:
     deploy:
       replicas: 2
   nginx:
-    image: leoalho/wesailServer
+    image: leoalho/wesailserver
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/var/ssl
@@ -51,4 +51,4 @@ services:
     deploy:
       placement:
         constraints:
-        - node.role == manager
+          - node.role == manager
