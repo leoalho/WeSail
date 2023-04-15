@@ -97,7 +97,7 @@ const Home = () => {
         friendActivity={friendActivity}
       />
       <div className="right">
-        <div className="content" style={{ padding: "5px" }}>
+        <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
           Show:
           {
             <button
@@ -144,7 +144,7 @@ const Home = () => {
               }
               onClick={() => setCrewboats(!crewboats)}
             >
-              Boats you are a crewmember of
+              Boats you are a crew member of
             </button>
           }
         </div>

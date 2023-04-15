@@ -8,6 +8,15 @@ import { signUp } from "../services/users";
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const style = {
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    backgroundPosition: "bottom",
+    backgroundImage: "url('/images/login.png')",
+    backgroundSize: "cover",
+  };
+
   const handleSignUp = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     const username = (document.getElementById("username") as HTMLInputElement)
@@ -27,7 +36,7 @@ const SignUp = () => {
   };
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <div className="login">
+    <div style={style}>
       <form onSubmit={handleSignUp} className="form">
         <center>
           <h2>SIGNUP</h2>
