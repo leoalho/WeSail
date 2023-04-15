@@ -1,21 +1,31 @@
+# README <!-- omit in toc -->
+
 Wesail is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
+
+- [Running the application](#running-the-application)
+- [Testing](#testing)
+- [Architecture](#architecture)
+  - [Folder architecture](#folder-architecture)
+- [Worklog](#worklog)
+- [Reflection](#reflection)
 
 ## Running the application
 
 Running the application requires that the user has docker installed and running. The root directory has three docker compose files:
 
-1. The [docker-compose.local.yml](./docker-compose.local.yml) can be used with docker compose to run the app locally (command: docker compose -f docker-compose.local.yml up -d), this will launch the app at http://localhost:3001. When running localy nginx uses a separate conf file compared to the production version.
-2. [docker-compose.yml](./docker-compose.yml) is intended for production, it has https enabled and nginx won't work without adding a SSL certificate and key into the ./backend/ssl directory. It can be run with docker compose with the command docker compose up -d.
-3. [docker-compose.localstack.yml](./docker-compose.localstack.yml) can be used to run the application in swarm mode. When running Docker in swarm mode, it has to be first activated. N.B. The sphepherd container used for automatic updates works only on computers with a UNIX-like filesystem but the application will launch even if spherpherd does not work.
+1. The [docker-compose.local.yml](./docker-compose.local.yml) can be used with docker compose to run the app locally (command: `docker compose -f docker-compose.local.yml up -d`), this will launch the app at http://localhost:3001. When running localy nginx uses a separate conf file compared to the production version.
+2. [docker-compose.yml](./docker-compose.yml) is intended for production, it has https enabled and nginx won't work without adding a SSL certificate and key into the [./backend/ssl](./backend/ssl) directory. It can be run with docker compose with the command `docker compose up -d`.
+3. [docker-compose.localstack.yml](./docker-compose.localstack.yml) can be used to run the application in swarm mode. When running Docker in swarm mode, it has to be first activated with `docker swarm init` to create a single-node swarm on the current node. One can check if the docker daemon is running in swarm mode with the `docker info` command and checking the value for the key 'swarm'. n.b. The sphepherd container used for automatic updates works only on computers with a UNIX-like filesystem but the application will launch even if spherpherd does not work. For more information about docker swarm please see the docker swarm's [official documentation](https://docs.docker.com/engine/swarm/swarm-mode/) and especially the part about [stack deploy](https://docs.docker.com/engine/swarm/stack-deploy/).
 
 When launching the app for the first time the database is initialized according to the [dev-mongo-init.js](./backend/mongo/dev-mongo-init.js) file located in ./backend/mongo/ directory. It initializes the db with a default user which can be used to login right away (username: test, password: salasana).
-After logging in there are already quit a lot of things a user can do. I have written a short [getting started guide](./documentation/getting_started.md). In addition, the main functionalities in the app are listed in the [requirement specification](./documentation/requirements_specification.md). Please notice that the location tracking in /logging with PCs is quite laggy. The initial point was to also make a react native version of the application, but this is yet to be implemented. In addition the location trackig does not yet save the route anywhere.
+
+After logging in there are already quit a lot of things a user can do. I have written a short [getting started guide](./documentation/getting_started.md). In addition, the main functionalities in the app are listed in the [requirement specification](./documentation/requirements_specification.md). Please notice that the location tracking in /logging with PCs is quite laggy and not yet fully functional. The initial point was to also make a react native version of the application, but this is yet to be implemented. In addition the location trackig does not yet save the route anywhere.
 
 ## Testing
 
-Backend unit tests can be run with the command npm run test while in the ./backend directory. The same works for frontend unit tests in the ./frontend directory. Linting can be done by running the command npm run lint.
+Backend unit tests can be run with the command `npm run test` while in the ./backend directory. The same works for frontend unit tests in the ./frontend directory. Linting can be done by running the command `npm run lint`.
 
-Cypress has been mainly used to run tests in development. Therefore , when running E2E tests with cypress, cypress assumes the app to be running on localhost:3000, and it assumes mongodb to be available via port 27000, and Redis via 6379. Redis and mongodb can be run with a docker compose file in backend [docker-compose.dev.yml](./backend/docker-compose.dev.yml), after which the development frontend can be run from the ./frontend directory with npm start, and the backend from the ./backend directory with the command npm run dev. Cypress can be opened from the ./backend directory with the npm run cypress -command. The cypress tests can be run without opening the Cypress GUI with the npm run e2e command. Cypress uses the teardown.js module located in ./backend/mongo/ to teardown the mongodb and to initialize it with new data.
+Cypress has been mainly used to run tests in development. Therefore , when running E2E tests with cypress, cypress assumes the app to be running on localhost:3000, and it assumes mongodb to be available via port 27000, and Redis via 6379. Redis and mongodb can be run with a docker compose file in backend [docker-compose.dev.yml](./backend/docker-compose.dev.yml) (command `docker compose -f docker-compose.local.yml up -d`), after which the development frontend can be run from the ./frontend directory with `npm start`, and the backend from the ./backend directory with the command `npm run dev`. Cypress can be opened from the ./backend directory with the `npm run cypress` command. The cypress tests can be run without opening the Cypress GUI with the `npm run e2e` command. Cypress uses the [teardown.js](./backend/mongo/teardown.js) module located in ./backend/mongo/ to tear down the databse and to initialize it with new data.
 
 ## Architecture
 
@@ -23,7 +33,7 @@ The application is written in typescript. The backend runs on express, and the f
 
 ![architecture](./documentation/images/architecture.png)
 
-The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the kubernetes folder, but these are not yet ready.
+The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the [./kubernetes](kubernetes) folder, but these are not yet ready.
 
 ### Folder architecture
 
