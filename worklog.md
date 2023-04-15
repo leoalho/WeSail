@@ -54,4 +54,5 @@
 | 9.4.23 | 3 | Events can now be edited by the creator of the event. |
 | 12.4.23 | 3 | Finished with setting up cypress. Wrote first E2E tests with cypress. |
 | 13.4.23 | 3 | More E2E testing. Added a js file to initialize the db |
-| Total | 204 ||
+| 14.4.23 | 2     | Began using prettier both in frontnend and backend for consistent formatting. Refactored app-file in backend. Created an error handling middleware |
+| Total | 206 ||
