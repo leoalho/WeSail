@@ -1,5 +1,9 @@
 const Crew = () => {
-    return (<><h2>Crew page</h2></>)
-}
+  return (
+    <>
+      <h2>Crew page</h2>
+    </>
+  );
+};
 
-export default Crew
+export default Crew;
