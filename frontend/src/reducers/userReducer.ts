@@ -1,81 +1,82 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { User, Boat, Friend, BoatUser } from '../types'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User, Boat, Friend, BoatUser } from "../types";
 
 interface UserBoat {
-  name: string,
-  id: string
+  name: string;
+  id: string;
 }
 
-const initialState = null as (null | User)
+const initialState = null as null | User;
 
-type Payload = User | null
+type Payload = User | null;
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     newUser(_state, action: PayloadAction<Payload>) {
-      const content: Payload = action.payload
-      return content
+      const content: Payload = action.payload;
+      return content;
     },
     addBoat(state, action: PayloadAction<Boat>) {
-      const newBoat = action.payload
-      if (state){
-        state.boats.push({name: newBoat.name, id: newBoat.id})
+      const newBoat = action.payload;
+      if (state) {
+        state.boats.push({ name: newBoat.name, id: newBoat.id });
       }
     },
-    updateBoats(state, action: PayloadAction<UserBoat[]>){
-      if (state){
-        state.boats = action.payload
+    updateBoats(state, action: PayloadAction<UserBoat[]>) {
+      if (state) {
+        state.boats = action.payload;
       }
     },
     updateFollowing(state, action: PayloadAction<UserBoat[]>) {
-      if (state){
-        state.boatsFollowing = action.payload
+      if (state) {
+        state.boatsFollowing = action.payload;
       }
     },
     updateFriends(state, action: PayloadAction<Friend[]>) {
-      if (state){
-        state.friends = action.payload
+      if (state) {
+        state.friends = action.payload;
       }
     },
     updateFriendRequests(state, action: PayloadAction<Friend[]>) {
-      if (state){
-        state.friendRequests = action.payload
+      if (state) {
+        state.friendRequests = action.payload;
       }
     },
     updatePendingFriends(state, action: PayloadAction<Friend[]>) {
-      if (state){
-        state.friendRequestsPending = action.payload
+      if (state) {
+        state.friendRequestsPending = action.payload;
       }
     },
     updateEvents(state, action: PayloadAction<string[]>) {
-      if (state){
-        state.events = action.payload
+      if (state) {
+        state.events = action.payload;
       }
     },
     updatePendingCrew(state, action: PayloadAction<BoatUser[]>) {
-      if (state){
-        state.crewRequestsPending = action.payload
+      if (state) {
+        state.crewRequestsPending = action.payload;
       }
     },
     updateEmail(state, action: PayloadAction<string>) {
-      if (state){
-        state.email = action.payload
+      if (state) {
+        state.email = action.payload;
       }
-    } 
-  }
-})
+    },
+  },
+});
 
-export const {newUser,
-              addBoat,
-              updateBoats,
-              updateFollowing,
-              updatePendingFriends,
-              updateFriends,
-              updateFriendRequests,
-              updateEvents,
-              updatePendingCrew,
-              updateEmail
-            } = userSlice.actions
-export default userSlice.reducer
+export const {
+  newUser,
+  addBoat,
+  updateBoats,
+  updateFollowing,
+  updatePendingFriends,
+  updateFriends,
+  updateFriendRequests,
+  updateEvents,
+  updatePendingCrew,
+  updateEmail,
+} = userSlice.actions;
+export default userSlice.reducer;
