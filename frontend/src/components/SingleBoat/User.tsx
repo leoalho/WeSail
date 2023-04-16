@@ -19,21 +19,35 @@ const User = ({
   sendCrewRequest,
 }: Props) => {
   return (
-    <>
+    <center>
       {isFollowing ? (
-        <button onClick={unFollowBoat}>Unfollow</button>
+        <button
+          className="button"
+          onClick={unFollowBoat}
+          style={{ marginBottom: "5px" }}
+        >
+          Unfollow
+        </button>
       ) : (
-        <button onClick={followBoat}>Start following</button>
+        <button
+          className="button"
+          style={{ marginBottom: "5px" }}
+          onClick={followBoat}
+        >
+          Start following
+        </button>
       )}
       <br />
       {crewApplication === Application.No && (
-        <button onClick={sendCrewRequest}>Apply for crew</button>
+        <button className="button" onClick={sendCrewRequest}>
+          Apply for crew
+        </button>
       )}
       {crewApplication === Application.Pending && (
         <>Application waiting for approval</>
       )}
       <br />
-    </>
+    </center>
   );
 };
 

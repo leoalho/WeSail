@@ -58,6 +58,10 @@ const Owner = ({
   };
 
   const addOwner = async () => {
+    if (selectedUsers.length === 0) {
+      toast.error("Select a user first");
+      return;
+    }
     const patches: Patch[] = [];
     selectedUsers.forEach((selectedUser) =>
       patches.push({ op: "add", path: "/owners", value: selectedUser.value })
@@ -84,7 +88,11 @@ const Owner = ({
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          <button className="button" onClick={addOwner}>
+          <button
+            className="button"
+            onClick={addOwner}
+            style={{ marginLeft: "5px", marginTop: "5px" }}
+          >
             Add owner
           </button>
           <br />
@@ -110,11 +118,14 @@ const Owner = ({
             <>
               {application.username}{" "}
               <button
+                style={{ marginRight: "5px" }}
+                className="button"
                 onClick={async () => await acceptCrewRequest(application.id)}
               >
                 Accept
               </button>
               <button
+                className="button"
                 onClick={async () => await rejectCrewRequest(application.id)}
               >
                 Reject
