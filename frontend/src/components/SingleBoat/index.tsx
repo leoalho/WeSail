@@ -254,7 +254,7 @@ const SingleBoat = () => {
                 rejectCrewRequest={rejectCrewRequest}
               />
             )}
-            {isCrew && <Crew />}
+            {isCrew && <Crew boat={boat} />}
             {!isOwner && !isCrew && (
               <User
                 isFollowing={isFollowing}
@@ -358,7 +358,6 @@ const SingleBoat = () => {
                 />
                 <div style={{ marginTop: "5px" }}>
                   <button
-                    className="button"
                     style={{ marginRight: "5px" }}
                     onClick={() => {
                       setSelectTodos(false);
@@ -367,17 +366,13 @@ const SingleBoat = () => {
                   >
                     Cancel
                   </button>
-                  <button className="button" onClick={doneTodos}>
-                    {" "}
-                    Mark as done
-                  </button>
+                  <button onClick={doneTodos}> Mark as done</button>
                 </div>
               </div>
             )}
             {!newTodo && !selectTodos && (
               <div style={{ margin: "5px" }}>
                 <button
-                  className="button"
                   style={{ marginRight: "5px" }}
                   onClick={() => {
                     setNewTodo(true);
@@ -385,7 +380,7 @@ const SingleBoat = () => {
                 >
                   Create New
                 </button>
-                <button className="button" onClick={() => setSelectTodos(true)}>
+                <button onClick={() => setSelectTodos(true)}>
                   Mark todos as done
                 </button>
               </div>

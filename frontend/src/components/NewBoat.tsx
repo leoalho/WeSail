@@ -39,9 +39,7 @@ const NewBoat = () => {
                 onChange={({ target }) => setBoatname(target.value)}
               />
             </div>
-            <button className="button" type="submit">
-              Create new boat
-            </button>
+            <button type="submit">Create new boat</button>
           </form>
         </div>
       </div>

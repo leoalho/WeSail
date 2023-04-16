@@ -30,7 +30,6 @@ router.post("/", middleware.authorize, async (req, res, next) => {
 
 router.patch("/:id", middleware.authorize, async (req, res, next) => {
   try {
-    
     const updatedEvent = await updateEvent(
       req.session.user,
       req.params.id,
@@ -66,7 +65,7 @@ router.get("/boats/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    await deleteEvent(req.params.id);
+    await deleteEvent(req.session.user, req.params.id);
     res.status(204).send("deleted event");
   } catch (error: unknown) {
     next(error);

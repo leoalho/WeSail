@@ -81,7 +81,6 @@ const SignUp = () => {
             />
           </div>
           <button
-            className="button"
             type="submit"
             style={{ fontSize: "20px", width: "100%", marginTop: "15px" }}
           >

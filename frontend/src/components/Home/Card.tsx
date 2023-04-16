@@ -23,9 +23,10 @@ export const Participants = ({ participants }: Props2) => {
     return (
       <>
         with{" "}
-        {participants.map((participant) => (
+        {participants.map((participant, index) => (
           <React.Fragment key={participant.id}>
-            <Link to={`/users/${participant.id}`}>{participant.username}</Link>,
+            <Link to={`/users/${participant.id}`}>{participant.username}</Link>
+            {index === participants.length - 1 ? "" : ", "}
           </React.Fragment>
         ))}
       </>

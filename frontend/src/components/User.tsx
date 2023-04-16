@@ -98,19 +98,13 @@ const UserInput = () => {
             onChange={({ target }) => setNewEmail(target.value)}
             placeholder="new email address"
           />
-          <button className="button" onClick={updateMail}>
-            Save
-          </button>
-          <button className="button" onClick={cancelEmail}>
-            Cancel
-          </button>
+          <button onClick={updateMail}>Save</button>
+          <button onClick={cancelEmail}>Cancel</button>
         </>
       ) : (
         <>
           email: {user.email}{" "}
-          <button className="button" onClick={() => setEditEmail(!editEmail)}>
-            change
-          </button>
+          <button onClick={() => setEditEmail(!editEmail)}>change</button>
         </>
       )}
       <br />
@@ -129,19 +123,12 @@ const UserInput = () => {
             placeholder="New password again"
             onChange={({ target }) => setNewPwd2(target.value)}
           />
-          <button className="button" onClick={updatePassword}>
-            Send
-          </button>
-          <button className="button" onClick={cancelPwd}>
-            Cancel
-          </button>
+          <button onClick={updatePassword}>Send</button>
+          <button onClick={cancelPwd}>Cancel</button>
         </>
       ) : (
         <>
-          <button
-            className="button"
-            onClick={() => setEditPassword(!editPassword)}
-          >
+          <button onClick={() => setEditPassword(!editPassword)}>
             Change password
           </button>
         </>

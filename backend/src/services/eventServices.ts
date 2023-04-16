@@ -163,6 +163,10 @@ export const getEvent = async (id: string) => {
   return event;
 };
 
-export const deleteEvent = async (id: string) => {
+export const deleteEvent = async (userId: string | undefined, id: string) => {
+  const isOwner = await checkOwner(id, userId);
+  if (!isOwner) {
+    throw new Error("Not authorized");
+  }
   await Event.deleteOne({ _id: id });
 };
