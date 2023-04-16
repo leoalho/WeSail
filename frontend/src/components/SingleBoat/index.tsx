@@ -38,6 +38,7 @@ const SingleBoat = () => {
   const [isOwner, setIsOwner] = useState(false);
   const [isCrew, setIsCrew] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
+  const [filteredLogs, setFilteredLogs] = useState<Log[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [pastEvents, setPastEvents] = useState<Event[]>([]);
   const [selectTodos, setSelectTodos] = useState(false);
@@ -62,7 +63,10 @@ const SingleBoat = () => {
         })
         .catch((e) => console.log(e));
       getBoatLogs(id)
-        .then((newLogs) => setLogs(newLogs))
+        .then((newLogs) => {
+          setLogs(newLogs);
+          setFilteredLogs(newLogs);
+        })
         .catch((e) => console.log(e));
     }
   }, [id]);
@@ -117,6 +121,27 @@ const SingleBoat = () => {
       setOptions(newOptions);
     }
   }, [id, boat]);
+
+  const filterLogs = () => {
+    const newLogs: Log[] = [];
+    logs.forEach((log) => {
+      let newLog = false;
+      if (sails && log.logType === "sail") {
+        newLog = true;
+      }
+      if (maintenances && log.logType === "maintenance") {
+        newLog = true;
+      }
+      if (newLog) {
+        newLogs.push(log);
+      }
+    });
+    setFilteredLogs(newLogs);
+  };
+
+  useEffect(() => {
+    filterLogs();
+  }, [sails, maintenances]);
 
   if (!boat) {
     return <>Loading ...</>;
@@ -243,7 +268,7 @@ const SingleBoat = () => {
         </div>
       </div>
       <div>
-        <div>
+        <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
           <b>Boat log:</b>
           <br />
           Show:
@@ -273,7 +298,7 @@ const SingleBoat = () => {
             No logs yet
           </div>
         )}
-        {logs.map((log) => (
+        {filteredLogs.map((log) => (
           <LogCard
             key={log.id}
             boat={log.boat}
