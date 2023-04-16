@@ -96,20 +96,12 @@ const Owner = ({
             Add owner
           </button>
           <br />
-          <button
-            className="button"
-            style={{ margin: "5px" }}
-            onClick={deleteButton}
-          >
+          <button style={{ margin: "5px" }} onClick={deleteButton}>
             Delete boat
           </button>
           <br />
-          <button className="button" style={{ margin: "5px" }}>
-            Save
-          </button>
-          <button className="button" onClick={() => setEdit(!edit)}>
-            Cancel
-          </button>
+          <button style={{ margin: "5px" }}>Save</button>
+          <button onClick={() => setEdit(!edit)}>Cancel</button>
         </>
       ) : (
         <>
@@ -119,13 +111,11 @@ const Owner = ({
               {application.username}{" "}
               <button
                 style={{ marginRight: "5px" }}
-                className="button"
                 onClick={async () => await acceptCrewRequest(application.id)}
               >
                 Accept
               </button>
               <button
-                className="button"
                 onClick={async () => await rejectCrewRequest(application.id)}
               >
                 Reject
@@ -143,9 +133,7 @@ const Owner = ({
             <>{crewmember.username}, </>
           ))}
           <br />
-          <button className="button" onClick={() => setEdit(!edit)}>
-            Edit
-          </button>
+          <button onClick={() => setEdit(!edit)}>Edit</button>
         </>
       )}
     </>

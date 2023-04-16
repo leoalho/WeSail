@@ -68,7 +68,7 @@ a {
   color: #5ea4ff;
 }
 
-.button {
+button {
   font-size: 16px;
   color: #002f6c;
   border-color: #002f6c;
@@ -129,8 +129,8 @@ a {
 .content {
   background-color: white;
   margin-top: 5px;
-  padding-left: 5px;
-  width: 700px;
+  padding: 5px;
+  width: 690px;
 }
 
 #sideNav {

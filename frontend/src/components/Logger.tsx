@@ -108,20 +108,20 @@ const Logger = () => {
               >
                 {logging ? <>Pause</> : <>Continue</>}
               </button>
+              <br />
               latitude: {latitude}, longitude: {longitude}{" "}
               {speed && <>, speed {speed}</>} {heading && <>, {heading}</>}{" "}
               <br />
               last updated {new Date(updated).toISOString()}
+              <br />
+              {logActive && <Link to="/newLog">Submit</Link>}
             </>
           ) : (
             <>
-              <button className="button" onClick={startLogging}>
-                Start
-              </button>{" "}
-              or <Link to="/newLog">Create log entry without location</Link>
+              <button onClick={startLogging}>Start</button> or{" "}
+              <Link to="/newLog">Create log entry without location</Link>
             </>
           )}
-          {logActive && !logging && <button>Submit</button>}
         </div>
       </div>
     </div>

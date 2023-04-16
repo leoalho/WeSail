@@ -21,27 +21,17 @@ const User = ({
   return (
     <center>
       {isFollowing ? (
-        <button
-          className="button"
-          onClick={unFollowBoat}
-          style={{ marginBottom: "5px" }}
-        >
+        <button onClick={unFollowBoat} style={{ marginBottom: "5px" }}>
           Unfollow
         </button>
       ) : (
-        <button
-          className="button"
-          style={{ marginBottom: "5px" }}
-          onClick={followBoat}
-        >
+        <button style={{ marginBottom: "5px" }} onClick={followBoat}>
           Start following
         </button>
       )}
       <br />
       {crewApplication === Application.No && (
-        <button className="button" onClick={sendCrewRequest}>
-          Apply for crew
-        </button>
+        <button onClick={sendCrewRequest}>Apply for crew</button>
       )}
       {crewApplication === Application.Pending && (
         <>Application waiting for approval</>

@@ -2,8 +2,10 @@
 
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+
 import { deleteEvent, getPastBoatEvents } from "../../services/events";
-import { Event } from "../../types";
+import { Event, RootState } from "../../types";
 import { Participants } from "../Home/Card";
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
 
 const PastEventCard = ({ event, boatId, setPastEvents }: Props) => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
 
   const date = new Date(event.date);
 
@@ -52,14 +55,14 @@ const PastEventCard = ({ event, boatId, setPastEvents }: Props) => {
       {(date.getMinutes() < 10 ? "0" : "") + date.getMinutes()}
       <br />
       <div>{event.description}</div>
-      <div>
-        <button className="button" onClick={createLog}>
-          Create log from event
-        </button>
-        <button className="button" onClick={tryDelete}>
-          Delete
-        </button>
-      </div>
+      {user.id === event.creator && (
+        <div>
+          <button onClick={createLog} style={{ marginRight: "5px" }}>
+            Create log from event
+          </button>
+          <button onClick={tryDelete}>Delete</button>
+        </div>
+      )}
     </div>
   );
 };

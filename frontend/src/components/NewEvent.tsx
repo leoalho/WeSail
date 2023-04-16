@@ -93,9 +93,7 @@ const NewEvent = () => {
             onChange={({ target }) => setDescription(target.value)}
           ></input>
           <br />
-          <button className="button" onClick={createEvent}>
-            Create event
-          </button>
+          <button onClick={createEvent}>Create event</button>
         </div>
       </div>
     </div>
