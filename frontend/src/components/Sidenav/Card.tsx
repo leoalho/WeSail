@@ -149,23 +149,14 @@ const Card = ({ event, setEvents }: Props) => {
             />
           </div>
           <div style={{ display: "flex", justifyContent: "right" }}>
-            <button
-              className="button"
-              style={{ marginRight: "5px" }}
-              onClick={deleteEventLocal}
-            >
+            <button style={{ marginRight: "5px" }} onClick={deleteEventLocal}>
               Delete event
             </button>
             <button
-              className="button"
               style={{ marginRight: "5px" }}
               onClick={updatedEvent}
-            >
-              Save
-            </button>
-            <button className="button" onClick={() => setEdit(!edit)}>
-              cancel
-            </button>
+            ></button>
+            <button onClick={() => setEdit(!edit)}>cancel</button>
           </div>
         </>
       ) : (
@@ -184,7 +175,6 @@ const Card = ({ event, setEvents }: Props) => {
           <div style={{ display: "flex", justifyContent: "right" }}>
             {joining ? (
               <button
-                className="button"
                 style={{ borderRadius: "5px", marginRight: "5px" }}
                 onClick={() => unjoinEvent()}
               >
@@ -192,7 +182,6 @@ const Card = ({ event, setEvents }: Props) => {
               </button>
             ) : (
               <button
-                className="button"
                 style={{ borderRadius: "5px", marginRight: "5px" }}
                 onClick={() => joinEvent()}
               >
@@ -200,9 +189,7 @@ const Card = ({ event, setEvents }: Props) => {
               </button>
             )}
             {user.id === event.creator && (
-              <button className="button" onClick={() => setEdit(!edit)}>
-                Edit
-              </button>
+              <button onClick={() => setEdit(!edit)}>Edit</button>
             )}
           </div>
         </>

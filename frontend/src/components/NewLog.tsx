@@ -201,7 +201,7 @@ const NewLog = () => {
             classNamePrefix="select"
             onChange={(option) => setTodos([...option])}
           />
-          <button className="button" onClick={createEvent}>
+          <button style={{ marginTop: "5px" }} onClick={createEvent}>
             Create log entry
           </button>
         </div>

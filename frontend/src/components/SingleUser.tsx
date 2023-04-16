@@ -100,11 +100,13 @@ const SingleUser = () => {
               </center>
             </div>
             {currentUser.id !== user.id && friend === Application.No && (
-              <button onClick={sendRequest}>Send friend request</button>
+              <button style={{ marginTop: "5px" }} onClick={sendRequest}>
+                Send friend request
+              </button>
             )}
             {friend === Application.Pending && <>Friend application sent</>}
             {friend === Application.Accepted && (
-              <button className="button" onClick={unfriend}>
+              <button style={{ marginTop: "5px" }} onClick={unfriend}>
                 UnFriend
               </button>
             )}
