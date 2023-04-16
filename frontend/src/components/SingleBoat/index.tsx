@@ -38,6 +38,7 @@ const SingleBoat = () => {
   const [isOwner, setIsOwner] = useState(false);
   const [isCrew, setIsCrew] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
+  const [filteredLogs, setFilteredLogs] = useState<Log[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [pastEvents, setPastEvents] = useState<Event[]>([]);
   const [selectTodos, setSelectTodos] = useState(false);
@@ -62,7 +63,10 @@ const SingleBoat = () => {
         })
         .catch((e) => console.log(e));
       getBoatLogs(id)
-        .then((newLogs) => setLogs(newLogs))
+        .then((newLogs) => {
+          setLogs(newLogs);
+          setFilteredLogs(newLogs);
+        })
         .catch((e) => console.log(e));
     }
   }, [id]);
@@ -118,9 +122,50 @@ const SingleBoat = () => {
     }
   }, [id, boat]);
 
+  const filterLogs = () => {
+    const newLogs: Log[] = [];
+    logs.forEach((log) => {
+      let newLog = false;
+      if (sails && log.logType === "sail") {
+        newLog = true;
+      }
+      if (maintenances && log.logType === "maintenance") {
+        newLog = true;
+      }
+      if (newLog) {
+        newLogs.push(log);
+      }
+    });
+    setFilteredLogs(newLogs);
+  };
+
+  useEffect(() => {
+    filterLogs();
+  }, [sails, maintenances]);
+
   if (!boat) {
     return <>Loading ...</>;
   }
+
+  const toggleStyle = {
+    padding: "5px",
+    margin: "5px",
+    borderWidth: "1px",
+    transitionDuration: "0.4s",
+    cursor: "pointer",
+    borderColor: "#002f6c",
+    borderRadius: "5px",
+  };
+
+  const selected = {
+    color: "white",
+    backgroundColor: "#002f6c",
+  };
+
+  const unSelected = {
+    color: "#002f6c",
+    backgroundColor: "white",
+  };
 
   const followBoat = async () => {
     const newuser = await updateUser(user.id, {
@@ -223,29 +268,37 @@ const SingleBoat = () => {
         </div>
       </div>
       <div>
-        <div>
+        <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
           <b>Boat log:</b>
           <br />
           Show:
-          <input
-            type="checkbox"
-            id="sails"
-            name="sails"
-            checked={sails}
-            onChange={() => setSails(!sails)}
-          />
-          sails
-          <input
-            type="checkbox"
-            id="maintenances"
-            name="maintenances"
-            checked={maintenances}
-            onChange={() => setMaintenances(!maintenances)}
-          />
-          maintenances
+          <button
+            style={
+              sails
+                ? { ...selected, ...toggleStyle }
+                : { ...unSelected, ...toggleStyle }
+            }
+            onClick={() => setSails(!sails)}
+          >
+            sails
+          </button>
+          <button
+            style={
+              maintenances
+                ? { ...selected, ...toggleStyle }
+                : { ...unSelected, ...toggleStyle }
+            }
+            onClick={() => setMaintenances(!maintenances)}
+          >
+            maintenances
+          </button>
         </div>
-        {logs.length === 0 && <div className="content">No logs yet</div>}
-        {logs.map((log) => (
+        {logs.length === 0 && (
+          <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
+            No logs yet
+          </div>
+        )}
+        {filteredLogs.map((log) => (
           <LogCard
             key={log.id}
             boat={log.boat}
@@ -340,7 +393,7 @@ const SingleBoat = () => {
           </>
         )}
 
-        <div>
+        <div style={{ marginTop: "10px" }}>
           <b>Past events:</b>
         </div>
         {pastEvents.map((card) => (
