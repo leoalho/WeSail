@@ -55,5 +55,6 @@
 | 12.4.23 | 3 | Finished with setting up cypress. Wrote first E2E tests with cypress. |
 | 13.4.23 | 3 | More E2E testing. Added a js file to initialize the db |
 | 14.4.23 | 2| Began using prettier both in frontend and backend for consistent formatting. Refactored app-file in backend. Created an error handling middleware |
-| 15.4.23 | 4 |
-| Total | 206 ||
+| 15.4.23 | 4 | Style changes here and there. Started writing a getting started guide. Wrote more of README |
+| 16.4.23 | 2 | MAde log togglers functional on single boa page. |
+| Total | 212 ||

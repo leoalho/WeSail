@@ -5,10 +5,14 @@
 - [Signing up](#signing-up)
 - [Main page](#main-page)
 - [Boat page](#boat-page)
+  - [Following a boat](#following-a-boat)
+  - [Settings](#settings)
+  - [Events](#events)
+  - [Todos](#todos)
 - [New log entry](#new-log-entry)
 - [New event](#new-event)
 - [Creating a new boat](#creating-a-new-boat)
-- [Settings](#settings)
+- [Settings](#settings-1)
 
 ## Navigation bar
 
@@ -36,12 +40,30 @@ When logged in the user is presented with the main view. which consists of a [na
 
 Boat pages have a slightly different look depending on the user's relationship to the boat (no relationship, crewmember, owner).
 
+### Following a boat
+
+Users that are not boat owners or crew members can start following a boat in order to see the boats events and logs on the main page.
+
+### Settings
+
+Boat owners can access the boat settings by pressing the edit button. Via the settings it is possible add other owners to the boat and delete the boat.
+
+### Events
+
+On side on the boat page. All upcoming and past events are displayed.
+
+### Todos
+
 ## New log entry
 
-On the ./logger page the user is presented with an interactive map which shows the user's location (if the user has accepted to share location). Below the map there are two buttons: start logging and create a new event without logging. When the start logging button is clicked the app begins to track the location of the user.
+On the ./logger page the user is presented with an interactive map which shows the user's location (if the user has accepted to share location). Below the map there are two buttons: start logging and create a new event without logging. When the start logging button is clicked the app begins to track the location of the user. Tracking can be paused by clicking the pause button, and again continued by clicking the continue button.
 
 ## New event
 
+New events can be creating by
+
 ## Creating a new boat
+
+Users can create a new boat by first accessing the settings page via clicking their own username on the right side of the navbar. On the settings page there is a link to ./newboat which opens a short interface for creating a new boat. After creating a boat the user is automatically navigated to the newly created boat page.
 
 ## Settings
