@@ -1,122 +1,122 @@
 export interface Friend {
-  id: string,
-  username: string
+  id: string;
+  username: string;
 }
 
 export interface TodoEntry {
-    createdBy: string,
-    created: string | Date,
-    value: string
+  createdBy: string;
+  created: string | Date;
+  value: string;
 }
 
 export interface Todo {
-    _id: string,
-    createdBy: string,
-    created: string | Date,
-    value: string
+  _id: string;
+  createdBy: string;
+  created: string | Date;
+  value: string;
 }
 
 export interface Boat {
-  name: string,
-  id: string,
-  owners: Friend[],
-  crew: Friend[],
-  crewRequests: Friend[],
-  followers: Friend[],
-  todos: Todo[]
+  name: string;
+  id: string;
+  owners: Friend[];
+  crew: Friend[];
+  crewRequests: Friend[];
+  followers: Friend[];
+  todos: Todo[];
 }
 
 export interface BoatUser {
-  name: string,
-  id: string
+  name: string;
+  id: string;
 }
 
 export interface User {
-  username: string,
-  id: string,
-  email: string,
-  friends: Friend[],
-  friendRequests: Friend[],
-  friendRequestsPending: Friend[],
-  boats: BoatUser[],
-  crewRequestsPending: BoatUser[]
-  crewMember: BoatUser[],
-  boatsCrew: BoatUser[],
-  boatsFollowing: BoatUser[],
-  events: string[]
+  username: string;
+  id: string;
+  email: string;
+  friends: Friend[];
+  friendRequests: Friend[];
+  friendRequestsPending: Friend[];
+  boats: BoatUser[];
+  crewRequestsPending: BoatUser[];
+  crewMember: BoatUser[];
+  boatsCrew: BoatUser[];
+  boatsFollowing: BoatUser[];
+  events: string[];
 }
 
 export type UpdateUser = {
-  username?: string,
-  passwordHash?: string,
-  email?: string,
-  friend?: string,
-  friendRequest?: string,
-  friendRequestsPending?: string,
-  status?: string,
-  boatsFollowing?: string,
-  event?: string
-}
+  username?: string;
+  passwordHash?: string;
+  email?: string;
+  friend?: string;
+  friendRequest?: string;
+  friendRequestsPending?: string;
+  status?: string;
+  boatsFollowing?: string;
+  event?: string;
+};
 
-type Op = 'add' | 'remove' | 'replace'
+type Op = "add" | "remove" | "replace";
 
 export type Patch = {
-  op: Op,
-  path: string,
-  value: string | TodoEntry
-}
+  op: Op;
+  path: string;
+  value: string | TodoEntry;
+};
 
 export type UpdateBoat = {
-  name?: string,
-  crewRequest?: string,
-  crew?: string,
-  follower?: string
-}
+  name?: string;
+  crewRequest?: string;
+  crew?: string;
+  follower?: string;
+};
 
 export interface RootState {
-  user: User
+  user: User;
 }
 
 export type Option = {
-    value: string,
-    label: string
-}
+  value: string;
+  label: string;
+};
 
-export type Payload = User | null
+export type Payload = User | null;
 
-type LogType = "sail" | "maintenance"
+type LogType = "sail" | "maintenance";
 
 export interface Event {
-  boat: BoatUser,
-  date: string,
-  time: string,
-  location: string,
-  description: string,
-  creator: string,
-  participants: User[],
-  id: string,
-  eventType: LogType
+  boat: BoatUser;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  creator: string;
+  participants: User[];
+  id: string;
+  eventType: LogType;
 }
 
 export interface UpdateEvent {
-  participant?: string
+  participant?: string;
 }
 
 export interface Log {
-    boat: BoatUser,
-    creator: Friend,
-    participants: Friend[],
-    description: string,
-    startTime: string,
-    endTime: string,
-    start: string,
-    end: string,
-    id: string,
-    logType: LogType
+  boat: BoatUser;
+  creator: Friend;
+  participants: Friend[];
+  description: string;
+  startTime: string;
+  endTime: string;
+  start: string;
+  end: string;
+  id: string;
+  logType: LogType;
 }
 
 export enum Application {
   No,
   Pending,
-  Accepted
+  Accepted,
 }

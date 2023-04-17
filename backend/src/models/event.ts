@@ -1,42 +1,42 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
   boat: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Boat'    
+    ref: "Boat",
   },
   date: {
-    type: Date
+    type: Date,
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true  
+    ref: "User",
+    required: true,
   },
   location: {
-    type: String
+    type: String,
   },
   description: {
-    type: String
+    type: String,
   },
   participants: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
+      ref: "User",
+    },
   ],
-   eventType: String
-})
+  eventType: String,
+});
 
-eventSchema.set('toJSON', {
+eventSchema.set("toJSON", {
   transform: (_document, returnedObject) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    returnedObject.id = returnedObject._id
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
-const Event = mongoose.model('Event', eventSchema)
+const Event = mongoose.model("Event", eventSchema);
 
-export default Event
+export default Event;

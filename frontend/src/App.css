@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
@@ -16,30 +16,30 @@ body {
 }
 
 input {
-    margin: 3px
+  margin: 3px;
 }
 
-.fill { 
+.fill {
   min-height: 100%;
   height: 100%;
 }
 
 .navbar {
-  background-color: white; 
+  background-color: white;
   flex: 0 0 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%
+  width: 100%;
 }
 
 a {
-    color: #002f6c;
-    text-decoration: none;
+  color: #002f6c;
+  text-decoration: none;
 }
 
 .form a:hover {
-    color: #5ea4ff; 
+  color: #5ea4ff;
 }
 
 .navbar a {
@@ -52,7 +52,7 @@ a {
 }
 
 .main a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .btn {
@@ -60,53 +60,53 @@ a {
   background-color: inherit;
   cursor: pointer;
   display: inline-block;
-  font-size: inherit; 
+  font-size: inherit;
   color: #002f6c;
 }
 
 .btn:hover {
-    color: #5ea4ff;
+  color: #5ea4ff;
 }
 
-.button {
-    font-size: 16px;
-    color: #002f6c;
-    border-color: #002f6c;
-    background-color: white;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    border-width: 1px;
+button {
+  font-size: 16px;
+  color: #002f6c;
+  border-color: #002f6c;
+  background-color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-width: 1px;
 }
 
 .button:hover {
-    color: white;
-    background-color: #002f6c;
+  color: white;
+  background-color: #002f6c;
 }
 
 .navbarRight {
   margin-right: 40px;
   display: flex;
   justify-content: right;
-  gap: 10px
+  gap: 10px;
 }
 
 .navbarLeft {
   margin-left: 40px;
   display: flex;
   gap: 10px;
-  height: 100%
+  height: 100%;
 }
 
 .main {
-    background-color: #eeeeee;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    padding:10px
+  background-color: #eeeeee;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 10px;
 }
 
 .right {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 .form {
@@ -129,13 +129,13 @@ a {
 .content {
   background-color: white;
   margin-top: 5px;
-  padding-left: 5px;
-  width: 700px;
+  padding: 5px;
+  width: 690px;
 }
 
 #sideNav {
   color: black;
-  background-color: #eeeeee; 
+  background-color: #eeeeee;
   overflow-x: hidden;
   overflow-y: scroll;
   margin-right: 10px;
@@ -143,7 +143,7 @@ a {
 
 .dropdown {
   display: inline-block;
-  color:#002f6c
+  color: #002f6c;
 }
 
 .dropdown:hover {
@@ -156,7 +156,7 @@ a {
   background-color: white;
   padding: 5px;
   min-width: 60px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 99;
 }
 
@@ -182,9 +182,8 @@ a {
   margin-bottom: 10px;
 }
 
-iframe
-{
-    display: none;
+iframe {
+  display: none;
 }
 
 .navbar-input {
@@ -206,9 +205,9 @@ iframe
   position: absolute;
   background-color: white;
   padding: 5px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 99;
-  width: 250px
+  width: 250px;
 }
 
 .formtitle {
@@ -222,48 +221,49 @@ iframe
 }
 
 .boat_info_card {
-    background-color: white;
-    margin-top: 100px;
-    margin-right: 10px;
+  background-color: white;
+  margin-top: 100px;
+  margin-right: 10px;
+  width: 200px;
 }
 
 .boat_avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-top: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-top: -100px;
 }
 
 .user_avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-top: -60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-top: -60px;
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #eeeeee; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 .boat_card {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    padding: 2px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 2px;
 }

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mongo:
@@ -16,6 +16,6 @@ services:
     image: redis
     ports:
       - 6379:6379
-    command: ['redis-server', '--appendonly', 'yes']
+    command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./redis/data:/data
