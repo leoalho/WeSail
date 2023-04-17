@@ -1,6 +1,6 @@
 # README <!-- omit in toc -->
 
-Wesail is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
+[Wesail](https://joukko.io) is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
 
 - [Running the application](#running-the-application)
 - [Testing](#testing)
