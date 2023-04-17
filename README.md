@@ -1,10 +1,11 @@
 # README <!-- omit in toc -->
 
-Wesail is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
+[Wesail](https://joukko.io) is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
 
 - [Running the application](#running-the-application)
 - [Testing](#testing)
 - [Architecture](#architecture)
+- [Security](#security)
   - [Folder architecture](#folder-architecture)
 - [Worklog](#worklog)
 - [Reflection](#reflection)
@@ -34,6 +35,8 @@ The application is written in typescript. The backend runs on express, and the f
 ![architecture](./documentation/images/architecture.png)
 
 The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the [./kubernetes](kubernetes) folder, but these are not yet ready.
+
+## Security
 
 ### Folder architecture
 
