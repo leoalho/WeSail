@@ -34,22 +34,13 @@ const NewBoat = () => {
             <div>
               boat name:{" "}
               <input
-<<<<<<< HEAD
                 name="boatName"
-=======
->>>>>>> 84e61c004a51cedc4805ff5fb2a164621f0e4368
                 type="text"
                 value={boatname}
                 onChange={({ target }) => setBoatname(target.value)}
               />
             </div>
-<<<<<<< HEAD
-            <button className="button" type="submit">
-              Create new boat
-            </button>
-=======
             <button type="submit">Create new boat</button>
->>>>>>> 84e61c004a51cedc4805ff5fb2a164621f0e4368
           </form>
         </div>
       </div>
