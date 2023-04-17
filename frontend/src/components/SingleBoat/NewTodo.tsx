@@ -39,7 +39,9 @@ const NewTodo = ({ setNewTodo, setBoat, boatId, userId }: Props) => {
         value={todoValue}
         onChange={({ target }) => setTodoValue(target.value)}
       ></input>
-      <button onClick={saveTodo} style={{ marginRight: "5px" }}></button>
+      <button onClick={saveTodo} style={{ marginRight: "5px" }}>
+        Create
+      </button>
       <button
         onClick={() => {
           setNewTodo(false);
