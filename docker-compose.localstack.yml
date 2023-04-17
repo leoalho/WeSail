@@ -46,7 +46,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - IGNORELIST_SERVICES="mongo shepherd"
+      - IGNORELIST_SERVICES="wesailstack_mongo wesailstack_shepherd wesailstack_redis"
       - SLEEP_TIME=15m
     deploy:
       placement:
