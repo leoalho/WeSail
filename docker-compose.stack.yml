@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes:
+      - ./backend/mongo/dev-mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./backend/mongo/data:/data/db
+  redis:
+    image: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./backend/redis/data:/data
+  api:
+    image: leoalho/wesailapi
+    environment:
+      - REDIS_URI=redis://redis:6379
+      - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database?directConnection=true
+      - NODE_ENV=production
+      - SECRET=secret
+    volumes:
+      - ./backend/images:/usr/src/app/images
+    depends_on:
+      - redis
+      - mongo
+    deploy:
+      replicas: 2
+  nginx:
+    image: leoalho/wesailserver
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/var/ssl
+    ports:
+      - 80:80
+      - 443:443
+    deploy:
+      replicas: 2
