@@ -15,8 +15,6 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./backend/redis/data:/data
-    deploy:
-      replicas: 2
   api:
     image: leoalho/wesailapi
     environment:
@@ -41,14 +39,3 @@ services:
       - 443:443
     deploy:
       replicas: 2
-  shepherd:
-    image: mazzolino/shepherd
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - IGNORELIST_SERVICES="wesailstack_mongo wesailstack_shepherd wesailstack_redis"
-      - SLEEP_TIME=15m
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
