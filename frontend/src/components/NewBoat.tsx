@@ -34,6 +34,7 @@ const NewBoat = () => {
             <div>
               boat name:{" "}
               <input
+                name="boatName"
                 type="text"
                 value={boatname}
                 onChange={({ target }) => setBoatname(target.value)}
