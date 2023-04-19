@@ -5,8 +5,8 @@
 - [Running the application](#running-the-application)
 - [Testing](#testing)
 - [Architecture](#architecture)
-- [Security](#security)
   - [Folder architecture](#folder-architecture)
+- [Security](#security)
 - [Worklog](#worklog)
 - [Reflection](#reflection)
 
@@ -36,8 +36,6 @@ The application is written in typescript. The backend runs on express, and the f
 
 The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the [./kubernetes](kubernetes) folder, but these are not yet ready.
 
-## Security
-
 ### Folder architecture
 
 The file structure should be rather logical. Backend contains all the files for the backend, and frontend for frontend. The root directory of backend contain some configuration files and subdirectories mongo, redis and cypress. The code itself is located in the ./frontend/src and ./backend/src directories.
@@ -47,6 +45,10 @@ The ./backend/src has 5 subdirectories: models, routes, services, tests, and uti
 The frontend/src contain three subdirectories: components, reducer and services. Components contains the subdirectories and files for the tsx components, reducers (the reducers for redux) and services (the functionality for the components (mainly communicating with the backend)).
 
 As one can see from the Dockerfile, during production, the frontend is first built and then the built frontend is served via nginx.
+
+## Security
+
+THe application uses the https protocol, requests for port 80 will be redirected to port 443. The user's passwords are stored in hashed form. Session management is managed by sessionid coockies.
 
 ## Worklog
 

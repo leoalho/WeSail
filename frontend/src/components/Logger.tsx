@@ -14,8 +14,10 @@ const errorMessage = (e: GeolocationPositionError) => {
 };
 
 const Logger = () => {
-  const [longitude, setLongitude] = useState(24.9);
-  const [latitude, setLatitude] = useState(60.19);
+  const [position, setPosition] = useState({
+    longitude: 24.9,
+    latitude: 60.19,
+  });
   const [updated, setUpdated] = useState(0);
   const [speed, setSpeed] = useState<number | null>(0);
   const [heading, setHeading] = useState<number | null>(0);
@@ -25,13 +27,19 @@ const Logger = () => {
   const [geoId, setGeoId] = useState(0);
 
   const initSuccess = (pos: GeolocationPosition) => {
-    setLatitude(pos.coords.latitude);
-    setLongitude(pos.coords.longitude);
+    setPosition({
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude,
+    });
   };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(initSuccess, errorMessage);
   }, []);
+
+  useEffect(() => {
+    setRoute([...route, [position.latitude, position.longitude]]);
+  }, [position]);
 
   const style = {
     backgroundColor: "white",
@@ -47,23 +55,24 @@ const Logger = () => {
   function MyComponent({ logging }: myComponent) {
     const [first, setFirst] = useState(true);
     const map = useMap();
-    if (latitude != 60.19 && longitude != 24.9 && first) {
-      map.flyTo([latitude, longitude], 15);
+    if (position.latitude != 60.19 && position.longitude != 24.9 && first) {
+      map.flyTo([position.latitude, position.longitude]);
       setFirst(false);
     }
     if (logging) {
-      map.flyTo([latitude, longitude], 15);
+      map.flyTo([position.latitude, position.longitude]);
     }
     return null;
   }
 
   const success = (pos: GeolocationPosition) => {
-    setLatitude(pos.coords.latitude);
-    setLongitude(pos.coords.longitude);
     setUpdated(pos.timestamp);
     setSpeed(pos.coords.speed);
     setHeading(pos.coords.heading);
-    setRoute([...route, [latitude, longitude]]);
+    setPosition({
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude,
+    });
   };
 
   const startLogging = () => {
@@ -86,7 +95,7 @@ const Logger = () => {
     <div className="main">
       <div style={style}>
         <MapContainer
-          center={[latitude, longitude]}
+          center={[position.latitude, position.longitude]}
           zoom={15}
           scrollWheelZoom={false}
         >
@@ -95,10 +104,10 @@ const Logger = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[latitude, longitude]}>
+          <Marker position={[position.latitude, position.longitude]}>
             <Popup>This is you.</Popup>
           </Marker>
-          <Polyline positions={route} />
+          <Polyline positions={route.slice(1)} />
         </MapContainer>
         <div>
           {logActive ? (
@@ -109,7 +118,7 @@ const Logger = () => {
                 {logging ? <>Pause</> : <>Continue</>}
               </button>
               <br />
-              latitude: {latitude}, longitude: {longitude}{" "}
+              latitude: {position.latitude}, longitude: {position.longitude}{" "}
               {speed && <>, speed {speed}</>} {heading && <>, {heading}</>}{" "}
               <br />
               last updated {new Date(updated).toISOString()}
