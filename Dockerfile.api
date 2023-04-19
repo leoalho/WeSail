@@ -2,6 +2,7 @@ FROM node:19-alpine
 WORKDIR /usr/src/app
 COPY backend/package.json .
 COPY backend/package-lock.json .
+ENV NODE_ENV=production
 RUN npm ci
 COPY backend .
 RUN npm run build
