@@ -4,4 +4,5 @@ COPY backend/package.json .
 COPY backend/package-lock.json .
 RUN npm ci
 COPY backend .
+RUN npm run build
 CMD npm run start
