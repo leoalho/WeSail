@@ -6,12 +6,12 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
     "ts-node": "ts-node",
-    "dev": "ts-node-dev index.ts",
+    "dev": "cross-env NODE_ENV=development ts-node-dev index.ts",
     "lint": "eslint --ext .ts .",
     "build": "tsc",
-    "start": "tsc && node build/index.js",
-    "e2e": "npx cypress run -q",
-    "cypress": "npx cypress open"
+    "start": "cross-env NODE_ENV=production node build/index.js",
+    "e2e": "cross-env NODE_ENV=test npx cypress run -q",
+    "cypress": "cross-env NODE_ENV=test npx cypress open"
   },
   "author": "",
   "license": "ISC",

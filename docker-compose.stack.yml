@@ -29,6 +29,9 @@ services:
       - mongo
     deploy:
       replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
   nginx:
     image: leoalho/wesailserver
     volumes:
@@ -39,3 +42,6 @@ services:
       - 443:443
     deploy:
       replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
