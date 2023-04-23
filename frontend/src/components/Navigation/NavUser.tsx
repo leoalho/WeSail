@@ -16,6 +16,15 @@ const NavUser = () => {
   const [users, setUSers] = useState<User[]>([]);
   const [boats, setBoats] = useState<Boat[]>([]);
   const [filter, setFilter] = useState("");
+  const [width, setWidth] = useState(window.innerWidth);
+  const [showLinks, setShowLinks] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     getBoats()
@@ -28,6 +37,7 @@ const NavUser = () => {
 
   useEffect(() => {
     setFilter("");
+    setShowLinks(false);
   }, [location]);
 
   const logout = async () => {
@@ -94,6 +104,55 @@ const NavUser = () => {
       </>
     );
   };
+
+  if (width < 800) {
+    return (
+      <div className="mobileNavbar">
+        <Link to="/">
+          <b>Wesail</b>
+        </Link>
+        <div className="barContainer" onClick={() => setShowLinks(!showLinks)}>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+        </div>
+        <div
+          className="mobileLinks"
+          style={showLinks ? { display: "block" } : { display: "none" }}
+        >
+          <div className="search-container">
+            <form className="formtitle">
+              <input
+                className="navbar-input"
+                type="text"
+                placeholder="Search.."
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                name="search"
+              />
+            </form>
+            <div className={filter ? "search-content" : "search-no-content"}>
+              {!filteredUsers() && !filteredBoats() ? (
+                <div>No results</div>
+              ) : (
+                <>
+                  {filteredUsers()}
+                  {filteredBoats()}
+                </>
+              )}
+            </div>
+          </div>
+          {user.boats.length > 0 && <>{userBoats}</>}
+          <Link to="/logger">Start logging</Link>
+          <Link to="/newEvent">New event</Link>
+          <Link to="/user">{user.username}</Link>
+          <button className="btn" onClick={logout}>
+            logout
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
