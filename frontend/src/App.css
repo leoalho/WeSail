@@ -126,6 +126,14 @@ button {
   width: 280px;
 }
 
+.logButtons {
+  padding-top: 5px;
+  padding-left: 40px;
+  margin: auto;
+  width: max-content;
+  background-color: #eeeeee;
+}
+
 .content {
   background-color: white;
   margin-top: 5px;
@@ -139,6 +147,10 @@ button {
   overflow-x: hidden;
   overflow-y: scroll;
   margin-right: 10px;
+}
+
+.sideNavTitle {
+  width: 300px;
 }
 
 .dropdown {
@@ -268,4 +280,69 @@ iframe {
   width: 50px;
   height: 50px;
   padding: 2px;
+}
+
+.mobileSelector {
+  display: block;
+  background-color: #eeeeee;
+}
+
+.mobileLinks {
+  position: relative;
+}
+
+.mobileNavbar a {
+  padding: 14px 16px;
+}
+
+.mobileLinks button {
+  padding: 14px 16px;
+}
+
+.barContainer {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 14px 16px;
+}
+
+.bar {
+  width: 20px;
+  height: 4px;
+  background-color: #002f6c;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+.singleBoatToggle {
+  margin-top: 5px;
+  padding-left: 5px;
+  width: 700px;
+}
+
+@media (max-width: 1200px) {
+  .singleBoatToggle {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sideNavTitle {
+    width: 100%;
+  }
+  .eventCard {
+    width: 100%;
+  }
+  .right {
+    width: 100%;
+  }
+  .content {
+    width: 100%;
+  }
+  .logButtons {
+    width: 100%;
+    padding-left: 0px;
+  }
 }

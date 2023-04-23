@@ -14,6 +14,16 @@ const Home = () => {
   const [followingboats, setFollowingboats] = useState(true);
   const [crewboats, setCrewboats] = useState(true);
   const currentUser = useSelector((state: RootState) => state.user);
+  const [mobileSelected, setMobileSelected] = useState("logs");
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     getLogs()
@@ -69,8 +79,7 @@ const Home = () => {
 
   const toggleStyle = {
     padding: "5px",
-    marginLeft: "5px",
-    marginRight: "5px",
+    margin: "5px",
     borderWidth: "1px",
     transitionDuration: "0.4s",
     cursor: "pointer",
@@ -78,9 +87,23 @@ const Home = () => {
     borderRadius: "5px",
   };
 
+  const selectStyle = {
+    padding: "5px",
+    borderWidth: "0px",
+    transitionDuration: "0.4s",
+    cursor: "pointer",
+    borderColor: "#002f6c",
+    width: "50%",
+  };
+
   const selected = {
     color: "white",
     backgroundColor: "#002f6c",
+  };
+
+  const topSelected = {
+    color: "#002f6c",
+    backgroundColor: "#eeeeee",
   };
 
   const unSelected = {
@@ -88,16 +111,36 @@ const Home = () => {
     backgroundColor: "white",
   };
 
-  return (
-    <div className="main">
-      <SideNav
-        yourboats={yourboats}
-        followingboats={followingboats}
-        crewboats={crewboats}
-        friendActivity={friendActivity}
-      />
-      <div className="right">
-        <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
+  if (width < 1000) {
+    return (
+      <>
+        <div className="mobileSelector">
+          <button
+            style={
+              mobileSelected === "logs"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("logs");
+            }}
+          >
+            Logs
+          </button>
+          <button
+            style={
+              mobileSelected === "events"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("events");
+            }}
+          >
+            events
+          </button>
+        </div>
+        <div className="logButtons">
           Show:
           {
             <button
@@ -148,23 +191,124 @@ const Home = () => {
             </button>
           }
         </div>
-        {filteredLogs.length === 0 && (
-          <center style={{ paddingTop: "10px" }}>No log entries yet.</center>
-        )}
-        {filteredLogs.map((log) => (
-          <Card
-            key={log.id}
-            boat={log.boat}
-            startTime={log.startTime}
-            endTime={log.endTime}
-            start={log.start}
-            end={log.end}
-            participants={log.participants}
-            description={log.description}
-          />
-        ))}
+        <div className="main">
+          {mobileSelected === "events" && (
+            <SideNav
+              yourboats={yourboats}
+              followingboats={followingboats}
+              crewboats={crewboats}
+              friendActivity={friendActivity}
+            />
+          )}
+          {mobileSelected === "logs" && (
+            <div className="right">
+              {filteredLogs.length === 0 && (
+                <center style={{ paddingTop: "10px" }}>
+                  No log entries yet.
+                </center>
+              )}
+              {filteredLogs.map((log) => (
+                <Card
+                  key={log.id}
+                  boat={log.boat}
+                  startTime={log.startTime}
+                  endTime={log.endTime}
+                  start={log.start}
+                  end={log.end}
+                  participants={log.participants}
+                  description={log.description}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div style={{ backgroundColor: "#eeeeee" }}>
+        <div className="logButtons">
+          Show:
+          {
+            <button
+              style={
+                friendActivity
+                  ? { ...selected, ...toggleStyle }
+                  : { ...unSelected, ...toggleStyle }
+              }
+              onClick={() => setFriendActivity(!friendActivity)}
+            >
+              Friends
+            </button>
+          }
+          {
+            <button
+              style={
+                yourboats
+                  ? { ...selected, ...toggleStyle }
+                  : { ...unSelected, ...toggleStyle }
+              }
+              onClick={() => setYourboats(!yourboats)}
+            >
+              Your boats
+            </button>
+          }
+          {
+            <button
+              style={
+                followingboats
+                  ? { ...selected, ...toggleStyle }
+                  : { ...unSelected, ...toggleStyle }
+              }
+              onClick={() => setFollowingboats(!followingboats)}
+            >
+              Boats you follow
+            </button>
+          }
+          {
+            <button
+              style={
+                crewboats
+                  ? { ...selected, ...toggleStyle }
+                  : { ...unSelected, ...toggleStyle }
+              }
+              onClick={() => setCrewboats(!crewboats)}
+            >
+              Boats you are a crew member of
+            </button>
+          }
+        </div>
       </div>
-    </div>
+      <div className="main">
+        <SideNav
+          yourboats={yourboats}
+          followingboats={followingboats}
+          crewboats={crewboats}
+          friendActivity={friendActivity}
+        />
+        <div className="right">
+          {filteredLogs.length === 0 && (
+            <center style={{ paddingTop: "10px", width: "700px" }}>
+              No log entries yet.
+            </center>
+          )}
+          {filteredLogs.map((log) => (
+            <Card
+              key={log.id}
+              boat={log.boat}
+              startTime={log.startTime}
+              endTime={log.endTime}
+              start={log.start}
+              end={log.end}
+              participants={log.participants}
+              description={log.description}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

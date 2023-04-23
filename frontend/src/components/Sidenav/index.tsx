@@ -76,7 +76,7 @@ const SideNav = ({
 
   return (
     <div id="sideNav">
-      <div style={{ width: "300px" }}>Upcoming events:</div>
+      <div className="100%">Upcoming events:</div>
       {filteredEvents.length === 0 && (
         <center style={{ marginTop: "10px" }}>No upcoming events</center>
       )}

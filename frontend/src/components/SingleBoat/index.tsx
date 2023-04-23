@@ -50,10 +50,20 @@ const SingleBoat = () => {
   const [maintenances, setMaintenances] = useState(true);
   const [newTodo, setNewTodo] = useState(false);
   const [options, setOptions] = useState<Option[]>([]);
+  const [mobileSelected, setMobileSelected] = useState("logs");
+  const [width, setWidth] = useState(window.innerWidth);
 
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -231,6 +241,255 @@ const SingleBoat = () => {
       setSelectedTodos([]);
     }
   };
+
+  const topSelected = {
+    color: "#002f6c",
+    backgroundColor: "#eeeeee",
+  };
+
+  const selectStyle = {
+    padding: "5px",
+    borderWidth: "0px",
+    transitionDuration: "0.4s",
+    cursor: "pointer",
+    borderColor: "#002f6c",
+    width: "25%",
+  };
+
+  if (width < 1200) {
+    return (
+      <>
+        <div className="mobileSelector">
+          <button
+            style={
+              mobileSelected === "info"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("info");
+            }}
+          >
+            Info
+          </button>
+          <button
+            style={
+              mobileSelected === "logs"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("logs");
+            }}
+          >
+            Logs
+          </button>
+          <button
+            style={
+              mobileSelected === "events"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("events");
+            }}
+          >
+            events
+          </button>
+          <button
+            style={
+              mobileSelected === "todos"
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected("todos");
+            }}
+          >
+            Todos
+          </button>
+        </div>
+        <div className="main">
+          {mobileSelected === "info" && (
+            <div className="boat_info">
+              <div className="boat_info_card">
+                <img
+                  src="/images/boat_profile_images/default.jpg"
+                  alt="Avatar"
+                  className="boat_avatar"
+                ></img>
+                <div style={{ padding: "5px" }}>
+                  <center>
+                    <h2>{boat.name}</h2>
+                  </center>
+                  {isOwner && (
+                    <Owner
+                      boat={boat}
+                      setBoat={setBoat}
+                      applications={boat.crewRequests}
+                      acceptCrewRequest={acceptCrewRequest}
+                      rejectCrewRequest={rejectCrewRequest}
+                    />
+                  )}
+                  {isCrew && <Crew boat={boat} />}
+                  {!isOwner && !isCrew && (
+                    <User
+                      isFollowing={isFollowing}
+                      followBoat={followBoat}
+                      unFollowBoat={unFollowBoat}
+                      sendCrewRequest={sendCrewRequest}
+                      crewApplication={crewApplication}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          {mobileSelected === "logs" && (
+            <div style={{ width: "100%", paddingRight: "5px" }}>
+              <div className="singleBoatToggle">
+                <b>Boat log:</b>
+                <br />
+                Show:
+                <button
+                  style={
+                    sails
+                      ? { ...selected, ...toggleStyle }
+                      : { ...unSelected, ...toggleStyle }
+                  }
+                  onClick={() => setSails(!sails)}
+                >
+                  sails
+                </button>
+                <button
+                  style={
+                    maintenances
+                      ? { ...selected, ...toggleStyle }
+                      : { ...unSelected, ...toggleStyle }
+                  }
+                  onClick={() => setMaintenances(!maintenances)}
+                >
+                  maintenances
+                </button>
+              </div>
+              {logs.length === 0 && (
+                <div
+                  style={{
+                    marginTop: "5px",
+                    paddingLeft: "5px",
+                    width: "700px",
+                  }}
+                >
+                  No logs yet
+                </div>
+              )}
+              {filteredLogs.map((log) => (
+                <LogCard
+                  key={log.id}
+                  boat={log.boat}
+                  startTime={log.startTime}
+                  endTime={log.endTime}
+                  start={log.start}
+                  end={log.end}
+                  participants={log.participants}
+                  description={log.description}
+                />
+              ))}
+            </div>
+          )}
+          {mobileSelected === "events" && (
+            <div>
+              <div>
+                <b>Upcoming events:</b>
+              </div>
+              {events.length === 0 && (
+                <div className="eventCard">No upcoming events</div>
+              )}
+              {events.map((card) => (
+                <EventCard key={card.id} event={card} setEvents={setEvents} />
+              ))}
+              <div style={{ marginTop: "10px" }}>
+                <b>Past events:</b>
+              </div>
+              {pastEvents.map((card) => (
+                <PastEventCard
+                  key={card.id}
+                  boatId={boat.id}
+                  setPastEvents={setPastEvents}
+                  event={card}
+                />
+              ))}
+            </div>
+          )}
+          {mobileSelected === "todos" && (
+            <div>
+              <div>
+                <b>Todos:</b>
+              </div>
+              <div className="eventCard">
+                {boat.todos.length === 0 ? (
+                  <div>No Todos</div>
+                ) : (
+                  <ul>
+                    {boat.todos.map((todo) => (
+                      <TodoCard key={todo._id} todo={todo} />
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {newTodo && (
+                <NewTodo
+                  setNewTodo={setNewTodo}
+                  setBoat={setBoat}
+                  boatId={boat.id}
+                  userId={user.id}
+                />
+              )}
+              {selectTodos && (
+                <div className="eventCard">
+                  <Select
+                    isMulti
+                    name="todos"
+                    options={options}
+                    onChange={(option) => setSelectedTodos([...option])}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+                  <div style={{ marginTop: "5px" }}>
+                    <button
+                      style={{ marginRight: "5px" }}
+                      onClick={() => {
+                        setSelectTodos(false);
+                        setSelectedTodos([]);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button onClick={doneTodos}> Mark as done</button>
+                  </div>
+                </div>
+              )}
+              {!newTodo && !selectTodos && (
+                <div style={{ margin: "5px" }}>
+                  <button
+                    style={{ marginRight: "5px" }}
+                    onClick={() => {
+                      setNewTodo(true);
+                    }}
+                  >
+                    Create New
+                  </button>
+                  <button onClick={() => setSelectTodos(true)}>
+                    Mark todos as done
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="main">
