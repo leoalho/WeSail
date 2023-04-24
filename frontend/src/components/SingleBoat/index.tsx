@@ -3,59 +3,32 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import { useState, useEffect } from "react";
-import Select from "react-select";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import {
-  Boat,
-  Log,
-  RootState,
-  Event,
-  Application,
-  Option,
-  Patch,
-} from "../../types";
-import { updateFollowing, updatePendingCrew } from "../../reducers/userReducer";
-import { getBoatLogs } from "../../services/logs";
-import { getBoat, updateBoat } from "../../services/boats";
-import { updateUser } from "../../services/users";
-import { getBoatEvents, getPastBoatEvents } from "../../services/events";
+import { Boat, RootState, Application } from "../../types";
+import { getBoat } from "../../services/boats";
 
-import LogCard from "../Home/Card";
-import EventCard from "../Sidenav/Card";
-import Crew from "./Crew";
-import Owner from "./Owner";
-import User from "./User";
-import PastEventCard from "./PastEventCard";
-import NewTodo from "./NewTodo";
-import TodoCard from "./TodoCard";
+import Todos from "./Todos";
+import BoatLog from "./Log";
+import MobileSelector from "./MobileSelector";
+import Info from "./Info";
+import PastEvents from "./PastEvents";
+import UpcomingEvents from "./UpcomingEvents";
 
 const SingleBoat = () => {
-  const navigate = useNavigate();
   const [boat, setBoat] = useState<Boat | null>(null);
-  const [isFollowing, setIsFollowing] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   const [isCrew, setIsCrew] = useState(false);
-  const [logs, setLogs] = useState<Log[]>([]);
-  const [filteredLogs, setFilteredLogs] = useState<Log[]>([]);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [pastEvents, setPastEvents] = useState<Event[]>([]);
-  const [selectTodos, setSelectTodos] = useState(false);
-  const [selectedTodos, setSelectedTodos] = useState<Option[]>([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [crewApplication, setCrewApplication] = useState<Application>(
     Application.No
   );
-  const [sails, setSails] = useState(true);
-  const [maintenances, setMaintenances] = useState(true);
-  const [newTodo, setNewTodo] = useState(false);
-  const [options, setOptions] = useState<Option[]>([]);
   const [mobileSelected, setMobileSelected] = useState("logs");
   const [width, setWidth] = useState(window.innerWidth);
 
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleResize() {
@@ -70,12 +43,6 @@ const SingleBoat = () => {
       getBoat(id)
         .then((boat) => {
           setBoat(boat);
-        })
-        .catch((e) => console.log(e));
-      getBoatLogs(id)
-        .then((newLogs) => {
-          setLogs(newLogs);
-          setFilteredLogs(newLogs);
         })
         .catch((e) => console.log(e));
     }
@@ -111,379 +78,44 @@ const SingleBoat = () => {
         return;
       }
     });
-    if (id) {
-      getBoatEvents(id)
-        .then((newEvents) => setEvents(newEvents))
-        .catch((e) => console.log(e));
-      getPastBoatEvents(id)
-        .then((newEvents) => setPastEvents(newEvents))
-        .catch((e) => console.log(e));
-    }
   }, [id, user]);
-
-  useEffect(() => {
-    setOptions([]);
-    const newOptions: Option[] = [];
-    if (boat) {
-      boat.todos.forEach((todo) => {
-        newOptions.push({ value: todo._id, label: todo.value });
-      });
-      setOptions(newOptions);
-    }
-  }, [id, boat]);
-
-  const filterLogs = () => {
-    const newLogs: Log[] = [];
-    logs.forEach((log) => {
-      let newLog = false;
-      if (sails && log.logType === "sail") {
-        newLog = true;
-      }
-      if (maintenances && log.logType === "maintenance") {
-        newLog = true;
-      }
-      if (newLog) {
-        newLogs.push(log);
-      }
-    });
-    setFilteredLogs(newLogs);
-  };
-
-  useEffect(() => {
-    filterLogs();
-  }, [sails, maintenances]);
 
   if (!boat) {
     return <>Loading ...</>;
   }
 
-  const toggleStyle = {
-    padding: "5px",
-    margin: "5px",
-    borderWidth: "1px",
-    transitionDuration: "0.4s",
-    cursor: "pointer",
-    borderColor: "#002f6c",
-    borderRadius: "5px",
-  };
-
-  const selected = {
-    color: "white",
-    backgroundColor: "#002f6c",
-  };
-
-  const unSelected = {
-    color: "#002f6c",
-    backgroundColor: "white",
-  };
-
-  const followBoat = async () => {
-    const newuser = await updateUser(user.id, {
-      op: "add",
-      path: "/boatsFollowing",
-      value: boat.id,
-    });
-    dispatch(updateFollowing(newuser.boatsFollowing));
-  };
-
-  const unFollowBoat = async () => {
-    const newuser = await updateUser(user.id, {
-      op: "remove",
-      path: "/boatsFollowing",
-      value: boat.id,
-    });
-    dispatch(updateFollowing(newuser.boatsFollowing));
-  };
-
-  const sendCrewRequest = async () => {
-    const newUser = await updateUser(user.id, {
-      op: "add",
-      path: "/crewRequestsPending",
-      value: boat.id,
-    });
-    dispatch(updatePendingCrew(newUser.crewRequestsPending));
-  };
-
-  const acceptCrewRequest = async (userId: string) => {
-    const newBoat = await updateBoat(boat.id, [
-      { op: "add", path: "/crew", value: userId },
-    ]);
-    setBoat(newBoat);
-  };
-
-  const rejectCrewRequest = async (userId: string) => {
-    const newBoat = await updateBoat(boat.id, [
-      { op: "remove", path: "/crewRequests", value: userId },
-    ]);
-    setBoat(newBoat);
-  };
-
-  const doneTodos = async () => {
-    let description = "";
-    const todoPatches: Patch[] = [];
-    selectedTodos.forEach((todo) => {
-      todoPatches.push({ op: "remove", path: "/todos", value: todo.value });
-      description = description.concat(" -", todo.label);
-    });
-    const newBoat = await updateBoat(boat.id, todoPatches);
-    if (confirm("Create a log entry?")) {
-      navigate("/newLog", {
-        state: {
-          boat: boat.id,
-          participants: [{ value: user.id, label: user.username }],
-          description: description,
-          type: "maintenance",
-        },
-      });
-    } else {
-      setBoat(newBoat);
-      setSelectTodos(false);
-      setSelectedTodos([]);
-    }
-  };
-
-  const topSelected = {
-    color: "#002f6c",
-    backgroundColor: "#eeeeee",
-  };
-
-  const selectStyle = {
-    padding: "5px",
-    borderWidth: "0px",
-    transitionDuration: "0.4s",
-    cursor: "pointer",
-    borderColor: "#002f6c",
-    width: "25%",
-  };
-
   if (width < 1200) {
     return (
       <>
-        <div className="mobileSelector">
-          <button
-            style={
-              mobileSelected === "info"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("info");
-            }}
-          >
-            Info
-          </button>
-          <button
-            style={
-              mobileSelected === "logs"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("logs");
-            }}
-          >
-            Logs
-          </button>
-          <button
-            style={
-              mobileSelected === "events"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("events");
-            }}
-          >
-            events
-          </button>
-          <button
-            style={
-              mobileSelected === "todos"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("todos");
-            }}
-          >
-            Todos
-          </button>
-        </div>
+        <MobileSelector
+          mobileSelected={mobileSelected}
+          setMobileSelected={setMobileSelected}
+        />
         <div className="main">
           {mobileSelected === "info" && (
-            <div className="boat_info">
-              <div className="boat_info_card">
-                <img
-                  src="/images/boat_profile_images/default.jpg"
-                  alt="Avatar"
-                  className="boat_avatar"
-                ></img>
-                <div style={{ padding: "5px" }}>
-                  <center>
-                    <h2>{boat.name}</h2>
-                  </center>
-                  {isOwner && (
-                    <Owner
-                      boat={boat}
-                      setBoat={setBoat}
-                      applications={boat.crewRequests}
-                      acceptCrewRequest={acceptCrewRequest}
-                      rejectCrewRequest={rejectCrewRequest}
-                    />
-                  )}
-                  {isCrew && <Crew boat={boat} />}
-                  {!isOwner && !isCrew && (
-                    <User
-                      isFollowing={isFollowing}
-                      followBoat={followBoat}
-                      unFollowBoat={unFollowBoat}
-                      sendCrewRequest={sendCrewRequest}
-                      crewApplication={crewApplication}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
+            <Info
+              boat={boat}
+              setBoat={setBoat}
+              isOwner={isOwner}
+              isFollowing={isFollowing}
+              isCrew={isCrew}
+              crewApplication={crewApplication}
+            />
           )}
           {mobileSelected === "logs" && (
-            <div style={{ width: "100%", paddingRight: "5px" }}>
-              <div className="singleBoatToggle">
-                <b>Boat log:</b>
-                <br />
-                Show:
-                <button
-                  style={
-                    sails
-                      ? { ...selected, ...toggleStyle }
-                      : { ...unSelected, ...toggleStyle }
-                  }
-                  onClick={() => setSails(!sails)}
-                >
-                  sails
-                </button>
-                <button
-                  style={
-                    maintenances
-                      ? { ...selected, ...toggleStyle }
-                      : { ...unSelected, ...toggleStyle }
-                  }
-                  onClick={() => setMaintenances(!maintenances)}
-                >
-                  maintenances
-                </button>
-              </div>
-              {logs.length === 0 && (
-                <div
-                  style={{
-                    marginTop: "5px",
-                    paddingLeft: "5px",
-                    width: "700px",
-                  }}
-                >
-                  No logs yet
-                </div>
-              )}
-              {filteredLogs.map((log) => (
-                <LogCard
-                  key={log.id}
-                  boat={log.boat}
-                  startTime={log.startTime}
-                  endTime={log.endTime}
-                  start={log.start}
-                  end={log.end}
-                  participants={log.participants}
-                  description={log.description}
-                />
-              ))}
+            <div style={{ width: "100%", marginRight: "5px" }}>
+              <BoatLog />
             </div>
           )}
           {mobileSelected === "events" && (
-            <div>
-              <div>
-                <b>Upcoming events:</b>
-              </div>
-              {events.length === 0 && (
-                <div className="eventCard">No upcoming events</div>
-              )}
-              {events.map((card) => (
-                <EventCard key={card.id} event={card} setEvents={setEvents} />
-              ))}
-              <div style={{ marginTop: "10px" }}>
-                <b>Past events:</b>
-              </div>
-              {pastEvents.map((card) => (
-                <PastEventCard
-                  key={card.id}
-                  boatId={boat.id}
-                  setPastEvents={setPastEvents}
-                  event={card}
-                />
-              ))}
+            <div style={{ width: "100%" }}>
+              <UpcomingEvents />
+              <PastEvents boatId={boat.id} />
             </div>
           )}
           {mobileSelected === "todos" && (
-            <div>
-              <div>
-                <b>Todos:</b>
-              </div>
-              <div className="eventCard">
-                {boat.todos.length === 0 ? (
-                  <div>No Todos</div>
-                ) : (
-                  <ul>
-                    {boat.todos.map((todo) => (
-                      <TodoCard key={todo._id} todo={todo} />
-                    ))}
-                  </ul>
-                )}
-              </div>
-              {newTodo && (
-                <NewTodo
-                  setNewTodo={setNewTodo}
-                  setBoat={setBoat}
-                  boatId={boat.id}
-                  userId={user.id}
-                />
-              )}
-              {selectTodos && (
-                <div className="eventCard">
-                  <Select
-                    isMulti
-                    name="todos"
-                    options={options}
-                    onChange={(option) => setSelectedTodos([...option])}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                  />
-                  <div style={{ marginTop: "5px" }}>
-                    <button
-                      style={{ marginRight: "5px" }}
-                      onClick={() => {
-                        setSelectTodos(false);
-                        setSelectedTodos([]);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                    <button onClick={doneTodos}> Mark as done</button>
-                  </div>
-                </div>
-              )}
-              {!newTodo && !selectTodos && (
-                <div style={{ margin: "5px" }}>
-                  <button
-                    style={{ marginRight: "5px" }}
-                    onClick={() => {
-                      setNewTodo(true);
-                    }}
-                  >
-                    Create New
-                  </button>
-                  <button onClick={() => setSelectTodos(true)}>
-                    Mark todos as done
-                  </button>
-                </div>
-              )}
+            <div style={{ width: "100%" }}>
+              <Todos boat={boat} setBoat={setBoat} />
             </div>
           )}
         </div>
@@ -493,171 +125,23 @@ const SingleBoat = () => {
 
   return (
     <div className="main">
-      <div className="boat_info">
-        <div className="boat_info_card">
-          <img
-            src="/images/boat_profile_images/default.jpg"
-            alt="Avatar"
-            className="boat_avatar"
-          ></img>
-          <div style={{ padding: "5px" }}>
-            <center>
-              <h2>{boat.name}</h2>
-            </center>
-            {isOwner && (
-              <Owner
-                boat={boat}
-                setBoat={setBoat}
-                applications={boat.crewRequests}
-                acceptCrewRequest={acceptCrewRequest}
-                rejectCrewRequest={rejectCrewRequest}
-              />
-            )}
-            {isCrew && <Crew boat={boat} />}
-            {!isOwner && !isCrew && (
-              <User
-                isFollowing={isFollowing}
-                followBoat={followBoat}
-                unFollowBoat={unFollowBoat}
-                sendCrewRequest={sendCrewRequest}
-                crewApplication={crewApplication}
-              />
-            )}
-          </div>
-        </div>
-      </div>
+      <Info
+        boat={boat}
+        setBoat={setBoat}
+        isOwner={isOwner}
+        isFollowing={isFollowing}
+        isCrew={isCrew}
+        crewApplication={crewApplication}
+      />
       <div>
-        <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
-          <b>Boat log:</b>
-          <br />
-          Show:
-          <button
-            style={
-              sails
-                ? { ...selected, ...toggleStyle }
-                : { ...unSelected, ...toggleStyle }
-            }
-            onClick={() => setSails(!sails)}
-          >
-            sails
-          </button>
-          <button
-            style={
-              maintenances
-                ? { ...selected, ...toggleStyle }
-                : { ...unSelected, ...toggleStyle }
-            }
-            onClick={() => setMaintenances(!maintenances)}
-          >
-            maintenances
-          </button>
-        </div>
-        {logs.length === 0 && (
-          <div style={{ marginTop: "5px", paddingLeft: "5px", width: "700px" }}>
-            No logs yet
-          </div>
-        )}
-        {filteredLogs.map((log) => (
-          <LogCard
-            key={log.id}
-            boat={log.boat}
-            startTime={log.startTime}
-            endTime={log.endTime}
-            start={log.start}
-            end={log.end}
-            participants={log.participants}
-            description={log.description}
-          />
-        ))}
+        <BoatLog />
       </div>
       <div style={{ marginLeft: "10px" }}>
-        <div>
-          <b>Upcoming events:</b>
-        </div>
-        {events.length === 0 && (
-          <div className="eventCard">No upcoming events</div>
-        )}
-        {events.map((card) => (
-          <EventCard key={card.id} event={card} setEvents={setEvents} />
-        ))}
+        <UpcomingEvents />
 
-        {(isOwner || isCrew) && (
-          <>
-            <div>
-              <b>Todos:</b>
-            </div>
-            <div className="eventCard">
-              {boat.todos.length === 0 ? (
-                <div>No Todos</div>
-              ) : (
-                <ul>
-                  {boat.todos.map((todo) => (
-                    <TodoCard key={todo._id} todo={todo} />
-                  ))}
-                </ul>
-              )}
-            </div>
-            {newTodo && (
-              <NewTodo
-                setNewTodo={setNewTodo}
-                setBoat={setBoat}
-                boatId={boat.id}
-                userId={user.id}
-              />
-            )}
-            {selectTodos && (
-              <div className="eventCard">
-                <Select
-                  isMulti
-                  name="todos"
-                  options={options}
-                  onChange={(option) => setSelectedTodos([...option])}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                />
-                <div style={{ marginTop: "5px" }}>
-                  <button
-                    style={{ marginRight: "5px" }}
-                    onClick={() => {
-                      setSelectTodos(false);
-                      setSelectedTodos([]);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button onClick={doneTodos}> Mark as done</button>
-                </div>
-              </div>
-            )}
-            {!newTodo && !selectTodos && (
-              <div style={{ margin: "5px" }}>
-                <button
-                  style={{ marginRight: "5px" }}
-                  onClick={() => {
-                    setNewTodo(true);
-                  }}
-                >
-                  Create New
-                </button>
-                <button onClick={() => setSelectTodos(true)}>
-                  Mark todos as done
-                </button>
-              </div>
-            )}
-          </>
-        )}
+        {(isOwner || isCrew) && <Todos boat={boat} setBoat={setBoat} />}
 
-        <div style={{ marginTop: "10px" }}>
-          <b>Past events:</b>
-        </div>
-        {pastEvents.map((card) => (
-          <PastEventCard
-            key={card.id}
-            boatId={boat.id}
-            setPastEvents={setPastEvents}
-            event={card}
-          />
-        ))}
+        <PastEvents boatId={boat.id} />
       </div>
     </div>
   );

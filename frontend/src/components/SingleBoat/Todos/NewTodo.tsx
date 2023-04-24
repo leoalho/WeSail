@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react";
-import { updateBoat } from "../../services/boats";
-import { Boat, Patch, TodoEntry } from "../../types";
+import { updateBoat } from "../../../services/boats";
+import { Boat, Patch, TodoEntry } from "../../../types";
 
 interface Props {
   setNewTodo: React.Dispatch<React.SetStateAction<boolean>>;

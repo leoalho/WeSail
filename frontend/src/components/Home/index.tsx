@@ -137,7 +137,7 @@ const Home = () => {
               setMobileSelected("events");
             }}
           >
-            events
+            Events
           </button>
         </div>
         <div className="logButtons">

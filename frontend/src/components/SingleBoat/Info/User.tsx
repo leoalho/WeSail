@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { Application } from "../../types";
+import { Application } from "../../../types";
 
 interface Props {
   isFollowing: boolean;

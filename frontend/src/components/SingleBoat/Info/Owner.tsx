@@ -6,11 +6,11 @@ import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { getUser, getUsers } from "../../services/users";
-import { deleteBoat, updateBoat } from "../../services/boats";
-import { Boat, Friend, User, Option, RootState, Patch } from "../../types";
+import { getUser, getUsers } from "../../../services/users";
+import { deleteBoat, updateBoat } from "../../../services/boats";
+import { Boat, Friend, User, Option, RootState, Patch } from "../../../types";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBoats } from "../../reducers/userReducer";
+import { updateBoats } from "../../../reducers/userReducer";
 
 interface Props {
   applications: Friend[];
