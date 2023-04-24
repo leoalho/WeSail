@@ -322,9 +322,22 @@ iframe {
   width: 700px;
 }
 
+.logger {
+  background-color: white;
+  padding: 10px;
+  width: 75%;
+}
+
+.singleBoatLogs {
+  margin-top: 5px;
+  padding-left: 5px;
+  width: 700px;
+}
+
 @media (max-width: 1200px) {
   .singleBoatToggle {
     width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -332,8 +345,13 @@ iframe {
   .sideNavTitle {
     width: 100%;
   }
+  #sideNav {
+    width: 100%;
+    margin-right: 0;
+  }
   .eventCard {
     width: 100%;
+    box-sizing: border-box;
   }
   .right {
     width: 100%;
@@ -343,6 +361,31 @@ iframe {
   }
   .logButtons {
     width: 100%;
-    padding-left: 0px;
+    padding-left: 5px;
+  }
+  .boat_avatar {
+    margin-top: 10px;
+    border-radius: 0;
+    border-radius: 5px;
+  }
+  .boat_info_card {
+    width: 100%;
+    margin-top: 0px;
+  }
+  .boat_info {
+    width: 100%;
+  }
+  .mobileLinks {
+    z-index: 98;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+  }
+  .logger {
+    width: 100%;
+  }
+  .singleBoatLogs {
+    width: 100%;
+    box-sizing: border-box;
   }
 }

@@ -1,4 +1,4 @@
-import { Boat } from "../../types";
+import { Boat } from "../../../types";
 import React from "react";
 import { Link } from "react-router-dom";
 

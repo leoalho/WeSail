@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
-import { deleteEvent, getPastBoatEvents } from "../../services/events";
-import { Event, RootState } from "../../types";
-import { Participants } from "../Home/Card";
+import { deleteEvent, getPastBoatEvents } from "../../../services/events";
+import { Event, RootState } from "../../../types";
+import { Participants } from "../../Home/Card";
 
 interface Props {
   event: Event;

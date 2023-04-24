@@ -41,12 +41,6 @@ const Logger = () => {
     setRoute([...route, [position.latitude, position.longitude]]);
   }, [position]);
 
-  const style = {
-    backgroundColor: "white",
-    padding: "10px",
-    width: "75%",
-  };
-
   interface myComponent {
     logging: boolean;
     setLogging: React.Dispatch<React.SetStateAction<boolean>>;
@@ -93,7 +87,7 @@ const Logger = () => {
 
   return (
     <div className="main">
-      <div style={style}>
+      <div className="logger">
         <MapContainer
           center={[position.latitude, position.longitude]}
           zoom={15}
