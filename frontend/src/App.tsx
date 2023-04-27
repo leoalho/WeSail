@@ -24,6 +24,7 @@ import getUser from "./services/user";
 import "./App.css";
 import { newUser } from "./reducers/userReducer";
 import { RootState, Payload } from "./types";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
         />
         <Route path="/users/:id" element={user ? <SingleUser /> : <Login />} />
         <Route path="/newLog" element={user ? <NewLog /> : <Login />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
     </Router>

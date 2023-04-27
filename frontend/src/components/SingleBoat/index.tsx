@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Boat, RootState, Application } from "../../types";
+import { Boat, RootState, Application, Option } from "../../types";
 import { getBoat } from "../../services/boats";
 
 import Todos from "./Todos";
@@ -84,12 +84,21 @@ const SingleBoat = () => {
     return <>Loading ...</>;
   }
 
+  const mobileOptions: Option[] = [
+    { value: "info", label: "Info" },
+    { value: "logs", label: "Logs" },
+    { value: "events", label: "Events" },
+    { value: "todos", label: "Todos" },
+  ];
+
   if (width < 1200) {
     return (
       <>
         <MobileSelector
           mobileSelected={mobileSelected}
           setMobileSelected={setMobileSelected}
+          labels={mobileOptions}
+          singleWidth="25%"
         />
         <div className="main">
           {mobileSelected === "info" && (

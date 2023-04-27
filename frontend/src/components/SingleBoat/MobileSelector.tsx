@@ -1,9 +1,18 @@
+import { Option } from "../../types";
+
 interface Props {
   mobileSelected: string;
   setMobileSelected: React.Dispatch<React.SetStateAction<string>>;
+  labels: Option[];
+  singleWidth: string;
 }
 
-const MobileSelector = ({ mobileSelected, setMobileSelected }: Props) => {
+const MobileSelector = ({
+  mobileSelected,
+  setMobileSelected,
+  labels,
+  singleWidth,
+}: Props) => {
   const unSelected = {
     color: "#002f6c",
     backgroundColor: "white",
@@ -20,59 +29,27 @@ const MobileSelector = ({ mobileSelected, setMobileSelected }: Props) => {
     transitionDuration: "0.4s",
     cursor: "pointer",
     borderColor: "#002f6c",
-    width: "25%",
+    width: singleWidth,
   };
 
   return (
     <div className="mobileSelector">
-      <button
-        style={
-          mobileSelected === "info"
-            ? { ...topSelected, ...selectStyle }
-            : { ...unSelected, ...selectStyle }
-        }
-        onClick={() => {
-          setMobileSelected("info");
-        }}
-      >
-        Info
-      </button>
-      <button
-        style={
-          mobileSelected === "logs"
-            ? { ...topSelected, ...selectStyle }
-            : { ...unSelected, ...selectStyle }
-        }
-        onClick={() => {
-          setMobileSelected("logs");
-        }}
-      >
-        Logs
-      </button>
-      <button
-        style={
-          mobileSelected === "events"
-            ? { ...topSelected, ...selectStyle }
-            : { ...unSelected, ...selectStyle }
-        }
-        onClick={() => {
-          setMobileSelected("events");
-        }}
-      >
-        events
-      </button>
-      <button
-        style={
-          mobileSelected === "todos"
-            ? { ...topSelected, ...selectStyle }
-            : { ...unSelected, ...selectStyle }
-        }
-        onClick={() => {
-          setMobileSelected("todos");
-        }}
-      >
-        Todos
-      </button>
+      {labels.map((label) => {
+        return (
+          <button
+            style={
+              mobileSelected === label.value
+                ? { ...topSelected, ...selectStyle }
+                : { ...unSelected, ...selectStyle }
+            }
+            onClick={() => {
+              setMobileSelected(label.value);
+            }}
+          >
+            {label.label}
+          </button>
+        );
+      })}
     </div>
   );
 };

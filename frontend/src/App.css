@@ -334,6 +334,13 @@ iframe {
   width: 700px;
 }
 
+.singleUserInfo {
+  background-color: white;
+  margin-right: 10px;
+  margin-top: 60px;
+  width: 200px;
+}
+
 @media (max-width: 1200px) {
   .singleBoatToggle {
     width: 100%;
@@ -387,5 +394,17 @@ iframe {
   .singleBoatLogs {
     width: 100%;
     box-sizing: border-box;
+  }
+  .singleUserInfo {
+    background-color: white;
+    margin: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .user_avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 5%;
+    margin-top: 5px;
   }
 }
