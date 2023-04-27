@@ -3,8 +3,9 @@ import Card from "./Card";
 import SideNav from "../Sidenav";
 import { getLogs } from "../../services/logs";
 import { useEffect, useState } from "react";
-import { Log, RootState } from "../../types";
+import { Log, RootState, Option } from "../../types";
 import { useSelector } from "react-redux";
+import MobileSelector from "../SingleBoat/MobileSelector";
 
 const Home = () => {
   const [logs, setLogs] = useState<Log[]>([]);
@@ -87,23 +88,9 @@ const Home = () => {
     borderRadius: "5px",
   };
 
-  const selectStyle = {
-    padding: "5px",
-    borderWidth: "0px",
-    transitionDuration: "0.4s",
-    cursor: "pointer",
-    borderColor: "#002f6c",
-    width: "50%",
-  };
-
   const selected = {
     color: "white",
     backgroundColor: "#002f6c",
-  };
-
-  const topSelected = {
-    color: "#002f6c",
-    backgroundColor: "#eeeeee",
   };
 
   const unSelected = {
@@ -111,35 +98,20 @@ const Home = () => {
     backgroundColor: "white",
   };
 
+  const mobileOptions: Option[] = [
+    { value: "logs", label: "Logs" },
+    { value: "events", label: "Events" },
+  ];
+
   if (width < 1000) {
     return (
       <>
-        <div className="mobileSelector">
-          <button
-            style={
-              mobileSelected === "logs"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("logs");
-            }}
-          >
-            Logs
-          </button>
-          <button
-            style={
-              mobileSelected === "events"
-                ? { ...topSelected, ...selectStyle }
-                : { ...unSelected, ...selectStyle }
-            }
-            onClick={() => {
-              setMobileSelected("events");
-            }}
-          >
-            Events
-          </button>
-        </div>
+        <MobileSelector
+          mobileSelected={mobileSelected}
+          setMobileSelected={setMobileSelected}
+          labels={mobileOptions}
+          singleWidth="50%"
+        />
         <div className="logButtons">
           Show:
           {

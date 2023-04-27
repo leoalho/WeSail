@@ -1,21 +1,36 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState, useEffect } from "react";
-import { updateUser, getUser } from "../services/users";
-import { User, RootState, Log, Application } from "../types";
+import { updateUser, getUser } from "../../services/users";
+import { User, RootState, Log, Application, Option } from "../../types";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserLogs } from "../services/logs";
-import Card from "./Home/Card";
-import { updateFriends, updatePendingFriends } from "../reducers/userReducer";
+import { getUserLogs } from "../../services/logs";
+import Card from "../Home/Card";
+import {
+  updateFriends,
+  updatePendingFriends,
+} from "../../reducers/userReducer";
+import MobileSelector from "../SingleBoat/MobileSelector";
+import UserInfo from "./UserInfo";
 //import Card from "./Home/Card"
 
 const SingleUser = () => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state: RootState) => state.user);
   const [user, setUser] = useState<User | null>(null);
   const [friend, setFriend] = useState<Application>(Application.No);
   const { id } = useParams();
   const [logs, setLogs] = useState<Log[]>([]);
-  const currentUser = useSelector((state: RootState) => state.user);
+  const [mobileSelected, setMobileSelected] = useState("logs");
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -72,47 +87,61 @@ const SingleUser = () => {
     setFriend(Application.Pending);
   };
 
-  const style = {
-    backgroundColor: "white",
-    marginRight: "10px",
-    marginTop: "60px",
-    width: "200px",
-  };
+  const mobileOptions: Option[] = [
+    { value: "info", label: "Info" },
+    { value: "logs", label: "Logs" },
+  ];
+
+  if (width < 1000) {
+    return (
+      <>
+        <MobileSelector
+          mobileSelected={mobileSelected}
+          setMobileSelected={setMobileSelected}
+          labels={mobileOptions}
+          singleWidth="50%"
+        />
+        {mobileSelected === "info" && (
+          <UserInfo
+            user={user}
+            friend={friend}
+            sendRequest={sendRequest}
+            unfriend={unfriend}
+          />
+        )}
+        {mobileSelected === "logs" && (
+          <div className="main">
+            <div>
+              <div style={{ width: "100%" }}>
+                <b>User log:</b>
+              </div>
+              {logs.map((log) => (
+                <Card
+                  boat={log.boat}
+                  startTime={log.startTime}
+                  endTime={log.endTime}
+                  start={log.start}
+                  end={log.end}
+                  participants={log.participants}
+                  description={log.description}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <div className="main">
       <div>
-        <div style={style}>
-          <center>
-            <img
-              src="/images/user_profile_images/default.jpg"
-              alt="Avatar"
-              className="user_avatar"
-            ></img>
-          </center>
-          <div style={{ padding: "5px" }}>
-            <div>
-              <center>
-                <b>
-                  <u>{user.username}</u>
-                </b>
-                <br />
-              </center>
-            </div>
-            {currentUser.id !== user.id && friend === Application.No && (
-              <button style={{ marginTop: "5px" }} onClick={sendRequest}>
-                Send friend request
-              </button>
-            )}
-            {friend === Application.Pending && <>Friend application sent</>}
-            {friend === Application.Accepted && (
-              <button style={{ marginTop: "5px" }} onClick={unfriend}>
-                UnFriend
-              </button>
-            )}
-            <br />
-          </div>
-        </div>
+        <UserInfo
+          user={user}
+          friend={friend}
+          sendRequest={sendRequest}
+          unfriend={unfriend}
+        />
       </div>
       <div>
         <div style={{ width: "705px" }}>
