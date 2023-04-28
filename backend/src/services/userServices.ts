@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { v4 as uuidv4 } from "uuid";
-import { sendForgottenPwdEmail, sendRegistrationEmail } from "../emailService";
+import { sendForgottenPwdEmail, sendRegistrationEmail } from "./emailService";
 import User from "../models/user";
 import { NewUserEntry } from "../types";
 import Forgotten from "../models/forgotten";
@@ -48,6 +48,7 @@ export const forgottenPassword = async (username: string) => {
   const user = await User.findOne({ username: username });
   const link = uuidv4();
   if (user) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const newPassword = new Forgotten({ user: user.id, hash: link });
     await newPassword.save();
     await sendForgottenPwdEmail(user?.email, user?.username, link);

@@ -1,19 +1,18 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const SibApi = require("sib-api-v3-sdk");
+import axios from "axios";
 
-const SibClient = SibApi.ApiClient.instance;
+const url = "https://api.sendinblue.com/v3/smtp/email";
 
-SibClient.authentications["api-key"].apiKey = process.env.API_KEY;
+const API_KEY = process.env.API_KEY || "API-KEY";
 
-const transactionEmailApi = new SibApi.TransactionalEmailsApi();
-
-let smtpMailData = new SibApi.SendSmtpEmail();
-
-const sender = {
-  email: "info@joukko.io",
-  name: "WeSail",
+const config = {
+  headers: {
+    Accept: "application/json",
+    "api-key": API_KEY,
+    "Content-Type": "application/json",
+  },
 };
 
 const sendEmail = async (
@@ -22,32 +21,17 @@ const sendEmail = async (
   subject: string,
   content: string
 ) => {
-  try {
-    smtpMailData.sender = sender;
-
-    smtpMailData.to = [
-      {
-        email: email,
-        name: username,
-      },
-    ];
-
-    smtpMailData.subject = subject;
-
-    smtpMailData.htmlContent = content;
-
-    transactionEmailApi
-      .sendTransacEmail(smtpMailData)
-      .then((data: any) => {
-        console.log(data);
-      })
-      .catch((error: any) => {
-        console.error(error);
-        throw new Error(error);
-      });
-  } catch (error: any) {
-    throw new Error(error);
-  }
+  const sender = {
+    email: "info@joukko.io",
+    name: "WeSail",
+  };
+  const body = {
+    sender: sender,
+    to: [{ name: username, email: email }],
+    subject: subject,
+    htmlContent: content,
+  };
+  await axios.post(url, body, config);
 };
 
 export const sendRegistrationEmail = async (
