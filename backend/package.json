@@ -26,7 +26,9 @@
     "mongodb": "^5.2.0",
     "mongoose": "^6.8.3",
     "redis": "4.5.1",
-    "typescript": "^4.9.4"
+    "sib-api-v3-sdk": "^8.5.0",
+    "typescript": "^4.9.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -42,6 +44,7 @@
     "@types/redis": "^4.0.11",
     "@types/redis-mock": "^0.17.1",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "cross-env": "^7.0.3",

@@ -77,6 +77,9 @@ const Login = () => {
             login
           </button>
           <br />
+          <a style={{ fontSize: "15px" }} href="/password">
+            Forgotten password?
+          </a>
         </center>
       </form>
     </div>

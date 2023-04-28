@@ -25,6 +25,8 @@ import "./App.css";
 import { newUser } from "./reducers/userReducer";
 import { RootState, Payload } from "./types";
 import NotFound from "./components/NotFound";
+import Password from "./components/Password";
+import NewPassword from "./components/NewPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +53,14 @@ function App() {
         <Route
           path="/signup"
           element={user ? <Navigate replace to="/" /> : <SignUp />}
+        />
+        <Route
+          path="/password"
+          element={user ? <Navigate replace to="/" /> : <Password />}
+        />
+        <Route
+          path="/password/:id"
+          element={user ? <Navigate replace to="/" /> : <NewPassword />}
         />
         <Route path="/" element={user ? <Home /> : <Login />} />
         <Route path="/user" element={user ? <User /> : <Login />} />
