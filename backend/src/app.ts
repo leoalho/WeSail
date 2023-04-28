@@ -7,6 +7,7 @@ import logoutRoute from "./routes/logout";
 import boatRoute from "./routes/boats";
 import eventRoute from "./routes/events";
 import logRoute from "./routes/logs";
+import passwordRoute from "./routes/password";
 import middleware from "./utils/middleware";
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/logout", logoutRoute);
 app.use("/api/boats", boatRoute);
 app.use("/api/events", eventRoute);
 app.use("/api/logs", logRoute);
+app.use("/api/password", passwordRoute);
 app.use(middleware.errorHandler);
 
 export default app;
