@@ -78,7 +78,7 @@ button {
   border-width: 1px;
 }
 
-.button:hover {
+button:hover {
   color: white;
   background-color: #002f6c;
 }
@@ -339,6 +339,21 @@ iframe {
   margin-right: 10px;
   margin-top: 60px;
   width: 200px;
+}
+
+::file-selector-button {
+  font-size: 16px;
+  color: #002f6c;
+  border-color: #002f6c;
+  background-color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-width: 1px;
+}
+
+::file-selector-button:hover {
+  color: white;
+  background-color: #002f6c;
 }
 
 @media (max-width: 1200px) {

@@ -28,6 +28,7 @@ const Owner = ({
   setBoat,
 }: Props) => {
   const [edit, setEdit] = useState(false);
+  const [changePicture, setChangePicture] = useState(false);
   const [users, setUSers] = useState<Option[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<Option[]>([]);
 
@@ -88,20 +89,41 @@ const Owner = ({
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          <button
-            className="button"
-            onClick={addOwner}
-            style={{ marginLeft: "5px", marginTop: "5px" }}
-          >
+          <button onClick={addOwner} style={{ marginTop: "5px" }}>
             Add owner
           </button>
           <br />
-          <button style={{ margin: "5px" }} onClick={deleteButton}>
+          {changePicture ? (
+            <div style={{ marginTop: "5px" }}>
+              <form
+                action="/profile"
+                method="post"
+                encType="multipart/form-data"
+              >
+                <input type="file" name="avatar" />
+              </form>
+              <button onClick={() => setChangePicture(!changePicture)}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={() => setChangePicture(!changePicture)}
+                style={{ marginTop: "5px" }}
+              >
+                Change profile picture
+              </button>
+              <br />
+            </>
+          )}
+          <button style={{ marginTop: "5px" }} onClick={deleteButton}>
             Delete boat
           </button>
           <br />
-          <button style={{ margin: "5px" }}>Save</button>
-          <button onClick={() => setEdit(!edit)}>Cancel</button>
+          <button onClick={() => setEdit(!edit)} style={{ marginTop: "5px" }}>
+            Cancel
+          </button>
         </>
       ) : (
         <>
