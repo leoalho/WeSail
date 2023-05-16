@@ -30,11 +30,11 @@ Cypress has been mainly used to run tests in development. Therefore , when runni
 
 ## Architecture
 
-The application is written in typescript. The backend runs on express, and the frontend is done with React with redux as global state management. Session management is implemented via Redis and express session, and data storing via MongodB and Mongoose. Unit testing is done via Jest both in the back and frontend. E2E testing is done with cypress. Nginx is used as a reverse proxy and for serving the built React app in production mode. CI is implemented via github actions. ESLINT is used for linting and prettier for consistent code formatting. A complete list of libraries used is available [here](./documentation/libraries.md).
+The application is written in typescript. The backend runs on express, and the frontend is done with React with redux as global state management. Session management is implemented via Redis and express session, and data storing via MongodB and Mongoose. Email services is implemented via Brevos's (previously sendinblue) API. Unit testing is done via Jest both in the back and frontend. E2E testing is done with cypress. Nginx is used as a reverse proxy and for serving the built React app in production mode. The production version uses google analytics for user analytics. CI is implemented via github actions. ESLINT is used for linting and prettier for consistent code formatting. A complete list of libraries used is available [here](./documentation/libraries.md).
 
 ![architecture](./documentation/images/architecture.png)
 
-The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker compose, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the [./kubernetes](kubernetes) folder, but these are not yet ready.
+The image above shows the architecture of the running app in production mode. The production version of application is Hosted via digital ocean, running on <https://joukko.io>. The production version is running at the moment via docker swarm, but I am working on migrating to kubernetes, the initial kubernetes conf files are in the [./kubernetes](kubernetes) folder, but these are not yet ready.
 
 ### Folder architecture
 
@@ -48,7 +48,7 @@ As one can see from the Dockerfile, during production, the frontend is first bui
 
 ## Security
 
-THe application uses the https protocol, requests for port 80 will be redirected to port 443. The user's passwords are stored in hashed form. Session management is managed by sessionid coockies.
+The application uses the https protocol, requests for port 80 will be redirected to port 443. The user's passwords are stored in hashed form. Session management is managed by sessionid coockies.
 
 ## Worklog
 

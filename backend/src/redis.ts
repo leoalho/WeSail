@@ -9,5 +9,4 @@ const redisClient = createClient({ legacyMode: true, url: config.REDIS_URI });
 
 const RedisStore = connect_redis(session);
 
-//export default new RedisClient()
 export { RedisStore, redisClient };

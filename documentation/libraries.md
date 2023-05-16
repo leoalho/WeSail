@@ -1,6 +1,7 @@
 A list for my self to keep track of all the technologies and libraries used in this project.
 
 ## BackEnd
+
 - Express
 - Express-session, DEBUG=express-session
 - Redis
@@ -9,6 +10,7 @@ A list for my self to keep track of all the technologies and libraries used in t
 - bcrypt
 
 ### Development
+
 - Postman
 - gitk
 - Mongosh
@@ -16,10 +18,12 @@ A list for my self to keep track of all the technologies and libraries used in t
 - Jest
 - Supertest
 - mongodb-memory-server
+- Cypress
 - ts-jest
 - ts-node-dev
 
 ## FrontEnd
+
 - React
 - React-router
 - Axios
@@ -32,11 +36,11 @@ A list for my self to keep track of all the technologies and libraries used in t
 - react-hot-toast
 
 ### Development
+
 - Deep freeze
 
-## Mobile
+## DevOps
 
-## DEvOps
 - Docker
 - Docker-compose
 - Kubernetes

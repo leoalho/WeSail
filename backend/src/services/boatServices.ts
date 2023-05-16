@@ -85,7 +85,6 @@ const addOwner = async (boatId: string, ownerId: string) => {
 
 const addTodo = async (boatId: string, todo: TodoEntry) => {
   const boat = await Boat.findById(boatId);
-  //check for crew and captain
   if (boat) {
     boat.todos.push(todo);
     await boat.save();
@@ -94,7 +93,6 @@ const addTodo = async (boatId: string, todo: TodoEntry) => {
 
 const removeTodo = async (boatId: string, todoId: string) => {
   const boat = await Boat.findById(boatId);
-  //check for crew and captain
   if (boat) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await boat.todos.id(todoId)!.remove();
