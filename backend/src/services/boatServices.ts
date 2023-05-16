@@ -235,3 +235,7 @@ export const boatJsonPatch = async (
     }
   }
 };
+
+export const profileTrue = async (id: string) => {
+  await Boat.findOneAndUpdate({ _id: id }, { profilePicture: true });
+};

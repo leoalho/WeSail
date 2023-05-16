@@ -17,6 +17,7 @@ const boatSchema = new mongoose.Schema({
   crewRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   todos: [todoSchema],
+  profilePicture: { type: Boolean, default: false },
 });
 
 boatSchema.set("toJSON", {

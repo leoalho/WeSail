@@ -4,6 +4,7 @@ import { User, Boat, Friend, BoatUser } from "../types";
 interface UserBoat {
   name: string;
   id: string;
+  profilePicture: boolean;
 }
 
 const initialState = null as null | User;
@@ -21,7 +22,11 @@ const userSlice = createSlice({
     addBoat(state, action: PayloadAction<Boat>) {
       const newBoat = action.payload;
       if (state) {
-        state.boats.push({ name: newBoat.name, id: newBoat.id });
+        state.boats.push({
+          name: newBoat.name,
+          id: newBoat.id,
+          profilePicture: false,
+        });
       }
     },
     updateBoats(state, action: PayloadAction<UserBoat[]>) {

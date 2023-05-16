@@ -51,7 +51,7 @@ export const forgottenPassword = async (username: string) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const newPassword = new Forgotten({ user: user.id, hash: link });
     await newPassword.save();
-    await sendForgottenPwdEmail(user?.email, user?.username, link);
+    await sendForgottenPwdEmail(user.email, user.username, link);
   } else {
     throw new Error("User not found");
   }

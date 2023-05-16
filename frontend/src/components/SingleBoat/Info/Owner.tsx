@@ -7,7 +7,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { getUser, getUsers } from "../../../services/users";
-import { deleteBoat, updateBoat } from "../../../services/boats";
+import {
+  deleteBoat,
+  getBoat,
+  updateBoat,
+  updateProfilePicture,
+} from "../../../services/boats";
 import { Boat, Friend, User, Option, RootState, Patch } from "../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBoats } from "../../../reducers/userReducer";
@@ -28,8 +33,10 @@ const Owner = ({
   setBoat,
 }: Props) => {
   const [edit, setEdit] = useState(false);
+  const [changePicture, setChangePicture] = useState(false);
   const [users, setUSers] = useState<Option[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<Option[]>([]);
+  const [picture, setPicture] = useState<File>();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +55,7 @@ const Owner = ({
   }, []);
 
   const deleteButton = async () => {
-    if (confirm("Are you shure you want to delete?")) {
+    if (confirm("Are you sure you want to delete?")) {
       await deleteBoat(boat.id);
       const newUser = await getUser(user.id);
       dispatch(updateBoats(newUser.boats));
@@ -73,6 +80,28 @@ const Owner = ({
     setSelectedUsers([]);
   };
 
+  const onChangePicture = (event: React.FormEvent) => {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files && files.length > 0) {
+      setPicture(files[0]);
+    }
+  };
+
+  const uploadImage = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    const formData = new FormData();
+    if (picture) {
+      formData.set("avatar", picture);
+      await updateProfilePicture(formData, boat.id);
+      const newBoat = await getBoat(boat.id);
+      setBoat(newBoat);
+      toast.success("Uploaded new profile picture");
+    } else {
+      toast.error("Select a file first");
+    }
+  };
+
   return (
     <>
       <center>
@@ -88,20 +117,48 @@ const Owner = ({
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          <button
-            className="button"
-            onClick={addOwner}
-            style={{ marginLeft: "5px", marginTop: "5px" }}
-          >
+          <button onClick={addOwner} style={{ marginTop: "5px" }}>
             Add owner
           </button>
           <br />
-          <button style={{ margin: "5px" }} onClick={deleteButton}>
+          {changePicture ? (
+            <div style={{ marginTop: "5px" }}>
+              <form
+                id="upload"
+                action={`/api/boats/${boat.id}/profile`}
+                method="post"
+                encType="multipart/form-data"
+                onSubmit={uploadImage}
+              >
+                <input
+                  type="file"
+                  name="avatar"
+                  onChange={(e) => onChangePicture(e)}
+                />
+                <button type="submit">Upload</button>
+              </form>
+              <button onClick={() => setChangePicture(!changePicture)}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={() => setChangePicture(!changePicture)}
+                style={{ marginTop: "5px" }}
+              >
+                Change profile picture
+              </button>
+              <br />
+            </>
+          )}
+          <button style={{ marginTop: "5px" }} onClick={deleteButton}>
             Delete boat
           </button>
           <br />
-          <button style={{ margin: "5px" }}>Save</button>
-          <button onClick={() => setEdit(!edit)}>Cancel</button>
+          <button onClick={() => setEdit(!edit)} style={{ marginTop: "5px" }}>
+            Cancel
+          </button>
         </>
       ) : (
         <>

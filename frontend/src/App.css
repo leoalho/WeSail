@@ -78,7 +78,7 @@ button {
   border-width: 1px;
 }
 
-.button:hover {
+button:hover {
   color: white;
   background-color: #002f6c;
 }
@@ -103,6 +103,7 @@ button {
   flex: 1;
   justify-content: center;
   padding: 10px;
+  height: 10%;
 }
 
 .right {
@@ -132,6 +133,7 @@ button {
   margin: auto;
   width: max-content;
   background-color: #eeeeee;
+  box-sizing: border-box;
 }
 
 .content {
@@ -332,6 +334,7 @@ iframe {
   margin-top: 5px;
   padding-left: 5px;
   width: 700px;
+  overflow-y: scroll;
 }
 
 .singleUserInfo {
@@ -339,6 +342,21 @@ iframe {
   margin-right: 10px;
   margin-top: 60px;
   width: 200px;
+}
+
+::file-selector-button {
+  font-size: 16px;
+  color: #002f6c;
+  border-color: #002f6c;
+  background-color: white;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-width: 1px;
+}
+
+::file-selector-button:hover {
+  color: white;
+  background-color: #002f6c;
 }
 
 @media (max-width: 1200px) {
@@ -365,6 +383,7 @@ iframe {
   }
   .content {
     width: 100%;
+    box-sizing: border-box;
   }
   .logButtons {
     width: 100%;

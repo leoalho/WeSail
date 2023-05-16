@@ -111,8 +111,15 @@ const SingleUser = () => {
         )}
         {mobileSelected === "logs" && (
           <div className="main">
-            <div>
-              <div style={{ width: "100%" }}>
+            <div
+              style={{
+                width: "100%",
+                marginRight: "5px",
+                overflowY: "scroll",
+                boxSizing: "border-box",
+              }}
+            >
+              <div>
                 <b>User log:</b>
               </div>
               {logs.map((log) => (
