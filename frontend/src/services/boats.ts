@@ -35,3 +35,11 @@ export const deleteFollower = async (id: string, follower: string) => {
 export const deleteBoat = async (id: string) => {
   await axios.delete(`${baseUrl}/${id}`);
 };
+
+export const updateProfilePicture = async (form: FormData, id: string) => {
+  await axios.post(`${baseUrl}/${id}/profile`, form, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
+};

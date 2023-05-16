@@ -4,7 +4,7 @@ import { NewLogEntry } from "../types";
 
 export const getLogs = async () => {
   const logs = await Log.find({})
-    .populate("boat", { name: 1 })
+    .populate("boat", { name: 1, profilePicture: 1 })
     .populate("creator", { username: 1 })
     .populate("participants", { username: 1 });
   return logs;
@@ -25,7 +25,7 @@ export const getMainLogs = async (id: string | undefined) => {
     ],
   })
     .sort({ endTime: -1 })
-    .populate("boat", { name: 1 })
+    .populate("boat", { name: 1, profilePicture: 1 })
     .populate("creator", { username: 1 })
     .populate("participants", { username: 1 });
   return logs;
@@ -34,7 +34,7 @@ export const getMainLogs = async (id: string | undefined) => {
 export const getBoatLogs = async (id: string | undefined) => {
   const logs = await Log.find({ boat: id })
     .sort({ endTime: -1 })
-    .populate("boat", { name: 1 })
+    .populate("boat", { name: 1, profilePicture: 1 })
     .populate("creator", { username: 1 })
     .populate("participants", { username: 1 });
   return logs;
@@ -43,7 +43,7 @@ export const getBoatLogs = async (id: string | undefined) => {
 export const getUserLogs = async (id: string | undefined) => {
   const logs = await Log.find({ participants: id })
     .sort({ endTime: -1 })
-    .populate("boat", { name: 1 })
+    .populate("boat", { name: 1, profilePicture: 1 })
     .populate("creator", { username: 1 })
     .populate("participants", { username: 1 });
   return logs;

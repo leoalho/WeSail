@@ -9,6 +9,7 @@ import {
   updatePendingCrew,
 } from "../../../reducers/userReducer";
 import { updateBoat } from "../../../services/boats";
+import { useEffect, useState } from "react";
 
 interface Props {
   boat: Boat;
@@ -29,6 +30,15 @@ const Info = ({
 }: Props) => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+  const [imageSrc, setImageSrc] = useState(
+    "/images/boat_profile_images/default.jpg"
+  );
+
+  useEffect(() => {
+    if (boat.profilePicture) {
+      setImageSrc(`/images/boat_profile_images/${boat.id}.jpeg`);
+    }
+  }, [boat]);
 
   const followBoat = async () => {
     const newuser = await updateUser(user.id, {
@@ -76,7 +86,7 @@ const Info = ({
       <div className="boat_info_card">
         <center>
           <img
-            src="/images/boat_profile_images/default.jpg"
+            src={`${imageSrc}?${Math.random().toString(36)}`}
             alt="Avatar"
             className="boat_avatar"
           ></img>

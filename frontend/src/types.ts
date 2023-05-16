@@ -24,11 +24,13 @@ export interface Boat {
   crewRequests: Friend[];
   followers: Friend[];
   todos: Todo[];
+  profilePicture: boolean;
 }
 
 export interface BoatUser {
   name: string;
   id: string;
+  profilePicture: boolean;
 }
 
 export interface User {

@@ -92,18 +92,20 @@ const BoatLog = () => {
         </button>
       </div>
       {logs.length === 0 && <div className="singleBoatLogs">No logs yet</div>}
-      {filteredLogs.map((log) => (
-        <LogCard
-          key={log.id}
-          boat={log.boat}
-          startTime={log.startTime}
-          endTime={log.endTime}
-          start={log.start}
-          end={log.end}
-          participants={log.participants}
-          description={log.description}
-        />
-      ))}
+      <div className="singleBoatLogs">
+        {filteredLogs.map((log) => (
+          <LogCard
+            key={log.id}
+            boat={log.boat}
+            startTime={log.startTime}
+            endTime={log.endTime}
+            start={log.start}
+            end={log.end}
+            participants={log.participants}
+            description={log.description}
+          />
+        ))}
+      </div>
     </>
   );
 };

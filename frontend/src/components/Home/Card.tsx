@@ -59,7 +59,11 @@ const Card = (props: Props) => {
       <div style={{ display: "flex", alignItems: "center" }}>
         <div>
           <img
-            src="/images/boat_profile_images/default.jpg"
+            src={`/images/boat_profile_images/${
+              props.boat.profilePicture
+                ? `${props.boat.id}.jpeg?${Math.random().toString(36)}`
+                : "default.jpg"
+            }`}
             alt="Avatar"
             className="boat_card"
           ></img>

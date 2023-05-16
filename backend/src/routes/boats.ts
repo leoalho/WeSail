@@ -11,6 +11,13 @@ import {
   deleteBoat,
 } from "../services/boatServices";
 
+import multer from "multer";
+import { saveFile } from "../services/imageService";
+
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage: storage });
+
 const router = express.Router();
 
 router.get("/", async (_req, res) => {
@@ -44,6 +51,24 @@ router.patch("/:id", middleware.authorize, async (req, res) => {
   const boat = await getBoat(req.params.id);
   res.json(boat);
 });
+
+router.post(
+  "/:id/profile",
+  middleware.authorize,
+  upload.single("avatar"),
+  async (req, res, next) => {
+    try {
+      if (req.file) {
+        await saveFile(req.file, req.session.user, req.params.id);
+        res.status(201).send("Image uploaded succesfully");
+      } else {
+        res.status(204).send("Something went wrong");
+      }
+    } catch (error: unknown) {
+      next(error);
+    }
+  }
+);
 
 router.delete("/:id", middleware.authorize, async (req, res, next) => {
   try {

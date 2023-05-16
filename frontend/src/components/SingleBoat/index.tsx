@@ -112,18 +112,25 @@ const SingleBoat = () => {
             />
           )}
           {mobileSelected === "logs" && (
-            <div style={{ width: "100%", marginRight: "5px" }}>
+            <div
+              style={{
+                width: "100%",
+                marginRight: "5px",
+                overflowY: "scroll",
+                boxSizing: "border-box",
+              }}
+            >
               <BoatLog />
             </div>
           )}
           {mobileSelected === "events" && (
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%", overflowY: "scroll" }}>
               <UpcomingEvents />
               <PastEvents boatId={boat.id} />
             </div>
           )}
           {mobileSelected === "todos" && (
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%", overflowY: "scroll" }}>
               <Todos boat={boat} setBoat={setBoat} />
             </div>
           )}
@@ -142,10 +149,10 @@ const SingleBoat = () => {
         isCrew={isCrew}
         crewApplication={crewApplication}
       />
-      <div>
+      <div style={{ overflowY: "scroll" }}>
         <BoatLog />
       </div>
-      <div style={{ marginLeft: "10px" }}>
+      <div style={{ marginLeft: "10px", overflowY: "scroll" }}>
         <UpcomingEvents />
 
         {(isOwner || isCrew) && <Todos boat={boat} setBoat={setBoat} />}
