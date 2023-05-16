@@ -21,7 +21,6 @@ test("renders Wesail link", async () => {
       </Provider>
     </React.StrictMode>
   );
-  //const linkElement = await screen.findByText(/Wesail/i)
-  //expect(linkElement).toBeInTheDocument()
+
   await waitFor(() => expect(consoleSpy).toHaveBeenCalledTimes(2));
 });

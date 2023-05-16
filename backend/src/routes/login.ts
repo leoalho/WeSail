@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-//import jwt from 'jsonwebtoken'
 import bcrypt from "bcryptjs";
 import express from "express";
 import { findUser, findUserId } from "../services/userServices";

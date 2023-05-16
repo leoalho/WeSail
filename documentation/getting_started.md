@@ -5,6 +5,7 @@
 - [Navigation bar](#navigation-bar)
 - [Logging in](#logging-in)
 - [Signing up](#signing-up)
+- [Forgotten Password](#forgotten-password)
 - [Creating a new boat](#creating-a-new-boat)
 - [Main page](#main-page)
 - [Boat page](#boat-page)
@@ -29,11 +30,15 @@ In addition the navigation bar contains a search bar for searching for users and
 
 ## Logging in
 
-When opening the app for the first time a login form is presented. One can login ith the test user (username: test, password: salasana) or with any other created user by typing in username and password into their respective fields an clicking on the login button.
+When opening the app for the first time a login form is presented. One can login with the test user (username: test, password: salasana) or with any other created user by typing in username and password into their respective fields an clicking on the login button.
 
 ## Signing up
 
 A new user can be created via the sign up link in the right corner of the menu bar. The use has to enter a unique username, a password two times and an email. At the moment any string is accepted as an email. The passwords have to match in order to create a new user. When a new user is created the user is redireted to the login view and the user is able to login with the new credentials.
+
+## Forgotten Password
+
+Users who have forgotten their passwords can change their password by clicking the forgotten password? link on the front page or login page. A link to change the password will be sent to the user's email address.
 
 ## Creating a new boat
 
@@ -53,7 +58,7 @@ Users that are not boat owners or crew members can start following a boat in ord
 
 ### Settings
 
-Boat owners can access the boat settings by pressing the edit button. Via the settings it is possible add other owners to the boat and delete the boat.
+Boat owners can access the boat settings by pressing the edit button. Via the settings it is possible add other owners to the boat, change the profile picture of the boat and delete the boat.
 
 ### Events
 
