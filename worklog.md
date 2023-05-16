@@ -56,7 +56,5 @@
 | 13.4.23 | 3 | More E2E testing. Added a js file to initialize the db |
 | 14.4.23 | 2| Began using prettier both in frontend and backend for consistent formatting. Refactored app-file in backend. Created an error handling middleware |
 | 15.4.23 | 4 | Style changes here and there. Started writing a getting started guide. Wrote more of README |
-| 16.4.23 | 4 | MAde log togglers functional on single boat page. styling for button tags.
-The lists of users in events and logs now have links to the userpage and the trailing comma after the list is no longer there. Small padding and margin changes here and there.
-Past events were before editable and deletable by any user, this has now been changed both on the fronted and the backend. |
+| 16.4.23 | 4 | Made log togglers functional on single boat page. styling for button tags. The lists of users in events and logs now have links to the userpage and the trailing comma after the list is no longer there. Small padding and margin changes here and there. Past events were before editable and deletable by any user, this has now been changed both on the fronted and the backend. |
 | Total | 214 ||
