@@ -78,7 +78,9 @@ const SideNav = ({
     <div id="sideNav">
       <div className="100%">Upcoming events:</div>
       {filteredEvents.length === 0 && (
-        <center style={{ marginTop: "10px" }}>No upcoming events</center>
+        <center style={{ marginTop: "10px", width: "300px" }}>
+          No upcoming events
+        </center>
       )}
       {filteredEvents.map((card) => (
         <Card key={card.id} event={card} setEvents={setEvents} />

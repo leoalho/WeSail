@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 import LogCard from "../Home/Card";
 import { Log } from "../../types";
 import { getBoatLogs } from "../../services/logs";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-const BoatLog = () => {
+interface Props {
+  isOwner: boolean;
+}
+
+const BoatLog = ({ isOwner }: Props) => {
   const [sails, setSails] = useState(true);
   const [maintenances, setMaintenances] = useState(true);
   const [logs, setLogs] = useState<Log[]>([]);
   const [filteredLogs, setFilteredLogs] = useState<Log[]>([]);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -68,6 +73,17 @@ const BoatLog = () => {
     <>
       <div className="singleBoatToggle">
         <b>Boat log:</b>
+        {isOwner && (
+          <span style={{ float: "right" }}>
+            <button
+              style={{ marginRight: "10px" }}
+              onClick={() => navigate("/newLog")}
+            >
+              New log entry
+            </button>
+            <button onClick={() => navigate("/newEvent")}>New event</button>
+          </span>
+        )}
         <br />
         Show:
         <button

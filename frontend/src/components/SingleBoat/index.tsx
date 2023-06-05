@@ -120,7 +120,7 @@ const SingleBoat = () => {
                 boxSizing: "border-box",
               }}
             >
-              <BoatLog />
+              <BoatLog isOwner={isOwner} />
             </div>
           )}
           {mobileSelected === "events" && (
@@ -150,7 +150,7 @@ const SingleBoat = () => {
         crewApplication={crewApplication}
       />
       <div style={{ overflowY: "scroll" }}>
-        <BoatLog />
+        <BoatLog isOwner={isOwner} />
       </div>
       <div style={{ marginLeft: "10px", overflowY: "scroll" }}>
         <UpcomingEvents />
