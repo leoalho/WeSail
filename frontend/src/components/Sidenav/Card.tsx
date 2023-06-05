@@ -152,10 +152,9 @@ const Card = ({ event, setEvents }: Props) => {
             <button style={{ marginRight: "5px" }} onClick={deleteEventLocal}>
               Delete event
             </button>
-            <button
-              style={{ marginRight: "5px" }}
-              onClick={updatedEvent}
-            ></button>
+            <button style={{ marginRight: "5px" }} onClick={updatedEvent}>
+              Save changes
+            </button>
             <button onClick={() => setEdit(!edit)}>cancel</button>
           </div>
         </>
