@@ -98,6 +98,10 @@ const Card = (props: Props) => {
             src={`/images/log_maps/${props.image_id}.png`}
             alt="log_map"
             className="log_map"
+            style={{
+              maxWidth: "100%",
+              width: "700px",
+            }}
           ></img>
         </center>
       )}

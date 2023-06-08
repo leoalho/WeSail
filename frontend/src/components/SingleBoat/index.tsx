@@ -15,6 +15,7 @@ import MobileSelector from "./MobileSelector";
 import Info from "./Info";
 import PastEvents from "./PastEvents";
 import UpcomingEvents from "./UpcomingEvents";
+import LogHeader from "./LogHeader";
 
 const SingleBoat = () => {
   const [boat, setBoat] = useState<Boat | null>(null);
@@ -26,6 +27,8 @@ const SingleBoat = () => {
   );
   const [mobileSelected, setMobileSelected] = useState("logs");
   const [width, setWidth] = useState(window.innerWidth);
+  const [sails, setSails] = useState(true);
+  const [maintenances, setMaintenances] = useState(true);
 
   const { id } = useParams();
   const user = useSelector((state: RootState) => state.user);
@@ -120,7 +123,14 @@ const SingleBoat = () => {
                 boxSizing: "border-box",
               }}
             >
-              <BoatLog isOwner={isOwner} />
+              <LogHeader
+                isOwner={isOwner}
+                sails={sails}
+                maintenances={maintenances}
+                setSails={setSails}
+                setMaintenances={setMaintenances}
+              />
+              <BoatLog sails={sails} maintenances={maintenances} />
             </div>
           )}
           {mobileSelected === "events" && (
@@ -150,7 +160,14 @@ const SingleBoat = () => {
         crewApplication={crewApplication}
       />
       <div style={{ overflowY: "scroll" }}>
-        <BoatLog isOwner={isOwner} />
+        <LogHeader
+          isOwner={isOwner}
+          sails={sails}
+          maintenances={maintenances}
+          setSails={setSails}
+          setMaintenances={setMaintenances}
+        />
+        <BoatLog sails={sails} maintenances={maintenances} />
       </div>
       <div style={{ marginLeft: "10px", overflowY: "scroll" }}>
         <UpcomingEvents />

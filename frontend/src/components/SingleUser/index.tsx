@@ -152,7 +152,7 @@ const SingleUser = () => {
           unfriend={unfriend}
         />
       </div>
-      <div>
+      <div style={{ overflowY: "scroll" }}>
         <div style={{ width: "705px" }}>
           <b>User log:</b>
         </div>

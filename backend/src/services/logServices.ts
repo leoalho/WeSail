@@ -86,8 +86,8 @@ const renderMap = async (fileName: string, coordinates: number[][]) => {
   var meanLon = minLon + 0.5 * deltaLon;
 
   const options = {
-    width: 600,
-    height: 400,
+    width: 700,
+    height: 350,
   };
   const map = new StaticMaps(options);
   const zoom = getZoomLevel(
