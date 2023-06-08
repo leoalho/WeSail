@@ -113,6 +113,9 @@ const NewLog = () => {
     const newRoute: [number, number, number, number][] = [];
     const gpx = new gpxParser();
     gpx.parse(data);
+    if (!distance) {
+      setDistance(gpx.tracks[0].distance.total.toString());
+    }
     gpx.tracks[0].points.forEach((point) => {
       newRoute.push([
         point.lat,
@@ -214,6 +217,7 @@ const NewLog = () => {
             ))}
           </select>
           <br />
+          <br />
           With:{" "}
           <Select
             isMulti
@@ -224,9 +228,9 @@ const NewLog = () => {
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          Start location:{" "}
           <input
             onChange={({ target }) => setStartLocation(target.value)}
+            placeholder="Start location"
           ></input>
           <input
             onChange={({ target }) => setStartTime(target.value)}
@@ -237,8 +241,8 @@ const NewLog = () => {
           <br />
           {logType === "sail" ? (
             <>
-              End location:{" "}
               <input
+                placeholder="End location"
                 onChange={({ target }) => setEndLocation(target.value)}
               ></input>
             </>
@@ -255,30 +259,31 @@ const NewLog = () => {
           <br />
           {logType === "sail" && (
             <>
-              Distance:{" "}
               <input
+                placeholder="Distance (nm)"
+                value={distance}
                 type="number"
-                onChange={({ target }) => setDistance(target.value)}
+                onChange={({ target }) => setDistance(target.value.toString())}
               ></input>
-              <br />
-              Distance sailed:{" "}
               <input
+                placeholder="Distance sailed"
                 type="number"
                 onChange={({ target }) => setDistanceSailed(target.value)}
               ></input>
               <br />
-              Weather:{" "}
               <input
+                placeholder="Weather"
                 onChange={({ target }) => setWeather(target.value)}
               ></input>
               <br />
             </>
           )}
-          Description:{" "}
           <input
+            placeholder="Description"
             value={description}
             onChange={({ target }) => setDescription(target.value)}
           ></input>
+          <br />
           <br />
           Todos Done:{" "}
           <Select
@@ -289,6 +294,9 @@ const NewLog = () => {
             classNamePrefix="select"
             onChange={(option) => setTodos([...option])}
           />
+          <br />
+          Select .gpx file:
+          <br />
           <input type="file" name="avatar" onChange={(e) => onChangeGPX(e)} />
           <button
             style={{ marginTop: "5px" }}
