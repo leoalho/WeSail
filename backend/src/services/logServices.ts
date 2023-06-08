@@ -13,6 +13,14 @@ export const getLogs = async () => {
   return logs;
 };
 
+export const getSingleLog = async (id: string) => {
+  const log = await Log.findById(id)
+    .populate("boat", { name: 1, profilePicture: 1 })
+    .populate("creator", { username: 1 })
+    .populate("participants", { username: 1 });
+  return log;
+};
+
 export const getMainLogs = async (id: string | undefined) => {
   const user = await User.findById(id);
   if (!user) {

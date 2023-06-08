@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BoatUser, Friend } from "../../types";
 
 interface Props {
@@ -55,9 +55,15 @@ export const Participants = ({ participants }: Props2) => {
 };
 
 const Card = (props: Props) => {
+  const navigate = useNavigate();
   const date = new Date(props.endTime);
   return (
-    <div className="content">
+    <div
+      className="content"
+      onClick={() => {
+        navigate(`/logs/${props.image_id}`);
+      }}
+    >
       <div style={{ display: "flex", alignItems: "center" }}>
         <div>
           <img
