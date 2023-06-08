@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import gpxParser from "gpxparser";
+import { MapContainer, TileLayer, Polyline, useMap } from "react-leaflet";
 
 import { getBoat, updateBoat } from "../services/boats";
 import { newLog } from "../services/logs";
@@ -29,6 +31,13 @@ const NewLog = () => {
   const [options, setOptions] = useState<Option[]>([]);
   const [todoOptions, setTodoOptions] = useState<Option[]>([]);
   const [todos, setTodos] = useState<Option[]>([]);
+  const [lineString, setLineString] = useState<[number, number][]>([]);
+  const [route, setRoute] = useState<[number, number, number, number][]>([]);
+  const [preview, setPreview] = useState(false);
+  const [meanLat, setMeanLat] = useState(0);
+  const [meanLon, setMeanLon] = useState(0);
+  const [deltaLat, setDeltaLat] = useState(0);
+  const [deltaLon, setDeltaLon] = useState(0);
 
   useEffect(() => {
     setParticipants([{ value: user.id, label: user.username }]);
@@ -79,6 +88,84 @@ const NewLog = () => {
     await updateBoat(boat, todoPatches);
   };
 
+  const getTileNumber = (
+    width: number,
+    height: number,
+    deltaLat: number,
+    deltaLon: number,
+    tileSize: number
+  ) => {
+    const latTile = Math.log2((height * 180) / (tileSize * deltaLat));
+    const lonTile = Math.log2((width * 360) / (tileSize * deltaLon));
+    console.log(lonTile);
+    console.log(latTile);
+    console.log(Math.min(latTile, lonTile));
+    console.log(Math.floor(Math.min(latTile, lonTile)));
+    return Math.floor(Math.min(latTile, lonTile));
+  };
+
+  const gpxToLinestring = (data: string) => {
+    let maxLat = -91;
+    let minLat = 91;
+    let maxLon = -181;
+    let minLon = 181;
+    const linestring: [number, number][] = [];
+    const newRoute: [number, number, number, number][] = [];
+    const gpx = new gpxParser();
+    gpx.parse(data);
+    gpx.tracks[0].points.forEach((point) => {
+      newRoute.push([
+        point.lat,
+        point.lon,
+        point.ele,
+        new Date(point.time).getTime(),
+      ]);
+      linestring.push([point.lat, point.lon]);
+      if (point.lat > maxLat) maxLat = point.lat;
+      if (point.lat < minLat) minLat = point.lat;
+      if (point.lon > maxLon) maxLon = point.lon;
+      if (point.lon < minLon) minLon = point.lon;
+    });
+    const deltaLat = Math.abs(maxLat - minLat);
+    const deltaLon = Math.abs(maxLon - minLon);
+    setDeltaLat(deltaLat);
+    setDeltaLon(deltaLon);
+    setMeanLat(minLat + 0.5 * deltaLat);
+    setMeanLon(minLon + 0.5 * deltaLon);
+    setRoute(newRoute);
+    return linestring;
+  };
+
+  const onChangeGPX = (event: React.FormEvent) => {
+    const files = (event.target as HTMLInputElement).files;
+
+    if (files && files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        if (evt.target && evt.target.result) {
+          const newLineString = gpxToLinestring(evt.target.result as string);
+          setLineString(newLineString);
+        }
+      };
+      reader.readAsText(files[0]);
+    }
+  };
+
+  interface myComponent {
+    preview: boolean;
+  }
+
+  function MyComponent({ preview }: myComponent) {
+    const map = useMap();
+    if (preview) {
+      map.flyTo(
+        [meanLat, meanLon],
+        getTileNumber(445, 300, deltaLat, deltaLon, 256)
+      );
+    }
+    return null;
+  }
+
   const createEvent = async () => {
     try {
       await newLog({
@@ -93,6 +180,7 @@ const NewLog = () => {
         start: startLocation,
         end: endLocation,
         logType: logType,
+        route: route,
       });
       await doneTodos();
       toast.success("Created new log entry");
@@ -201,6 +289,32 @@ const NewLog = () => {
             classNamePrefix="select"
             onChange={(option) => setTodos([...option])}
           />
+          <input type="file" name="avatar" onChange={(e) => onChangeGPX(e)} />
+          <button
+            style={{ marginTop: "5px" }}
+            onClick={() => {
+              setPreview(!preview);
+            }}
+          >
+            {preview ? <>Close preview</> : <>Preview</>}
+          </button>
+          <br />
+          {preview && (
+            <div style={{ height: "300px" }}>
+              <MapContainer
+                center={[meanLat, meanLon]}
+                zoom={15}
+                scrollWheelZoom={true}
+              >
+                <MyComponent preview={preview} />
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Polyline positions={lineString} />
+              </MapContainer>
+            </div>
+          )}
           <button style={{ marginTop: "5px" }} onClick={createEvent}>
             Create log entry
           </button>

@@ -119,6 +119,8 @@ const BoatLog = ({ isOwner }: Props) => {
             end={log.end}
             participants={log.participants}
             description={log.description}
+            image={log.route.length > 0}
+            image_id={log.id}
           />
         ))}
       </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BoatUser, Friend } from "../../types";
 
 interface Props {
+  image_id: string;
   boat: BoatUser;
   startTime: string;
   endTime: string;
@@ -10,6 +11,7 @@ interface Props {
   end: string;
   participants: Friend[];
   description: string;
+  image: boolean;
 }
 
 interface Props2 {
@@ -90,6 +92,15 @@ const Card = (props: Props) => {
       )}
       {props.description}
       <br />
+      {props.image && (
+        <center>
+          <img
+            src={`/images/log_maps/${props.image_id}.png`}
+            alt="log_map"
+            className="log_map"
+          ></img>
+        </center>
+      )}
     </div>
   );
 };

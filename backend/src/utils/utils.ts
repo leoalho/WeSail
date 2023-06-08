@@ -66,6 +66,7 @@ export const toNewLog = (entry: LogFields, creator: string | undefined) => {
   if (entry.distance) newLog.distance = parseNumber(entry.distance);
   if (entry.end) newLog.end = parseString(entry.end);
   if (entry.weather) newLog.weather = parseString(entry.weather);
+  if (entry.route) newLog.route = parseRoute(entry.route);
   return newLog;
 };
 
@@ -82,6 +83,25 @@ export const parseDateTime = (date: unknown, time: unknown): Date => {
   } catch {
     throw new Error("Incorrect date value");
   }
+};
+
+export const parseRoute = (route: unknown): number[][] => {
+  if (!route || !isRoute(route)) {
+    throw new Error("missing or incorrect route");
+  }
+  return route;
+};
+
+export const isRoute = (route: unknown): route is number[][] => {
+  if (!Array.isArray(route)) {
+    return false;
+  }
+  return route.every((innerArray) => {
+    return (
+      Array.isArray(innerArray) &&
+      innerArray.every((num) => typeof num === "number")
+    );
+  });
 };
 
 export const parseNumber = (name: unknown): number => {
@@ -124,4 +144,16 @@ const isObjectId = (id: unknown): id is mongoose.Types.ObjectId => {
 
 const isString = (text: unknown): text is string => {
   return typeof text === "string" || text instanceof String;
+};
+
+export const getZoomLevel = (
+  width: number,
+  height: number,
+  deltaLat: number,
+  deltaLon: number,
+  tileSize: number
+) => {
+  const latTile = Math.log2((height * 180) / (tileSize * deltaLat));
+  const lonTile = Math.log2((width * 360) / (tileSize * deltaLon));
+  return Math.floor(Math.min(latTile, lonTile));
 };

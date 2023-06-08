@@ -13,6 +13,7 @@ const logSchema = new mongoose.Schema({
   start: String,
   end: String,
   logType: String,
+  route: [[Number]],
 });
 
 logSchema.set("toJSON", {

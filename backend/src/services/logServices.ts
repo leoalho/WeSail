@@ -1,6 +1,9 @@
 import Log from "../models/log";
 import User from "../models/user";
 import { NewLogEntry } from "../types";
+import { getZoomLevel } from "../utils/utils";
+import StaticMaps from "staticmaps";
+import path from "path";
 
 export const getLogs = async () => {
   const logs = await Log.find({})
@@ -49,8 +52,66 @@ export const getUserLogs = async (id: string | undefined) => {
   return logs;
 };
 
+type Line = {
+  coords: [number, number][];
+  color: string;
+  width: number;
+};
+
+const renderMap = async (fileName: string, coordinates: number[][]) => {
+  var maxLat = -91;
+  var minLat = 91;
+  var maxLon = -181;
+  var minLon = 181;
+
+  var line: Line = {
+    coords: [],
+    color: "#0000FFBB",
+    width: 3,
+  };
+  if (coordinates.length > 0) {
+    coordinates.forEach((coordinate) => {
+      if (coordinate.length < 3) return;
+      if (coordinate[0] > maxLat) maxLat = coordinate[0];
+      if (coordinate[0] < minLat) minLat = coordinate[0];
+      if (coordinate[1] > maxLon) maxLon = coordinate[1];
+      if (coordinate[1] < minLon) minLon = coordinate[1];
+      line.coords.push([coordinate[1], coordinate[0]]);
+    });
+  }
+
+  var deltaLat = Math.abs(maxLat - minLat);
+  var deltaLon = Math.abs(maxLon - minLon);
+  var meanLat = minLat + 0.5 * deltaLat;
+  var meanLon = minLon + 0.5 * deltaLon;
+
+  const options = {
+    width: 600,
+    height: 400,
+  };
+  const map = new StaticMaps(options);
+  const zoom = getZoomLevel(
+    options.width,
+    options.height,
+    deltaLat,
+    deltaLon,
+    256
+  );
+
+  const center = [meanLon, meanLat];
+  map.addLine(line);
+  await map.render(center, zoom);
+  await map.image.save(
+    path.join(__dirname, "..", "..", "images", "log_maps", `${fileName}.png`)
+  );
+};
+
 export const newLog = async (logEntry: NewLogEntry) => {
-  const log = new Log(logEntry);
-  await log.save();
-  return log;
+  const newLog = new Log(logEntry);
+  console.log(newLog);
+  await newLog.save();
+  if (newLog.route.length > 0) {
+    await renderMap(newLog.id, newLog.route);
+  }
+  return newLog;
 };

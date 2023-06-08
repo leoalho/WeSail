@@ -32,9 +32,11 @@ interface NewLog {
   start: string;
   end?: string;
   logType: string;
+  route?: number[][];
 }
 
 export const newLog = async (log: NewLog) => {
+  console.log(log);
   const newLog = await axios.post(baseUrl, log);
   return newLog;
 };
