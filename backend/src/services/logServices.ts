@@ -109,9 +109,26 @@ const renderMap = async (fileName: string, coordinates: number[][]) => {
   const center = [meanLon, meanLat];
   map.addLine(line);
   await map.render(center, zoom);
-  await map.image.save(
-    path.join(__dirname, "..", "..", "images", "log_maps", `${fileName}.png`)
+  let logPath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "images",
+    "log_maps",
+    `${fileName}.png`
   );
+  if (process.env.NODE_ENV === "production") {
+    logPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "images",
+      "log_maps",
+      `${fileName}.png`
+    );
+  }
+  await map.image.save(logPath);
 };
 
 export const newLog = async (logEntry: NewLogEntry) => {
