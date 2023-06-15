@@ -4,8 +4,9 @@ build
 mongo/data
 redis
 images/boat_profile_images
-!images/boat_profile_images/deafult.jpg
+!images/boat_profile_images/default.jpg
 images/user_profile_images
-!images/user_profile_images/deafult.jpg
+!images/user_profile_images/default.jpg
 images/log_maps
+!images/log_maps/.gitkeep
 /cypress/videos
