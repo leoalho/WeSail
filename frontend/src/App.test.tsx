@@ -27,3 +27,5 @@ test("dummy test", () => {
   await waitFor(() => expect(consoleSpy).toHaveBeenCalledTimes(2));
   */
 });
+
+export {};
