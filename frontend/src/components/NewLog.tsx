@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import gpxParser from "gpxparser";
 import { MapContainer, TileLayer, Polyline, useMap } from "react-leaflet";
-
+import { LocalDateTime } from "@js-joda/core";
 import { getBoat, updateBoat } from "../services/boats";
 import { newLog } from "../services/logs";
 import { RootState, Option, Patch } from "../types";
@@ -34,14 +35,18 @@ const NewLog = () => {
   const [lineString, setLineString] = useState<[number, number][]>([]);
   const [route, setRoute] = useState<[number, number, number, number][]>([]);
   const [preview, setPreview] = useState(false);
-  const [meanLat, setMeanLat] = useState(0);
-  const [meanLon, setMeanLon] = useState(0);
-  const [deltaLat, setDeltaLat] = useState(0);
-  const [deltaLon, setDeltaLon] = useState(0);
+  const [meanLat, setMeanLat] = useState(60.19);
+  const [meanLon, setMeanLon] = useState(24.9);
+  const [deltaLat, setDeltaLat] = useState(1);
+  const [deltaLon, setDeltaLon] = useState(1);
 
   useEffect(() => {
     setParticipants([{ value: user.id, label: user.username }]);
-    if (location.state) {
+    if (location.state && location.state.route) {
+      getDeltaMeanCoord(location.state.route.slice(1));
+      setRoute(location.state.route.slice(1));
+      setLineString(location.state.lineString.slice(1));
+    } else if (location.state) {
       setBoat(location.state.boat);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       setParticipants([...location.state.participants]);
@@ -88,6 +93,25 @@ const NewLog = () => {
     await updateBoat(boat, todoPatches);
   };
 
+  const getDeltaMeanCoord = (route: [number, number][]) => {
+    let maxLat = -91;
+    let minLat = 91;
+    let maxLon = -181;
+    let minLon = 181;
+    route.forEach((point) => {
+      if (point[0] > maxLat) maxLat = point[0];
+      if (point[0] < minLat) minLat = point[0];
+      if (point[1] > maxLon) maxLon = point[1];
+      if (point[1] < minLon) minLon = point[1];
+    });
+    const deltaLat = Math.abs(maxLat - minLat);
+    const deltaLon = Math.abs(maxLon - minLon);
+    setDeltaLat(deltaLat);
+    setDeltaLon(deltaLon);
+    setMeanLat(minLat + 0.5 * deltaLat);
+    setMeanLon(minLon + 0.5 * deltaLon);
+  };
+
   const getTileNumber = (
     width: number,
     height: number,
@@ -95,12 +119,11 @@ const NewLog = () => {
     deltaLon: number,
     tileSize: number
   ) => {
+    if (deltaLat === 0 || deltaLon === 0) {
+      return 17;
+    }
     const latTile = Math.log2((height * 180) / (tileSize * deltaLat));
     const lonTile = Math.log2((width * 360) / (tileSize * deltaLon));
-    console.log(lonTile);
-    console.log(latTile);
-    console.log(Math.min(latTile, lonTile));
-    console.log(Math.floor(Math.min(latTile, lonTile)));
     return Math.floor(Math.min(latTile, lonTile));
   };
 
@@ -113,14 +136,21 @@ const NewLog = () => {
     const newRoute: [number, number, number, number][] = [];
     const gpx = new gpxParser();
     gpx.parse(data);
-    if (!distance) {
-      setDistance(gpx.tracks[0].distance.total.toString());
-    }
+    const gpxStartTime = LocalDateTime.parse(
+      gpx.tracks[0].points[0].time.toISOString().slice(0, 16)
+    );
+    setStartTime(gpxStartTime.toString());
+    const gpxEndTime = LocalDateTime.parse(
+      gpx.tracks[0].points.slice(-1)[0].time.toISOString().slice(0, 16)
+    );
+    setEndTime(gpxEndTime.toString());
+    const nauticalDistance = (gpx.tracks[0].distance.total / 1852).toFixed(2);
+    setDistance(nauticalDistance);
     gpx.tracks[0].points.forEach((point) => {
       newRoute.push([
         point.lat,
         point.lon,
-        point.ele,
+        point.ele ? point.ele : 0,
         new Date(point.time).getTime(),
       ]);
       linestring.push([point.lat, point.lon]);
@@ -178,8 +208,8 @@ const NewLog = () => {
         weather: weather,
         distance: distance,
         distanceSailed: distanceSailed,
-        startTime: startTime,
-        endTime: endTime,
+        startTime: new Date(startTime).toISOString(),
+        endTime: new Date(endTime).toISOString(),
         start: startLocation,
         end: endLocation,
         logType: logType,
@@ -199,7 +229,7 @@ const NewLog = () => {
   };
 
   return (
-    <div className="main">
+    <div className="main" style={{ overflowY: "scroll" }}>
       <div>
         <div style={style}>
           <select
@@ -228,11 +258,13 @@ const NewLog = () => {
             className="basic-multi-select"
             classNamePrefix="select"
           />
+          <br />
           <input
             onChange={({ target }) => setStartLocation(target.value)}
             placeholder="Start location"
           ></input>
           <input
+            value={startTime.substring(0, 16)}
             onChange={({ target }) => setStartTime(target.value)}
             type="datetime-local"
             id="start-time"
@@ -250,7 +282,7 @@ const NewLog = () => {
             <>End time: </>
           )}
           <input
-            value={endTime}
+            value={endTime.substring(0, 16)}
             onChange={({ target }) => setEndTime(target.value)}
             type="datetime-local"
             id="end-time"
@@ -274,6 +306,7 @@ const NewLog = () => {
               <input
                 placeholder="Weather"
                 onChange={({ target }) => setWeather(target.value)}
+                style={{ width: "100%" }}
               ></input>
               <br />
             </>
@@ -294,34 +327,42 @@ const NewLog = () => {
             classNamePrefix="select"
             onChange={(option) => setTodos([...option])}
           />
-          <br />
-          Select .gpx file:
-          <br />
-          <input type="file" name="avatar" onChange={(e) => onChangeGPX(e)} />
-          <button
-            style={{ marginTop: "5px" }}
-            onClick={() => {
-              setPreview(!preview);
-            }}
-          >
-            {preview ? <>Close preview</> : <>Preview</>}
-          </button>
-          <br />
-          {preview && (
-            <div style={{ height: "300px" }}>
-              <MapContainer
-                center={[meanLat, meanLon]}
-                zoom={15}
-                scrollWheelZoom={true}
+          {logType === "sail" && (
+            <>
+              <br />
+              Select .gpx file:
+              <br />
+              <input
+                type="file"
+                name="avatar"
+                onChange={(e) => onChangeGPX(e)}
+              />
+              <button
+                style={{ marginTop: "5px" }}
+                onClick={() => {
+                  setPreview(!preview);
+                }}
               >
-                <MyComponent preview={preview} />
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Polyline positions={lineString} />
-              </MapContainer>
-            </div>
+                {preview ? <>Close preview</> : <>Preview</>}
+              </button>
+              <br />
+              {preview && (
+                <div style={{ height: "300px" }}>
+                  <MapContainer
+                    center={[meanLat, meanLon]}
+                    zoom={15}
+                    scrollWheelZoom={true}
+                  >
+                    <MyComponent preview={preview} />
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Polyline positions={lineString} />
+                  </MapContainer>
+                </div>
+              )}
+            </>
           )}
           <button style={{ marginTop: "5px" }} onClick={createEvent}>
             Create log entry

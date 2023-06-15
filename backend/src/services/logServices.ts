@@ -67,12 +67,12 @@ type Line = {
 };
 
 const renderMap = async (fileName: string, coordinates: number[][]) => {
-  var maxLat = -91;
-  var minLat = 91;
-  var maxLon = -181;
-  var minLon = 181;
+  let maxLat = -91;
+  let minLat = 91;
+  let maxLon = -181;
+  let minLon = 181;
 
-  var line: Line = {
+  const line: Line = {
     coords: [],
     color: "#0000FFBB",
     width: 3,
@@ -88,10 +88,10 @@ const renderMap = async (fileName: string, coordinates: number[][]) => {
     });
   }
 
-  var deltaLat = Math.abs(maxLat - minLat);
-  var deltaLon = Math.abs(maxLon - minLon);
-  var meanLat = minLat + 0.5 * deltaLat;
-  var meanLon = minLon + 0.5 * deltaLon;
+  const deltaLat = Math.abs(maxLat - minLat);
+  const deltaLon = Math.abs(maxLon - minLon);
+  const meanLat = minLat + 0.5 * deltaLat;
+  const meanLon = minLon + 0.5 * deltaLon;
 
   const options = {
     width: 700,
@@ -119,6 +119,7 @@ export const newLog = async (logEntry: NewLogEntry) => {
   console.log(newLog);
   await newLog.save();
   if (newLog.route.length > 0) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     await renderMap(newLog.id, newLog.route);
   }
   return newLog;
