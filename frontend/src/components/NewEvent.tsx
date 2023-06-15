@@ -34,8 +34,7 @@ const NewEvent = () => {
     try {
       await newEvent({
         boat: boat,
-        date: date,
-        time: time,
+        date: new Date(`${date}T${time}`).toISOString(),
         location: location,
         description: description,
         eventType: eventType,

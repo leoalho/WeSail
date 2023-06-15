@@ -60,17 +60,19 @@ const SingleLog = () => {
   return (
     <div className="main">
       <div className="logger">
-        <MapContainer
-          center={[centerLatitude, centerLongitude]}
-          zoom={12}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Polyline positions={lineString} />
-        </MapContainer>
+        {log.logType === "sail" && log.route.length > 0 && (
+          <MapContainer
+            center={[centerLatitude, centerLongitude]}
+            zoom={12}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Polyline positions={lineString} />
+          </MapContainer>
+        )}
         {log.boat.name}
         <br />
         {log.description}

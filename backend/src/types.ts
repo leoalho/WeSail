@@ -39,7 +39,6 @@ export type NewBoatEntry = {
 export type EventFields = {
   boat: unknown;
   date: unknown;
-  time: unknown;
   location: unknown;
   description: unknown;
   eventType: unknown;

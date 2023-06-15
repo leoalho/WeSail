@@ -41,7 +41,7 @@ export const toNewBoat = (entry: BoatFields, owner: string | undefined) => {
 export const toNewEvent = (entry: EventFields, creator: string | undefined) => {
   const newEntry: NewEventEntry = {
     boat: parseObjectId(entry.boat),
-    date: parseDateTime(entry.date, entry.time),
+    date: parseDate(entry.date),
     creator: parseObjectId(creator),
     location: parseString(entry.location),
     description: parseString(entry.description),
@@ -68,21 +68,6 @@ export const toNewLog = (entry: LogFields, creator: string | undefined) => {
   if (entry.weather) newLog.weather = parseString(entry.weather);
   if (entry.route) newLog.route = parseRoute(entry.route);
   return newLog;
-};
-
-export const parseDateTime = (date: unknown, time: unknown): Date => {
-  if (!date || !isString(date)) {
-    throw new Error("missing or incorrect date value");
-  }
-  if (!time || !isString(time)) {
-    throw new Error("missing or incorrect time value");
-  }
-  try {
-    const newDate = new Date(`${date}T${time}`);
-    return newDate;
-  } catch {
-    throw new Error("Incorrect date value");
-  }
 };
 
 export const parseRoute = (route: unknown): number[][] => {
