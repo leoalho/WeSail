@@ -22,7 +22,6 @@ export const getPastBoatEvents = async (id: string): Promise<Event[]> => {
 interface NewEvent {
   boat: string;
   date: string;
-  time: string;
   location: string;
   description: string;
   eventType: string;
