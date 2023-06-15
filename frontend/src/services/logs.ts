@@ -10,6 +10,11 @@ export const getLogs = async (): Promise<Log[]> => {
   return logs.data;
 };
 
+export const getSingleLog = async (id: string): Promise<Log> => {
+  const log = await axios.get(`${baseUrl}/${id}`);
+  return log.data;
+};
+
 export const getBoatLogs = async (id: string): Promise<Log[]> => {
   const logs = await axios.get(`${baseUrl}/boats/${id}`);
   return logs.data;
@@ -32,9 +37,11 @@ interface NewLog {
   start: string;
   end?: string;
   logType: string;
+  route?: number[][];
 }
 
 export const newLog = async (log: NewLog) => {
+  console.log(log);
   const newLog = await axios.post(baseUrl, log);
   return newLog;
 };

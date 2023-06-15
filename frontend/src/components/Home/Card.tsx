@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BoatUser, Friend } from "../../types";
 
 interface Props {
+  image_id: string;
   boat: BoatUser;
   startTime: string;
   endTime: string;
@@ -10,11 +11,16 @@ interface Props {
   end: string;
   participants: Friend[];
   description: string;
+  image: boolean;
 }
 
 interface Props2 {
   participants: Friend[];
 }
+
+const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  event.stopPropagation();
+};
 
 export const Participants = ({ participants }: Props2) => {
   if (participants.length == 0) {
@@ -25,7 +31,9 @@ export const Participants = ({ participants }: Props2) => {
         with{" "}
         {participants.map((participant, index) => (
           <React.Fragment key={participant.id}>
-            <Link to={`/users/${participant.id}`}>{participant.username}</Link>
+            <Link to={`/users/${participant.id}`} onClick={handleLinkClick}>
+              {participant.username}
+            </Link>
             {index === participants.length - 1 ? "" : ", "}
           </React.Fragment>
         ))}
@@ -35,15 +43,15 @@ export const Participants = ({ participants }: Props2) => {
     return (
       <>
         with{" "}
-        <Link to={`/users/${participants[0].id}`}>
+        <Link to={`/users/${participants[0].id}`} onClick={handleLinkClick}>
           {participants[0].username}
         </Link>
         ,{" "}
-        <Link to={`/users/${participants[1].id}`}>
+        <Link to={`/users/${participants[1].id}`} onClick={handleLinkClick}>
           {participants[1].username}
         </Link>
         ,{" "}
-        <Link to={`/users/${participants[2].id}`}>
+        <Link to={`/users/${participants[2].id}`} onClick={handleLinkClick}>
           {participants[2].username}
         </Link>
         ...
@@ -53,9 +61,15 @@ export const Participants = ({ participants }: Props2) => {
 };
 
 const Card = (props: Props) => {
+  const navigate = useNavigate();
   const date = new Date(props.endTime);
   return (
-    <div className="content">
+    <div
+      className="content"
+      onClick={() => {
+        navigate(`/logs/${props.image_id}`);
+      }}
+    >
       <div style={{ display: "flex", alignItems: "center" }}>
         <div>
           <img
@@ -70,7 +84,9 @@ const Card = (props: Props) => {
         </div>
         <div style={{ marginLeft: "10px" }}>
           <b>
-            <Link to={`/boats/${props.boat.id}`}>{props.boat.name}</Link>
+            <Link to={`/boats/${props.boat.id}`} onClick={handleLinkClick}>
+              {props.boat.name}
+            </Link>
           </b>{" "}
           with <Participants participants={props.participants} />
           <br />
@@ -90,6 +106,19 @@ const Card = (props: Props) => {
       )}
       {props.description}
       <br />
+      {props.image && (
+        <center>
+          <img
+            src={`/images/log_maps/${props.image_id}.png`}
+            alt="log_map"
+            className="log_map"
+            style={{
+              maxWidth: "100%",
+              width: "700px",
+            }}
+          ></img>
+        </center>
+      )}
     </div>
   );
 };

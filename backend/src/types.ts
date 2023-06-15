@@ -67,6 +67,7 @@ export type LogFields = {
   start: unknown;
   end: unknown;
   logType: unknown;
+  route?: unknown;
 };
 
 export type NewLogEntry = {
@@ -82,6 +83,7 @@ export type NewLogEntry = {
   start: string;
   end?: string;
   logType: string;
+  route?: number[][];
 };
 
 export type LogType = "sail" | "maintenance";

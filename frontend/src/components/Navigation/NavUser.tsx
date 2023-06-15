@@ -142,9 +142,14 @@ const NavUser = () => {
               )}
             </div>
           </div>
-          {user.boats.length > 0 && <>{userBoats}</>}
-          <Link to="/logger">Start logging</Link>
-          <Link to="/newEvent">New event</Link>
+          {user.boats.length > 0 && (
+            <>
+              {userBoats}
+              <Link to="/logger">Start logging</Link>
+              <Link to="/newEvent">New event</Link>
+            </>
+          )}
+          {user.boats.length === 0 && <Link to="/newBoat">Add boat</Link>}
           <Link to="/user">{user.username}</Link>
           <button className="btn" onClick={logout}>
             logout
@@ -161,13 +166,17 @@ const NavUser = () => {
           <b>Wesail</b>
         </Link>
         {user.boats.length > 0 && (
-          <div className="dropdown">
-            <div className="dropdownTitle">Boats</div>
-            <div className="dropdown-content">{userBoats}</div>
-          </div>
+          <>
+            <div className="dropdown">
+              <div className="dropdownTitle">Boats</div>
+              <div className="dropdown-content">{userBoats}</div>
+            </div>
+            <Link to="/logger">Start logging</Link>
+            <Link to="/newEvent">New event</Link>
+          </>
         )}
-        <Link to="/logger">Start logging</Link>
-        <Link to="/newEvent">New event</Link>
+        {user.boats.length === 0 && <Link to="/newBoat">Add boat</Link>}
+
         <div className="search-container">
           <form className="formtitle">
             <input

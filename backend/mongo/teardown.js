@@ -20,20 +20,20 @@ const deleteCollections = async () => {
 };
 
 const initialize = async () => {
-  await db
-    .collection("users")
-    .insertOne({
-      username: "test",
-      passwordHash:
-        "$2a$10$Pb9o5b/WB7FuQ5BPHrGd6eqgLw.4B.CuOBkd.L8kc.awJhbWKQi0G",
-      email: "leo.leo@leo.leo",
-    });
+  await db.collection("users").insertOne({
+    username: "test",
+    passwordHash:
+      "$2a$10$Pb9o5b/WB7FuQ5BPHrGd6eqgLw.4B.CuOBkd.L8kc.awJhbWKQi0G",
+    email: "leo.leo@leo.leo",
+  });
   console.log("initialized database with test user");
 };
 
-export default async () => {
+const init = async () => {
   await connectDB();
   await deleteCollections();
   await initialize();
   await client.close();
 };
+
+module.exports = { init };

@@ -23,7 +23,8 @@ const Logger = () => {
   const [heading, setHeading] = useState<number | null>(0);
   const [logging, setLogging] = useState(false);
   const [logActive, setLogActive] = useState(false);
-  const [route, setRoute] = useState<[number, number][]>([]);
+  const [route, setRoute] = useState<[number, number, number, number][]>([]);
+  const [lineString, setLineString] = useState<[number, number][]>([]);
   const [geoId, setGeoId] = useState(0);
 
   const initSuccess = (pos: GeolocationPosition) => {
@@ -38,7 +39,8 @@ const Logger = () => {
   }, []);
 
   useEffect(() => {
-    setRoute([...route, [position.latitude, position.longitude]]);
+    setRoute([...route, [position.latitude, position.longitude, 0, updated]]);
+    setLineString([...lineString, [position.latitude, position.longitude]]);
   }, [position]);
 
   interface myComponent {
@@ -101,7 +103,7 @@ const Logger = () => {
           <Marker position={[position.latitude, position.longitude]}>
             <Popup>This is you.</Popup>
           </Marker>
-          <Polyline positions={route.slice(1)} />
+          <Polyline positions={lineString.slice(1)} />
         </MapContainer>
         <div>
           {logActive ? (
@@ -115,9 +117,22 @@ const Logger = () => {
               latitude: {position.latitude}, longitude: {position.longitude}{" "}
               {speed && <>, speed {speed}</>} {heading && <>, {heading}</>}{" "}
               <br />
-              last updated {new Date(updated).toISOString()}
+              last updated:
+              {`${new Date(updated).getHours()}:${new Date(
+                updated
+              ).getMinutes()}:${new Date(updated).getSeconds()}`}
               <br />
-              {logActive && <Link to="/newLog">Submit</Link>}
+              {logActive && (
+                <Link
+                  to="/newLog"
+                  state={{
+                    route: route,
+                    lineString: lineString,
+                  }}
+                >
+                  Submit
+                </Link>
+              )}
             </>
           ) : (
             <>

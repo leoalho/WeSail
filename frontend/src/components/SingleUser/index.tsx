@@ -131,6 +131,8 @@ const SingleUser = () => {
                   end={log.end}
                   participants={log.participants}
                   description={log.description}
+                  image={log.route.length > 0}
+                  image_id={log.id}
                 />
               ))}
             </div>
@@ -150,7 +152,7 @@ const SingleUser = () => {
           unfriend={unfriend}
         />
       </div>
-      <div>
+      <div style={{ overflowY: "scroll" }}>
         <div style={{ width: "705px" }}>
           <b>User log:</b>
         </div>
@@ -163,6 +165,8 @@ const SingleUser = () => {
             end={log.end}
             participants={log.participants}
             description={log.description}
+            image={log.route.length > 0}
+            image_id={log.id}
           />
         ))}
       </div>

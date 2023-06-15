@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import init from "./mongo/teardown";
+import { init } from "./mongo/teardown";
 
 module.exports = defineConfig({
   e2e: {

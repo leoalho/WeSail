@@ -143,6 +143,10 @@ button:hover {
   width: 690px;
 }
 
+.content:hover {
+  background-color: #f6f6f6;
+}
+
 #sideNav {
   color: black;
   background-color: #eeeeee;
