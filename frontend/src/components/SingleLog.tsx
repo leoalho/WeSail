@@ -195,7 +195,6 @@ const SingleLog = () => {
   }, [id]);
 
   const getClosestPoint = (x: number) => {
-    console.log(points);
     const newPoints = points.split(" ");
     let closestDistance = Infinity;
     let closestPoint = "";
