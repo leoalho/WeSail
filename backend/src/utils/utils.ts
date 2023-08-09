@@ -70,14 +70,18 @@ export const toNewLog = (entry: LogFields, creator: string | undefined) => {
   return newLog;
 };
 
-export const parseRoute = (route: unknown): number[][] => {
+export const parseRoute = (
+  route: unknown
+): [number, number, number, number][] => {
   if (!route || !isRoute(route)) {
     throw new Error("missing or incorrect route");
   }
   return route;
 };
 
-export const isRoute = (route: unknown): route is number[][] => {
+export const isRoute = (
+  route: unknown
+): route is [number, number, number, number][] => {
   if (!Array.isArray(route)) {
     return false;
   }

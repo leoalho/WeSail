@@ -8,6 +8,10 @@ body {
   height: 100%;
 }
 
+textarea {
+  resize: none;
+}
+
 #root {
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
@@ -17,6 +21,10 @@ body {
 
 input {
   margin: 3px;
+}
+
+select {
+  background-color: white;
 }
 
 .fill {
@@ -152,7 +160,7 @@ button:hover {
   background-color: #eeeeee;
   overflow-x: hidden;
   overflow-y: scroll;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .sideNavTitle {
@@ -332,6 +340,7 @@ iframe {
   background-color: white;
   padding: 10px;
   width: 75%;
+  overflow-y: scroll;
 }
 
 .singleBoatLogs {

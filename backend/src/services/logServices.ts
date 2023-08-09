@@ -21,6 +21,28 @@ export const getSingleLog = async (id: string) => {
   return log;
 };
 
+export const checkOwner = async (
+  eventId: string,
+  userId: string | undefined
+) => {
+  const log = await Log.findById(eventId);
+  if (log && userId) {
+    return log.creator.equals(userId);
+  }
+  return false;
+};
+
+export const deleteSingleLog = async (
+  id: string,
+  userId: string | undefined
+) => {
+  const isOwner = await checkOwner(id, userId);
+  if (!isOwner) {
+    throw new Error("Not authorized");
+  }
+  await Log.deleteOne({ _id: id });
+};
+
 export const getMainLogs = async (id: string | undefined) => {
   const user = await User.findById(id);
   if (!user) {

@@ -98,7 +98,13 @@ const Card = (props: Props) => {
       </div>
       {props.start && props.end ? (
         <>
-          From {props.start} to {props.end}
+          {props.start === props.end ? (
+            <>Round trip from {props.start}</>
+          ) : (
+            <>
+              From {props.start} to {props.end}
+            </>
+          )}
           <br />
         </>
       ) : (

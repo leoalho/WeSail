@@ -39,6 +39,15 @@ const NewLog = () => {
   const [meanLon, setMeanLon] = useState(24.9);
   const [deltaLat, setDeltaLat] = useState(1);
   const [deltaLon, setDeltaLon] = useState(1);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setParticipants([{ value: user.id, label: user.username }]);
@@ -176,8 +185,12 @@ const NewLog = () => {
       const reader = new FileReader();
       reader.onload = (evt) => {
         if (evt.target && evt.target.result) {
-          const newLineString = gpxToLinestring(evt.target.result as string);
-          setLineString(newLineString);
+          try {
+            const newLineString = gpxToLinestring(evt.target.result as string);
+            setLineString(newLineString);
+          } catch (error) {
+            toast.error("Incorrect file");
+          }
         }
       };
       reader.readAsText(files[0]);
@@ -231,7 +244,9 @@ const NewLog = () => {
   return (
     <div className="main" style={{ overflowY: "scroll" }}>
       <div>
-        <div style={style}>
+        <div style={{ width: width > 650 ? "600px" : "100%", ...style }}>
+          <h2>Create a new log entry</h2>
+          Logtype and vessel: <br />
           <select
             value={logType}
             onChange={({ target }) => setLogType(target.value)}
@@ -259,11 +274,14 @@ const NewLog = () => {
             classNamePrefix="select"
           />
           <br />
+          Start location and time:
+          <br />
           <input
+            style={{ marginBottom: "10px" }}
             onChange={({ target }) => setStartLocation(target.value)}
-            placeholder="Start location"
           ></input>
           <input
+            style={{ marginBottom: "10px" }}
             value={startTime.substring(0, 16)}
             onChange={({ target }) => setStartTime(target.value)}
             type="datetime-local"
@@ -273,15 +291,20 @@ const NewLog = () => {
           <br />
           {logType === "sail" ? (
             <>
+              End location and time:
+              <br />
               <input
-                placeholder="End location"
+                style={{ marginBottom: "10px" }}
                 onChange={({ target }) => setEndLocation(target.value)}
               ></input>
             </>
           ) : (
-            <>End time: </>
+            <>
+              End time: <br />
+            </>
           )}
           <input
+            style={{ marginBottom: "10px" }}
             value={endTime.substring(0, 16)}
             onChange={({ target }) => setEndTime(target.value)}
             type="datetime-local"
@@ -303,19 +326,21 @@ const NewLog = () => {
                 onChange={({ target }) => setDistanceSailed(target.value)}
               ></input>
               <br />
+              Weather: <br />
               <input
-                placeholder="Weather"
                 onChange={({ target }) => setWeather(target.value)}
-                style={{ width: "100%" }}
+                style={{ width: "200px", marginBottom: "10px" }}
               ></input>
               <br />
             </>
           )}
-          <input
-            placeholder="Description"
+          Description: <br />
+          <textarea
+            style={{ width: "200px", marginBottom: "10px" }}
+            rows={4}
             value={description}
             onChange={({ target }) => setDescription(target.value)}
-          ></input>
+          ></textarea>
           <br />
           <br />
           Todos Done:{" "}
@@ -337,14 +362,16 @@ const NewLog = () => {
                 name="avatar"
                 onChange={(e) => onChangeGPX(e)}
               />
-              <button
-                style={{ marginTop: "5px" }}
-                onClick={() => {
-                  setPreview(!preview);
-                }}
-              >
-                {preview ? <>Close preview</> : <>Preview</>}
-              </button>
+              {route.length > 0 && (
+                <button
+                  style={{ marginTop: "5px" }}
+                  onClick={() => {
+                    setPreview(!preview);
+                  }}
+                >
+                  {preview ? <>Close preview</> : <>Preview</>}
+                </button>
+              )}
               <br />
               {preview && (
                 <div style={{ height: "300px" }}>

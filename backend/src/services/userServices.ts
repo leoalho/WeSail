@@ -23,10 +23,10 @@ export const newUser = async (userEntry: NewUserEntry) => {
 export const findUser = async (username: string) => {
   const user = await User.findOne({ username: username })
     .populate("friends", { username: 1 })
-    .populate("boats", { name: 1 })
-    .populate("crewMember", { name: 1 })
-    .populate("crewRequestsPending", { name: 1 })
-    .populate("boatsFollowing", { name: 1 })
+    .populate("boats", { name: 1, profilePicture: 1 })
+    .populate("crewMember", { name: 1, profilePicture: 1 })
+    .populate("crewRequestsPending", { name: 1, profilePicture: 1 })
+    .populate("boatsFollowing", { name: 1, profilePicture: 1 })
     .populate("friendRequests", { username: 1 })
     .populate("friendRequestsPending", { username: 1 });
   return user;
@@ -35,10 +35,10 @@ export const findUser = async (username: string) => {
 export const findUserId = async (id: string) => {
   const user = await User.findById(id)
     .populate("friends", { username: 1 })
-    .populate("boats", { name: 1 })
-    .populate("crewMember", { name: 1 })
-    .populate("crewRequestsPending", { name: 1 })
-    .populate("boatsFollowing", { name: 1 })
+    .populate("boats", { name: 1, profilePicture: 1 })
+    .populate("crewMember", { name: 1, profilePicture: 1 })
+    .populate("crewRequestsPending", { name: 1, profilePicture: 1 })
+    .populate("boatsFollowing", { name: 1, profilePicture: 1 })
     .populate("friendRequests", { username: 1 })
     .populate("friendRequestsPending", { username: 1 });
   return user;

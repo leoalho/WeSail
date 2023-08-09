@@ -5,6 +5,7 @@ import express from "express";
 
 import middleware from "../utils/middleware";
 import {
+  deleteSingleLog,
   getBoatLogs,
   getLogs,
   getMainLogs,
@@ -43,6 +44,15 @@ router.get("/:id", middleware.authorize, async (req, res) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const log = await getSingleLog(req.params.id);
   res.json(log);
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    await deleteSingleLog(req.params.id, req.session.user);
+    res.status(204).send("deleted event");
+  } catch (error: unknown) {
+    next(error);
+  }
 });
 
 router.post("/", middleware.authorize, async (req, res, next) => {
