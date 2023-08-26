@@ -1,6 +1,6 @@
 # README <!-- omit in toc -->
 
-[Wesail](https://joukko.io) is a web application created as a project for the "fullstackopen" course. It is a social media application for logging planning and sharing sail trips and boat maintenance.
+[Wesail](https://joukko.io) is a social media application for logging planning and sharing sail trips and boat maintenance.
 
 - [Running the application](#running-the-application)
 - [Testing](#testing)
@@ -8,7 +8,6 @@
   - [Folder architecture](#folder-architecture)
 - [Security](#security)
 - [Worklog](#worklog)
-- [Reflection](#reflection)
 
 ## Running the application
 
@@ -53,13 +52,3 @@ The application uses the https protocol, requests for port 80 will be redirected
 ## Worklog
 
 [Worklog](./worklog.md)
-
-## Reflection
-
-The biggest criticism at the moment is the way I have implemented the styling of the frontend. I played with both bootstrap and Material UI but ended up with native css. At the moment there is one large App.css file in the ./frontend/src directory. In addition there are style objects in some components and some inline styling.
-
-Some components are too bloated, and should be split into several smaller components.
-
-This was my first larger project with both Typescript and React so quite a lot of time went to getting used to using Typescript.
-
-Setting up tests with react was way harder than I intended. At the end of the day, I found it most useful and painless to test React with Cypress E2E tests.
