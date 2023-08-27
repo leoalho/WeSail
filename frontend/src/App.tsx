@@ -28,6 +28,7 @@ import NotFound from "./components/NotFound";
 import Password from "./components/Password";
 import NewPassword from "./components/NewPassword";
 import SingleLog from "./components/SingleLog";
+import MapView from "./components/MapView";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,7 +41,8 @@ function App() {
           dispatch(newUser(newuser));
         }
       })
-      .catch((e) => console.log(e.message));
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch((_e) => {});
   }, []);
 
   return (
@@ -77,6 +79,7 @@ function App() {
         <Route path="/users/:id" element={user ? <SingleUser /> : <Login />} />
         <Route path="/logs/:id" element={user ? <SingleLog /> : <Login />} />
         <Route path="/newLog" element={user ? <NewLog /> : <Login />} />
+        <Route path="/mapView" element={user ? <MapView /> : <Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />

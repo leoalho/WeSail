@@ -115,7 +115,7 @@ export interface Log {
   end: string;
   id: string;
   logType: LogType;
-  route: number[][];
+  route: [number, number, number, number][];
 }
 
 export enum Application {

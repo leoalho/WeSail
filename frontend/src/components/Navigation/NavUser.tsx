@@ -173,6 +173,7 @@ const NavUser = () => {
             </div>
             <Link to="/logger">Start logging</Link>
             <Link to="/newEvent">New event</Link>
+            {/*<Link to="/mapView">Map view</Link>*/}
           </>
         )}
         {user.boats.length === 0 && <Link to="/newBoat">Add boat</Link>}
@@ -201,9 +202,17 @@ const NavUser = () => {
         </div>
       </div>
       <div className="navbarRight">
-        <Link to="/user">{user.username}</Link>
+        <Link to={`/users/${user.id}`}>
+          <img
+            style={{ verticalAlign: "middle" }}
+            src="/images/user_profile_images/default.jpg"
+            className="boat_card"
+          />
+          {user.username}
+        </Link>
+        <Link to="/user">Settings</Link>
         <button className="btn" onClick={logout}>
-          logout
+          Logout
         </button>
       </div>
     </>

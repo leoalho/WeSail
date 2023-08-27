@@ -59,4 +59,9 @@
   - model, year, LYS
 - [x] Creators of events can edit their events
 - [] Users can edit logs
+- [x] Users can delete log entries
+- [x] Log entries include a small image of the route
+- [x] Users can add their route to the log entry
+- [x] Users can upload a route from a .gpx file
+- [x] SingleLog View, which contains an interactive map if the entry has a route
 - [x] Make a mobile friendly page

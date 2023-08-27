@@ -17,6 +17,15 @@ const NewEvent = () => {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("sail");
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (user.boats.length > 0) {
@@ -26,8 +35,13 @@ const NewEvent = () => {
 
   const style = {
     backgroundColor: "white",
-    padding: "5px",
+    padding: "15px",
     flex: "0 0",
+  };
+
+  const inputStyle = {
+    fontSize: "15px",
+    marginBottom: "10px",
   };
 
   const createEvent = async () => {
@@ -49,15 +63,23 @@ const NewEvent = () => {
   return (
     <div className="main">
       <div>
-        <div style={style}>
+        <div style={{ width: width > 650 ? "600px" : "100%", ...style }}>
+          <h2>New event: </h2>
+          Event type and boat:
+          <br />
           <select
+            style={inputStyle}
             value={eventType}
             onChange={({ target }) => setEventType(target.value)}
           >
             <option value="sail">Sail</option>
             <option value="maintenance">Maintenance</option>
           </select>
-          <select value={boat} onChange={({ target }) => setBoat(target.value)}>
+          <select
+            value={boat}
+            style={inputStyle}
+            onChange={({ target }) => setBoat(target.value)}
+          >
             {user.boats.map((boat) => (
               <option key={boat.id as React.Key} value={boat.id}>
                 {boat.name}
@@ -65,14 +87,18 @@ const NewEvent = () => {
             ))}
           </select>
           <br />
+          Start time and date:
+          <br />
           <input
             value={date}
             onChange={({ target }) => setDate(target.value)}
             type="date"
             id="start"
             name="trip-start"
+            style={inputStyle}
           ></input>
           <input
+            style={inputStyle}
             value={time}
             onChange={({ target }) => setTime(target.value)}
             type="time"
@@ -80,19 +106,24 @@ const NewEvent = () => {
             name="start-time"
           ></input>
           <br />
-          Location:{" "}
+          Location: <br />
           <input
+            style={{ width: "300px", ...inputStyle }}
             value={location}
             onChange={({ target }) => setLocation(target.value)}
           ></input>
           <br />
-          Description:{" "}
-          <input
+          Description: <br />
+          <textarea
+            style={{ margin: "3px", width: "300px", ...inputStyle }}
             value={description}
+            rows={4}
             onChange={({ target }) => setDescription(target.value)}
-          ></input>
+          ></textarea>
           <br />
-          <button onClick={createEvent}>Create event</button>
+          <button onClick={createEvent} style={{ margin: "3px" }}>
+            Create event
+          </button>
         </div>
       </div>
     </div>

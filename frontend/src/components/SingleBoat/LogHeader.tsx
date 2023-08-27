@@ -40,7 +40,7 @@ const LogHeader = ({
     <div className="singleBoatToggle">
       <b>Boat log:</b>
       {isOwner && (
-        <span style={{ float: "right" }}>
+        <span style={{ float: "right", marginRight: "10px" }}>
           <button
             style={{ marginRight: "10px" }}
             onClick={() => navigate("/newLog")}

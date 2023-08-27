@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 
 const logSchema = new mongoose.Schema({
   boat: { type: mongoose.Schema.Types.ObjectId, ref: "Boat" },
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   description: String,
   weather: String,

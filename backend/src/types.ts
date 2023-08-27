@@ -82,7 +82,7 @@ export type NewLogEntry = {
   start: string;
   end?: string;
   logType: string;
-  route?: number[][];
+  route?: [number, number, number, number][];
 };
 
 export type LogType = "sail" | "maintenance";
