@@ -41,7 +41,8 @@ function App() {
           dispatch(newUser(newuser));
         }
       })
-      .catch((e) => console.log(e.message));
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch((_e) => {});
   }, []);
 
   return (

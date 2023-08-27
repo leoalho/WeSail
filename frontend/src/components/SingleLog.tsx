@@ -8,45 +8,6 @@ import toast from "react-hot-toast";
 import { Log, RootState } from "../types";
 import { deleteSingleLog, getSingleLog } from "../services/logs";
 import { getDistance } from "geolib";
-/*
-const deleteTexts = (svg) => {
-  const elements = svg.getElementsByTagName("text");
-
-  // Convert HTMLCollection to array for easier iteration
-  const elementsArray = Array.from(elements);
-
-  elementsArray.forEach((element) => {
-    svg.removeChild(element);
-  });
-};
-*/
-
-/*
-const create_svg_lines = (maxInt: number, height: number, svgContainer) => {
-  let svg_path_string = "";
-  try {
-    deleteTexts(svgContainer);
-  } catch (error) {
-    console.log(error);
-  }
-  for (let i = 0; i < maxInt + 1; i++) {
-    const liney = 220 - i * Math.round(height / maxInt);
-    svg_path_string += `M20 ${liney} L1020 ${liney} `;
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-    text.textContent = `${i}`;
-    text.setAttribute("x", "4");
-    text.setAttribute("y", `${liney}`);
-
-    text.setAttribute("fill", "black");
-    text.setAttribute("font-size", "16px");
-    svgContainer.appendChild(text);
-  }
-
-  const svg_path = document.getElementById("path");
-  svg_path.setAttribute("d", svg_path_string.trim());
-};
-*/
 
 const create_intervals = (trackpoints: number[][]) => {
   const linestring = [];
@@ -109,14 +70,69 @@ const luo_aikakeskiarvot = (lineString: number[][], n: number) => {
   return keskiarvot;
 };
 
+const create_svg_lines = (
+  maxInt: number,
+  height: number,
+  width: number,
+  svgContainer: SVGSVGElement
+) => {
+  let svg_path_string = "";
+
+  for (let i = 0; i < maxInt + 1; i++) {
+    const liney = 220 - i * Math.round(height / maxInt);
+    svg_path_string += `M20 ${liney} L${width} ${liney} `;
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+    text.textContent = `${i}`;
+    text.setAttribute("x", "4");
+    text.setAttribute("y", `${liney}`);
+
+    text.setAttribute("fill", "black");
+    text.setAttribute("font-size", "16px");
+    svgContainer.appendChild(text);
+  }
+  /*
+  const lines = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  lines.setAttribute("stroke-width", "1");
+  lines.setAttribute("stroke", "#000");
+  lines.setAttribute("d", svg_path_string.trim());
+  svgContainer.appendChild(lines);
+  */
+  return svg_path_string.trim();
+};
+
+const findNearest = (lineString: number[][], time: number): number[] => {
+  let lat;
+  let lon;
+  for (let i = 1; i < lineString.length; i++) {
+    if (lineString[i][3] > time) {
+      lat = lineString[i][0];
+      lon = lineString[i][1];
+      if (
+        Math.abs(time - lineString[i][3]) <
+        Math.abs(time - lineString[i - 1][3])
+      ) {
+        lat = lineString[i - 1][0];
+        lon = lineString[i - 1][1];
+      }
+      const coord = [lat, lon];
+      return coord;
+    }
+  }
+  return [];
+};
+
 const SingleLog = () => {
   const [width, setWidth] = useState(window.innerWidth);
-  const [log, setLog] = useState<Log | null>(null);
+  const [log, setLog] = useState<Log | null>(null); //log.route == [lat,lon,ele,time]
   const [lineString, setLineString] = useState<[number, number][]>([]);
   const [centerLongitude, setCenterLongitude] = useState(0);
   const [centerLatitude, setCenterLatitude] = useState(0);
   const [cx, setCx] = useState(0);
   const [cy, setCy] = useState(240);
+  const [pathD, setPathD] = useState("");
+  const [markerLat, setMarkerLat] = useState(0);
+  const [markerLon, setMarkerLon] = useState(0);
   const myRef = useRef<SVGSVGElement>(null);
   const [points, setPoints] = useState("");
   const navigate = useNavigate();
@@ -126,7 +142,6 @@ const SingleLog = () => {
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
-      console.log(width);
     }
     window.addEventListener("resize", handleResize);
   }, []);
@@ -189,6 +204,8 @@ const SingleLog = () => {
             });
           }
           setPoints(pointsString.trim());
+          myRef.current &&
+            setPathD(create_svg_lines(max, 240, width, myRef.current));
         })
         .catch((e) => console.log(e));
     }
@@ -213,12 +230,28 @@ const SingleLog = () => {
   };
 
   const svgMouseEvent = (event: MouseEvent) => {
+    if (!log) {
+      return;
+    }
+
+    const wholeTime = log.route[log.route.length - 1][3] - log.route[0][3];
+    const startTime = log.route[0][3];
+
     if (myRef.current) {
       const mouseX = event.clientX - myRef.current.getBoundingClientRect().left;
       const closestPoint = getClosestPoint(mouseX);
       const coordinates = closestPoint.split(",");
       const x = coordinates[0];
       const y = coordinates[1];
+
+      const closestTime = Math.round(
+        ((parseInt(x) - 20) * wholeTime) / (width * 0.7) + startTime
+      );
+      const closestCoord = findNearest(log.route, closestTime);
+      console.log(closestCoord);
+      setMarkerLat(closestCoord[0]);
+      setMarkerLon(closestCoord[1]);
+
       try {
         setCx(parseInt(x));
         setCy(parseInt(y));
@@ -251,16 +284,29 @@ const SingleLog = () => {
           <>
             <MapContainer
               center={[centerLatitude, centerLongitude]}
-              zoom={12}
+              zoom={11}
               scrollWheelZoom={false}
+              style={{ width: "600px", height: "400px" }}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Polyline positions={lineString} />
-              <Marker position={[lineString[0][0], lineString[0][1]]} />
+              <Marker position={[markerLat, markerLon]} />
             </MapContainer>
+            <div style={{ background: "white", padding: "10px", width: "40%" }}>
+              {log.boat.name}
+              <br />
+              {log.description}
+              <br />
+              <button onClick={() => navigate(-1)}>Back</button>
+              {user.id === log.creator.id && (
+                <button style={{ marginLeft: "10px" }} onClick={tryDelete}>
+                  Delete log
+                </button>
+              )}
+            </div>
             <div style={{ background: "white" }}>
               <svg
                 ref={myRef}
@@ -268,6 +314,10 @@ const SingleLog = () => {
                 height="240"
                 style={{ background: "white" }}
               >
+                <path
+                  d={pathD}
+                  style={{ stroke: "#000", strokeWidth: "1" }}
+                ></path>
                 <polyline
                   points={points}
                   style={{ fill: "none", stroke: "#3388ff", strokeWidth: "2" }}
@@ -277,18 +327,6 @@ const SingleLog = () => {
             </div>
           </>
         )}
-        <div style={{ background: "white", padding: "10px" }}>
-          {log.boat.name}
-          <br />
-          {log.description}
-          <br />
-          <button onClick={() => navigate(-1)}>Back</button>
-          {user.id === log.creator.id && (
-            <button style={{ marginLeft: "10px" }} onClick={tryDelete}>
-              Delete log
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );

@@ -173,7 +173,7 @@ const NavUser = () => {
             </div>
             <Link to="/logger">Start logging</Link>
             <Link to="/newEvent">New event</Link>
-            <Link to="/mapView">Map view</Link>
+            {/*<Link to="/mapView">Map view</Link>*/}
           </>
         )}
         {user.boats.length === 0 && <Link to="/newBoat">Add boat</Link>}

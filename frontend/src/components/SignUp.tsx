@@ -30,9 +30,13 @@ const SignUp = () => {
       toast.error("Passwords don't match");
       return;
     }
-    await signUp({ username, password, email });
-    toast.success("Created new user");
-    navigate("/");
+    try {
+      await signUp({ username, password, email });
+      toast.success("Created new user");
+      navigate("/");
+    } catch {
+      toast.error("Failed to create new user");
+    }
   };
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
