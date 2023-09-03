@@ -9,10 +9,10 @@ export default {
   eslint: {
     enable: true /* (default value) */,
     mode: "extends" /* (default value) */ || "file",
-    configure: (eslintConfig, { env, paths }) => {
+    configure: (eslintConfig: any) => {
       return eslintConfig;
     },
-    pluginOptions: (eslintPluginOptions, { env, paths }) => {
+    pluginOptions: (eslintPluginOptions: any) => {
       return eslintPluginOptions;
     },
   },
