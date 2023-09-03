@@ -94,6 +94,7 @@ const Logger = () => {
           center={[position.latitude, position.longitude]}
           zoom={15}
           scrollWheelZoom={false}
+          style={{ width: "100%" }}
         >
           <MyComponent logging={logging} setLogging={setLogging} />
           <TileLayer
