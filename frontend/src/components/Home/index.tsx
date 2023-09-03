@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Card from "./Card";
-import SideNav from "../Sidenav";
-import { getLogs } from "../../services/logs";
+import SideNav from "@/components/Sidenav";
+import { getLogs } from "@/services/logs";
 import { useEffect, useState } from "react";
-import { Log, RootState, Option, BoatUser, User, Friend } from "../../types";
+import { Log, RootState, Option, BoatUser, User, Friend } from "@/types";
 import { useSelector } from "react-redux";
-import MobileSelector from "../SingleBoat/MobileSelector";
+import MobileSelector from "@/components/SingleBoat/MobileSelector";
 import { Link } from "react-router-dom";
 import React from "react";
 
