@@ -30,7 +30,5 @@ services:
     image: leoalho/wesailserver:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/var/ssl
     ports:
-      - 80:80
-      - 443:443
+      - 3000:3000
